@@ -1,0 +1,1118 @@
+:root {
+    --colorAzul: #1a73e8;
+    --colorAzulHover: #0E4EB5;
+    --colorAzulTranparente: rgba(26, 115, 232, 0.664);
+    --colorNegro: #202124;
+    --colorBlanco: #ffffff;
+    --colorClaro: #ededed;
+    --colorGris: #b4b4b4;
+    --colorRojo: #EA4335;
+    --colorAmarillo: #FBBC05;
+    --colorVerde: #34A853;
+    --colorAzul2: #4285F4;
+    --colorAzulCuenta: #F0F4F9;
+    --colorAzulCuentaHover: #E7EDF8;
+    --colorCampoObligatorio: rgb(252, 248, 204);
+    --colorCampoRestringido: gainsboro;
+
+    --fuentePrincipal: Arial, Helvetica, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: var(--fuentePrincipal);
+    /*    color: var(--colorAzul);*/
+    color: var(--colorNegro);
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    /* flex: 1; */
+    flex-direction: column;
+}
+
+.headerComun {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+}
+
+.headerCuenta {
+    background-color: var(--colorAzulCuenta);
+}
+
+#textoCuentaLogo {
+    margin-left: 8px;
+    font-family: "Google Sans Text", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+/* Estilo para la palabra "Cuenta" al lado del logo */
+#textoCuenta {
+    margin-left: 8px;
+    font-family: "Product Sans", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    text-indent: 0px;
+}
+
+.header {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.proyecto {
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+.proyecto span {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.letras span:nth-child(6n+1) {
+    color: var(--colorAzul2);
+}
+
+.letras span:nth-child(6n+2) {
+    color: var(--colorRojo);
+}
+
+.letras span:nth-child(6n+3) {
+    color: var(--colorAmarillo);
+}
+
+.letras span:nth-child(6n+4) {
+    color: var(--colorAzul2);
+}
+
+.letras span:nth-child(6n+5) {
+    color: var(--colorVerde);
+}
+
+.letras span:nth-child(6n+6) {
+    color: var(--colorRojo);
+}
+
+h1 {
+    color: var(--colorAzul);
+}
+
+.tituloPpl {
+    padding-top: 10px;
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+}
+
+/*ejercicios*/
+.titulo {
+    padding-top: 100px;
+    font-size: 48px;
+    letter-spacing: -1px;
+    font-weight: 700;
+}
+
+.titulo2 {
+    padding-top: 100px;
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    color: var(--colorAzul2);
+}
+
+.tituloCentral {
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    /* width: 80%; */
+    text-align: center;
+    color: var(--colorAzul2);
+    letter-spacing: 0.2px;
+}
+
+.tituloCentralDetalles {
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    width: 60%;
+    text-align: center;
+    color: var(--colorAzul2);
+}
+
+.tituloCentralCuenta {
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    /* width: 60%; */
+    text-align: center;
+    color: var(--colorAzul2);
+}
+
+nav button {
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 10px;
+    vertical-align: middle;
+
+}
+
+.botonSession {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+}
+
+.botonSession:hover {
+    /**/
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+#botonSessionLogin {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+    margin-right: 10px;
+}
+
+#botonSessionLogin:hover {
+    /**/
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+#botonSessionIPrivado {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+    margin-right: 10px;
+}
+
+#botonSessionIPrivado:hover {
+    /**/
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+.botonCuenta {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1260A4;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    margin-right: 5px;
+}
+
+.botonCuenta:hover {
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+/*Ejercicios*/
+.boton {
+    background-color: var(--colorBlanco);
+    color: var(--colorNegro);
+    font-size: 14px;
+}
+
+.botonAzul {
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: white;
+    padding: 0 20px;
+    justify-content: center;
+    align-self: center;
+}
+
+#botonVolverLogin {
+    padding-top: 20px;
+    display: flex;
+    align-content: center;
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: white;
+    justify-content: center;
+    align-self: center;
+}
+
+#botonVolverLogin:hover {
+    text-decoration: underline;
+}
+
+#botonCrearCuenta {
+    padding-top: 20px;
+    display: flex;
+    align-content: center;
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: white;
+    justify-content: center;
+    align-self: center;
+}
+
+#botonCrearCuenta:hover {
+    text-decoration: underline;
+}
+
+#botonVolverCuentadiv {
+    padding-top: 0px;
+    display: flex;
+    /* align-content: center; */
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: var(--colorAzulCuenta);
+    justify-content: center;
+    align-self: center;
+}
+
+#botonVolverCuentadiv:hover {
+    text-decoration: underline;
+}
+
+#botonCrearCuentaLogin {
+    padding-top: 20px;
+    display: flex;
+    align-content: center;
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: var(--colorAzulCuenta);
+    justify-content: center;
+    align-self: center;
+}
+
+#botonCrearCuentaLogin:hover {
+    text-decoration: underline;
+}
+
+#botonVolverDetalles {
+    font-size: 16px;
+    padding-top: 20px;
+    display: flex;
+    align-content: center;
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: white;
+    justify-content: center;
+    align-self: center;
+}
+
+#botonVolverDetalles:hover {
+    text-decoration: underline;
+}
+
+#botonVolverCuenta {
+    font-size: 16px;
+    padding-top: 0px;
+    display: flex;
+    align-content: center;
+    font-weight: 600;
+    color: var(--colorAzul);
+    background: var(--colorAzulCuenta);
+    justify-content: center;
+    align-self: center;
+}
+
+#botonVolverCuenta:hover {
+    text-decoration: underline;
+}
+
+.boton:hover {
+    text-decoration: underline;
+}
+
+
+
+/*------BANDERAS---------*/
+nav {
+    & form {
+
+        & .idioma {
+            background: transparent;
+            width: 20px;
+            height: 15px;
+            & img{
+                width: 20px;
+                height: 15px;
+            }
+        }
+
+    }
+}
+nav {
+    & .botonesDetalles {
+
+        & .idioma {
+            background: transparent;
+            margin-top: 10px;
+            width: 20px;
+            height: 15px;
+            & img{
+                width: 20px;
+                height: 15px;
+            }
+        }
+
+    }
+}
+
+/*Ejercicios*/
+/* .idiomarr{
+    background: transparent;
+    margin: 0;
+    padding: 10px;
+    & img{
+        width: 20px;
+    }
+} */
+
+
+.idioma:hover {
+    transform: scale(1.1);
+}
+
+.idioma.seleccionado {
+    /* border: 3px solid #4CAF50; */
+    transform: scale(1.3);
+    background-color: transparent;
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+/*Estilos contenido pricipal.. main*/
+main {
+    text-align: center;
+    flex: 1;
+}
+
+
+/*Estilo de los botones*/
+.botones {
+    margin-top: 30px;
+}
+
+.botones button {
+    all: unset;
+    /*Así se quita lo que los botones tengan por defecto*/
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: var(--colorClaro);
+    cursor: pointer;
+    /*Para que el cursor sea una mano*/
+    border-radius: 5px;
+}
+
+/*Ejercicios*/
+
+
+.botonVolver {
+    justify-content: center;
+}
+
+.botonesDetalles {
+    display: flex;
+}
+
+.botonesCuenta {
+    display: flex;
+    background-color: var(--colorAzulCuenta);
+}
+
+/*Formulario*/
+.imagen {
+    width: 50%;
+    padding: 5%;
+
+    & img {
+        width: 100px;
+    }
+}
+
+.pInicioSession {
+    top: 50%;
+    font-size: 36px;
+    text-align: start;
+}
+
+.mainForm {
+    display: grid;
+    background-color: #F0F4F9;
+    justify-items: center;
+}
+
+.formulario {
+    width: 70%;
+    height: 400px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    margin-top: 10px;
+}
+
+.formularioRegistro {
+    width: 70%;
+    height: 530px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.errorRegistroDiv{
+    color: var(--colorRojo);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.form {
+    padding-top: 75px;
+    right: 250px;
+    width: 50%;
+}
+
+label {
+    position: absolute;
+    left: 10px;
+    top: 40px;
+    transition: 0.2s ease;
+    pointer-events: none;
+    background: transparent;
+    padding: 0 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    /*    text-align: start;*/
+    display: inline-block;
+    width: auto;
+    color: #999;
+}
+
+input {
+    height: 60px;
+    width: 75%;
+    display: block;
+    padding: 0 10px;
+    margin-bottom: 1.6rem;
+    border: 1px solid;
+    border-radius: 5px;
+    outline: none;
+}
+
+.formularioRegistro form input {
+    height: 60px;
+    width: 75%;
+    display: block;
+    padding: 0 10px;
+    margin-bottom: 0.7rem;
+    border: 1px solid;
+    border-radius: 5px;
+    outline: none;
+}
+
+#codUsuario,
+#password,
+#nombreCompleto,
+#passwordActual,
+#confirmaPassword {
+    background-color: var(--colorCampoObligatorio);
+}
+
+#usuario:not(:placeholder-shown),
+#password:not(:placeholder-shown),
+#nombre:not(:placeholder-shown),
+#apellidos:not(:placeholder-shown) {
+    background-color: white;
+    border-color: var(--colorAzul2);
+    box-shadow: 0 0 0 .5px blue;
+}
+
+.divBotones {
+    & button {
+        all: unset;
+        /*Así se quitan lo que los botones tengan por defecto*/
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: var(--colorClaro);
+        cursor: pointer;
+        /*Para que el cursor sea una mano*/
+        border-radius: 5px;
+        margin-top: 20px;
+
+
+        & .botonSession {
+            background-color: var(--colorAzul);
+            color: var(--colorBlanco);
+            padding: 10px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 100px;
+            border: var(--colorAzul);
+        }
+    }
+}
+
+.divBotones {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+    padding-right: 30px;
+}
+
+/*Imagenes centrales*/
+
+.seccionCarrusel {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.carrusel-contenedor {
+    position: relative;
+    width: 1000px;
+    /* Ajusta el ancho que quieras que tenga el visor */
+    height: 700px;
+    /* Ajusta el alto */
+    overflow: hidden;
+    /* Oculta las fotos que no están activas */
+    border: 3px solid var(--colorAzul2);
+    border-radius: 10px;
+}
+
+.photos {
+    display: flex;
+    width: 500%;
+    /* 4 fotos = 400% de ancho */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photos img {
+    width: 20%;
+    /* Cada foto ocupa 1/4 del contenedor (100% / 4) */
+    height: 100%;
+    object-fit: contain;
+    /* Para que los diagramas no se deformen */
+    background-color: white;
+}
+
+/* Estilo de los botones (Radios) */
+.carrusel-contenedor input {
+    position: absolute;
+    bottom: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 10;
+    appearance: none;
+    /* Oculta el radio original */
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+/* Posicionamiento horizontal de los botones */
+#rd1 {
+    left: 40%;
+}
+
+#rd2 {
+    left: 46%;
+}
+
+#rd3 {
+    left: 52%;
+}
+
+#rd4 {
+    left: 58%;
+}
+#rd5 {
+    left: 64%;
+}
+
+/* Color cuando están seleccionados */
+.carrusel-contenedor input:checked {
+    background-color: var(--colorAzul2);
+    transform: scale(1.2);
+}
+
+
+/* Cuando el radio X está marcado, mueve el div .photos */
+#rd1:checked~.photos {
+    transform: translateX(0%);
+}
+
+#rd2:checked~.photos {
+    transform: translateX(-20%);
+}
+
+#rd3:checked~.photos {
+    transform: translateX(-40%);
+}
+
+#rd4:checked~.photos {
+    transform: translateX(-60%);
+}
+#rd5:checked~.photos {
+    transform: translateX(-80%);
+}
+
+/* 
+Login
+=====================================================*/
+
+.contenedorInput {
+    position: relative;
+
+}
+
+input:focus+label,
+input:not(:placeholder-shown)+label {
+    top: 10px;
+    left: 8px;
+    font-size: 12px;
+    color: var(--colorAzur2);
+    transform: translateY(0);
+    background: white;
+}
+
+input:focus {
+    border-color: var(--colorAzul2);
+    box-shadow: 0 0 0 .5px blue;
+}
+
+#usuario:focus,
+#passwd:focus {
+    background-color: white;
+    border-color: var(--colorAzul2);
+    box-shadow: 0 0 0 .5px blue;
+}
+
+
+/* 
+Pagina Cuenta
+=====================================================*/
+/* Contenedor principal de la página */
+.mainCuenta {
+    background-color: var(--colorAzulCuenta);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.cabeceraPerfil {
+    margin-top: 40px;
+}
+
+.paginaCuentaContainer {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    /* 150px para el menú, el resto para el contenido */
+    gap: 60px;
+    margin: 40px 20px;
+    padding: 0 10px;
+    width: 100%;
+}
+
+/* .contenidoPerfil {
+    width: 70%;
+} */
+
+/* Estilos del Menú Lateral */
+.menuLateral ul {
+    list-style: none;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    /* .menuLateral {
+        display: none;
+    } */
+}
+
+.menuCuenta {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #5f6368;
+    border-radius: 25px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    width: 230px;
+}
+
+.menuCuenta:hover {
+    background-color: #f1f3f4;
+}
+
+.menuCuenta.activo {
+    background-color: white;
+    font-weight: 500;
+}
+
+.iconoMenu {
+    margin-right: 2px;
+    font-size: 15px;
+    border-radius: 50%;
+    background-color: #6DD58C;
+    color: #0F5223;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+
+.iconoMenu.li2 {
+    background-color: #5f6368;
+    color: black;
+}
+
+.iconoMenu.li3 {
+    background-color: pink;
+    color: rebeccapurple;
+}
+
+#botonMenuCuenta {
+    margin-left: 0px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#botonMenuCuenta:hover {
+    background-color: white;
+}
+
+#passwordCuenta {
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos de la Tabla de Datos (Grid de 3 columnas internas) */
+.tablaDatosGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 7fr 1.5fr;
+    border-radius: 20px;
+    align-content: center;
+}
+
+.filaDato {
+    display: grid;
+    grid-template-columns: 1fr 60px;
+    /* Ancho fijo para etiquetas */
+    padding: 10px 24px;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    margin-bottom: 2px;
+    background: white;
+    border-radius: 5px 5px 5px 5px;
+    grid-column: 2/3;
+    & input{
+        border:none;
+        height: 40px; 
+        margin-bottom: 0px;   
+    }
+    & #codUsuario, #perfil, #fechaHoraUltimaConexionAnterior, #fechaHoraUltimaConexion, #numAccesos{
+            background-color: var(--colorCampoRestringido);
+        }
+}
+
+.filaDato:hover {
+    background-color: var(--colorAzulCuentaHover);
+    border-radius: 5px 5px 5px 5px;
+}
+
+.filaDato:first-child {
+    border-radius: 20px 20px 5px 5px;
+
+    & .icono {
+        & .inicialGrande {
+            font-weight: 700;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            background-color: #1260A4;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+        }
+
+    }
+}
+
+
+.filaDato:last-child {
+    border-radius: 5px 5px 20px 20px;
+}
+
+
+.etiqueta {
+    color: #5f6368;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    grid-column: 1/1;
+}
+
+
+.valor {
+    color: #202124;
+    font-size: 16px;
+    grid-column: 1/1;
+}
+
+.icono {
+    text-align: right;
+    color: #5f6368;
+    font-size: 24px;
+    grid-column: -2/-1;
+    grid-row: 1/3;
+}
+
+/* Boton comabiar contraseña en Cuenta=======*/
+
+/* trasición de la flecha */
+.flecha {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+/* Rotacion flecha */
+.filaDesplegable:hover .flecha {
+    transform: rotate(90deg);
+}
+
+/*  boton oculto */
+.desplegable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+    opacity: 0;
+}
+
+/* se muestra el boton con el hover */
+.filaDesplegable:hover .desplegable {
+    max-height: 100px;
+    margin-top: 15px;
+    opacity: 1;
+}
+
+
+.botonCambiarPswd {
+    background-color: transparent;
+    color: var(--colorAzul2);
+    border: 1px solid var(--colorAzul2);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botonCambiarPswd:hover {
+    background-color: #f6fafe;
+    border-color: #d2e3fc;
+}
+
+.mensajeExitoDiv {
+    background-color: #e6f4ea;
+    color: #137333;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    font-size: 14px;
+    border: 1px solid #ceead6;
+}
+.mensajeExitoP {
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Final Cuenta=====================================================*/
+
+
+/* Página Borrar=====================================================*/
+.textoBorrarUsuario {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    padding: 40px;
+}
+
+.errorBorrar {
+    color: var(--colorRojo);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Fin página Borrar=====================================================*/
+
+/*Estilos para las variables superGlobales*/
+section {
+    justify-content: center;
+
+}
+
+.articleSG {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.tableSG {
+    border-collapse: collapse;
+    width: 80%;
+    border: 2px solid black;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding-left: 8px;
+    text-align: start;
+
+
+}
+
+th {
+    background-color: #9999cc;
+    padding: 8px;
+    text-align: center;
+
+}
+
+td:nth-child(even) {
+    /*seleciona los elemenos pares*/
+    background-color: #DDDDDD;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 50px;
+}
+
+td:nth-child(odd) {
+    /*seleciona los elemenos impares*/
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/*Estilos del footer*/
+footer {
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    background-color: var(--colorClaro);
+    width: 100%;
+    padding: 15px 0;
+}
+
+footer .pais {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--colorGris);
+    color: #202124;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bxl-github {
+    font-size: 2rem;
+    border-radius: 50%;
+    margin-right: 38px;
+    color: var(--colorClaro);
+    background-color: var(--colorAzul);
+}
+
+.footerInfo {
+    padding: 0 20px;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+}
+
+.info {
+    width: 95%;
+}
+
+.google {
+    width: 5%;
+    font-size: 1.7rem;
+    padding-top: 5px;
+
+}
+
+/*Paginas de ERRORES*/
+.bodyError {
+    background-image: url(../images/colorful-chalks-pastels-aesthetic-computer-00ea3ijomwnq22q3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.headerError {
+    margin-top: 200px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.tituloError {
+    text-align: center;
+    font-size: 40px;
+
+}
