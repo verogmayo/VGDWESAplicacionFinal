@@ -1069,13 +1069,37 @@ footer .pais {
     display: flex;
     justify-content: space-between;
 }
-
+/* .social-media{
+    display: flex;
+}
+.divGithub{
+    background: rebeccapurple;
+    display: flex;
+}
+.divCV{
+    background: blue;
+    display: flex;
+} */
+ .divCentral{
+    width: 70%;
+ }
 .bxl-github {
     font-size: 2rem;
     border-radius: 50%;
-    margin-right: 38px;
+    margin-right: 15px;
     color: var(--colorClaro);
     background-color: var(--colorAzul);
+}
+.cv{
+    text-decoration: none;
+    font-size: 1.4rem; 
+    font-weight: bold; 
+    color: var(--colorAzul);
+    margin-right: 30px;
+    border: 1px solid var(--colorAzul);
+    border-radius: 50%;
+    padding: 2px;
+    letter-spacing: -2px;
 }
 
 .footerInfo {
