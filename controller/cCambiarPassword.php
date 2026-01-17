@@ -8,7 +8,7 @@
 // Si se hace clic en el botón volver no sigue y redirige al ceunta
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'cuenta';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -85,7 +85,7 @@ if (isset($_REQUEST['enviar'])) {
             //para poner un mensaje de contraseña cambiada, en la pagina cuenta, hay que guardar el valoe en sesion porque sino se pierde al hacer el cmabio de pagina. 
             $_SESSION['mensajeExito']= "Contraseña cambiada correctamente.";
             $_SESSION['paginaEnCurso'] = 'cuenta';
-            header('Location: indexAplicacionFinal.php');
+            header('Location: index.php');
             exit;
         } else {
             $entradaOK = false;

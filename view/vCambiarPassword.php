@@ -4,7 +4,7 @@
         <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
             <p class="pInicioSession"> Cambiar contraseña en Login Logoff</p>
         </div>
-        <form class="form" action="indexAplicacionFinal.php" method="post">
+        <form class="form" action="index.php" method="post">
             <div class="contenedorInput">
                 <a style='color:red'><?php echo $aErrores['passwordActual'] ?></a><br>
                 <input name="passwordActual" id="passwordActual" type="password" placeholder=" " value=''>

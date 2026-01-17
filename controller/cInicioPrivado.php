@@ -9,7 +9,7 @@ if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // Se comprueba si el botón "detalles" ha sido pulsado.
@@ -17,7 +17,7 @@ if (isset($_REQUEST['detalles'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'detalles';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ if (isset($_REQUEST['cerrar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -35,7 +35,7 @@ if (isset($_REQUEST['cuenta'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'cuenta';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -46,17 +46,22 @@ if (isset($_REQUEST['error'])) {
     $consultaError = "SELECT * FROM T03_Cuestion";
     DBPDO::ejecutarConsulta($consultaError);
     $_SESSION['paginaEnCurso'] = 'error';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // Se comprueba si el botón "dpto" ha sido pulsado.
 if (isset($_REQUEST['dpto'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'wip';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
-
+if (isset($_REQUEST['rest'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'rest';
+    header('Location: index.php');
+    exit;
+}
 // Determinar el idioma (si no hubiera cookie, que sea 'es')
 $idioma = $_COOKIE['idioma'] ?? 'es';
 

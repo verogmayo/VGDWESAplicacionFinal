@@ -8,7 +8,7 @@
 if(isset($_REQUEST['volver'])){
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = $_SESSION['paginaAnterior'];
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web

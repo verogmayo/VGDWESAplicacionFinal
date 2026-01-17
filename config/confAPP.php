@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 15/12/2025
+ * @since: 17/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
@@ -22,7 +22,8 @@ $controller = [
   'cambiarPassword' => 'controller/cCambiarPassword.php',
   'borrarCuenta' => 'controller/cBorrarCuenta.php',
   'error' => 'controller/cError.php',
-  'wip' => 'controller/cWIP.php'
+  'wip' => 'controller/cWIP.php',
+  'rest' => 'controller/cRest.php'
 ];
 
 $view = [
@@ -36,6 +37,7 @@ $view = [
   'cambiarPassword' => 'view/vCambiarPassword.php',
   'borrarCuenta' => 'view/vBorrarCuenta.php',
   'error' => 'view/vError.php',
-  'wip' => 'view/vWIP.php'
+  'wip' => 'view/vWIP.php',
+  'rest' => 'view/vRest.php'
 ];  
 ?>

@@ -4,7 +4,7 @@
         <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
             <p class="pInicioSession"> Borrar cuenta en Login Logoff</p>
         </div>
-        <form class="form" action="indexAplicacionFinal.php" method="post">
+        <form class="form" action="index.php" method="post">
 
             <div class="contenedorInput">
                 <div class="textoBorrarUsuario">¿Estás seguro de que quieres borrar tu cuenta?

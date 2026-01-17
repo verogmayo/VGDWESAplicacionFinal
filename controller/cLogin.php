@@ -8,14 +8,14 @@
 // Si se hace clic en el botón volver no sigue y redirige a la página de inicio
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
 // Si se hace clic en el botón crear cuenta no sigue y redirige a la página de registro
 if (isset($_REQUEST['crearCuenta'])) {
     $_SESSION['paginaEnCurso'] = 'registro';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -71,7 +71,7 @@ if (isset($_REQUEST['enviar'])) {
         $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuario;
         // Si el login es correcto, se redirige a la página de inicio privado
         $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-        header('Location: indexAplicacionFinal.php');
+        header('Location: index.php');
         exit;
     }
 

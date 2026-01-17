@@ -8,7 +8,7 @@
 // Si se hace clic en el botón volver no sigue y redirige al login
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'login';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -75,7 +75,7 @@ if (isset($_REQUEST['enviar'])) {
                 $_SESSION['errorRegistro'] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
                 //Se redirige al login 
                 $_SESSION['paginaEnCurso'] = 'login';
-                header('Location: indexAplicacionFinal.php');
+                header('Location: index.php');
                 exit;
             } else {
                 // Login correcto
@@ -87,7 +87,7 @@ if (isset($_REQUEST['enviar'])) {
                 // //https://www.php.net/manual/fr/function.mb-strtoupper.php (primer caracter)
                 // $_SESSION['inicialVGDAW'] = mb_strtoupper(mb_substr($nombre, 0, 1));
                 $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-                header('Location: indexAplicacionFinal.php');
+                header('Location: index.php');
                 exit;
             }
         }
