@@ -24,10 +24,10 @@
         <div class="wrapper">
             <div class="containerRest">
              <div class="tituloRest">
-                NASA
+                <?php echo $avRest['fotoNasa']->getTitulo(); ?>
              </div>
              <div class="infoRest">
-
+                <img src="<?php echo $avRest['fotoNasa']->getUrl(); ?>" alt="Foto de la NASA">
              </div>
          </div>
          <div class="containerRest">

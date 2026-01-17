@@ -1077,6 +1077,11 @@ Estilos de  la pagina REST
     max-width: 400px;
     min-width: min(30%, 100%);
 }
+.infoRest img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 /* Fin estilos REST=====================================================*/
 

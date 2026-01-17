@@ -37,10 +37,19 @@ if(isset($_REQUEST['volver'])){
     header('Location: index.php');
     exit;
 }
+
+//se obtiene la fecha de hoy
+$fechaHoy = new DateTime();
+$fechaHoyFormateada = $fechaHoy->format('Y-m-d');
+//se llama a la api con la fecha formateada
+$oFotoNasa = REST::apiNasa($fechaHoyFormateada);
+
 //Se crea un array con los datos del usuario para pasarlos a la vista
 $avRest = [
-    'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial()
+    'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial(),
+    'fotoNasa'=>$oFotoNasa
 ];
+
 
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web
 require_once $view['layout'];

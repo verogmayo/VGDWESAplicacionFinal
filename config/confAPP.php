@@ -11,6 +11,8 @@ require_once 'core/miLibreriaStatic.php';
 require_once 'model/Usuario.php'; 
 require_once 'model/UsuarioPDO.php';
 require_once 'model/AppError.php';
+require_once 'model/REST.php';
+require_once 'model/FotoNasa.php';
 
 $controller = [
   'inicioPublico' => 'controller/cInicioPublico.php',
