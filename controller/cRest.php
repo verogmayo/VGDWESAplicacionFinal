@@ -38,12 +38,15 @@ if(isset($_REQUEST['volver'])){
     exit;
 }
 
+
 //se obtiene la fecha de hoy para la foto del día de la Nasa
 $fechaHoy = new DateTime();
 $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
 //se llama a la api con la fecha formateada
 $oFotoNasa = REST::apiNasa($fechaHoyFormateada);
 //Listado de isbn para que cambien los libros todos los días.
+
+
 $aIsbns = [
     '9780141187761', // 1984
     '9780618260300', // El Hobbit
@@ -66,7 +69,9 @@ $aDptosWP = REST::apiDptos(); //aqui se retorna un array de objetos dptos
 //Se crea un array con los datos del usuario para pasarlos a la vista
 $avRest = [
     'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial(),
-    'fotoNasa'=>$oFotoNasa,
+    'tituloNasa'=>$oFotoNasa->getTitulo(),
+    'fotoNasa'=>$oFotoNasa->getUrl(),
+    'explicacionNasa'=>$oFotoNasa->getExplicacion(),
     'libro'=>$oLibro,
     'dptos'=>$aDptosWP
 ];

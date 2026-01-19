@@ -23,11 +23,13 @@
      <section class="sectionDiv">
          <div class="wrapper">
              <div class="containerRest">
+                form
                  <div class="tituloRest">
-                     <?php echo $avRest['fotoNasa']->getTitulo(); ?>
+                     <?php echo $avRest['tituloNasa']; ?>
                  </div>
                  <div class="infoRest">
-                     <img src="<?php echo $avRest['fotoNasa']->getUrl(); ?>" alt="Foto de la NASA">
+                     <img src="<?php echo $avRest['fotoNasa']; ?>">
+                     <p class="explicacionNasa"><span>Explicación:</span> <?php echo $avRest['explicacionNasa']; ?></p>
                  </div>
              </div>
              <div class="containerRest">

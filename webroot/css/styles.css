@@ -1097,7 +1097,9 @@ Estilos de  la pagina REST
     width: 90%;
     display: block;
 }
-
+.explicacionNasa span{
+    font-weight: 700;
+}
 /* Fin estilos REST=====================================================*/
 
 
