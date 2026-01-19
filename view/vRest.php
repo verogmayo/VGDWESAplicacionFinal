@@ -4,7 +4,7 @@
  </div>
  <nav>
      <form class="botonesDetalles" action="">
-         
+
          <div class="botonVolverLogin">
              <button id="botonVolverDetalles" class="botonAzul" type="submit" name="volver">Volver</button>
          </div>
@@ -21,33 +21,54 @@
 
  <main>
      <section class="sectionDiv">
-        <div class="wrapper">
-            <div class="containerRest">
-             <div class="tituloRest">
-                <?php echo $avRest['fotoNasa']->getTitulo(); ?>
+         <div class="wrapper">
+             <div class="containerRest">
+                 <div class="tituloRest">
+                     <?php echo $avRest['fotoNasa']->getTitulo(); ?>
+                 </div>
+                 <div class="infoRest">
+                     <img src="<?php echo $avRest['fotoNasa']->getUrl(); ?>" alt="Foto de la NASA">
+                 </div>
              </div>
-             <div class="infoRest">
-                <img src="<?php echo $avRest['fotoNasa']->getUrl(); ?>" alt="Foto de la NASA">
-             </div>
-         </div>
-         <div class="containerRest">
-             <div class="tituloRest">
-                AEMET
-             </div>
-             <div class="infoRest">
+             <div class="containerRest">
+                 <div class="tituloRest">
+                     LIBRO DEL DÍA :
+                 </div>
+                 <div class="infoRest2">
+                     <img src="<?php echo $avRest['libro']->getPortada(); ?>" alt="Portada" style="box-shadow: 2px 2px 10px rgba(0,0,0,0.3);">
+                     <h3><?php echo $avRest['libro']->getTitulo(); ?></h3>
+                     <p><strong>Autor:</strong> <?php echo $avRest['libro']->getAutor(); ?></p>
+                     <p><strong>Nº de páginas:</strong> <?php echo $avRest['libro']->getPaginas(); ?></p>
 
+                 </div>
              </div>
-         </div>
-         <div class="containerRest">
-             <div class="tituloRest">
-                DEPARTAMENTOS
+             <div class="containerRest">
+                 <div class="tituloRest">
+                     DEPARTAMENTOS
+                 </div>
+                 <div class="infoRest3">
+                     <?php if (!empty($avRest['dptos'])): ?>
+                         <table border="1" >
+                             <tr>
+                                 <th>Código</th>
+                                 <th>Descripción</th>
+                                 <th>Volumen</th>
+                             </tr>
+                             <?php foreach ($avRest['dptos'] as $dpto): ?>
+                                 <tr>
+                                     <td><?php echo $dpto->getCodDepartamento(); ?></td>
+                                     <td><?php echo $dpto->getDescDepartamento(); ?></td>
+                                     <td><?php echo number_format($dpto->getVolumenDeNegocio(), 2); ?> €</td>
+                                 </tr>
+                             <?php endforeach; ?>
+                         </table>
+                     <?php else: ?>
+                         <p>No se han encontrado departamentos en WordPress.</p>
+                     <?php endif; ?>
+                 </div>
              </div>
-             <div class="infoRest">
 
-             </div>
          </div>
 
-        </div>
-         
      </section>
  </main>

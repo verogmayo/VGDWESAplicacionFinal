@@ -13,6 +13,8 @@ require_once 'model/UsuarioPDO.php';
 require_once 'model/AppError.php';
 require_once 'model/REST.php';
 require_once 'model/FotoNasa.php';
+require_once 'model/Libro.php';
+require_once 'model/Departamento.php';
 
 $controller = [
   'inicioPublico' => 'controller/cInicioPublico.php',

@@ -1062,6 +1062,7 @@ Estilos de  la pagina REST
     justify-content: center;
     gap: 5px;
     padding-top: 50px;
+    margin-bottom: 20px;
 }
 .tituloRest{
      padding-top: 50px;
@@ -1077,9 +1078,23 @@ Estilos de  la pagina REST
     max-width: 400px;
     min-width: min(30%, 100%);
 }
+.infoRest2{
+    display: inline-block;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.infoRest3{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
 .infoRest img {
     width: 100%;
     height: auto;
+    display: block;
+}
+.infoRest2 img {
+    width: 90%;
     display: block;
 }
 
