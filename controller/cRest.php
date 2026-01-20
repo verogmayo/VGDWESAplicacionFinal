@@ -38,44 +38,81 @@ if(isset($_REQUEST['volver'])){
     exit;
 }
 
+// Inicializamos variables de control y errores
+$aErrores = [
+    'fechaNasa' => null, 
+    'tituloLibro' => null];
+$oFotoNasa = null;
+$oLibro = null; // IMPORTANTE: Inicializar para evitar el error de la línea 91
 
-//se obtiene la fecha de hoy para la foto del día de la Nasa
+// Se obtiene la fecha de hoy para valores por defecto
 $fechaHoy = new DateTime();
 $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
-//se llama a la api con la fecha formateada
-$oFotoNasa = REST::apiNasa($fechaHoyFormateada);
-//Listado de isbn para que cambien los libros todos los días.
+$fechaNasa = $fechaHoyFormateada; // Por defecto hoy
+
+// validación al darle al boton enviar de la NAsa
+if (isset($_REQUEST['enviarNasa'])) {
+    $entradaOK = true;
+    $aErrores['fechaNasa'] = validacionFormularios::validarFecha($_REQUEST['fechaNasa'], $fechaHoyFormateada, '1995-06-16', 1);
+
+    if ($aErrores['fechaNasa'] != null) {
+        $entradaOK = false;
+    }
+
+    if ($entradaOK) {
+        $fechaNasa = $_REQUEST['fechaNasa'];
+    }
+}
+// Llamada a la API de la NASA (con la fecha de hoy o la elegida)
+$oFotoNasa = REST::apiNasa($fechaNasa);
 
 
+// Validación al darle al boton de enviar de OpenLibrary
 $aIsbns = [
-    '9780141187761', // 1984
-    '9780618260300', // El Hobbit
-    '9788420659404',  // El Principito
-    '9788408176022',  //El codigo Da Vinci
-    '9786073117364', //El retrato de Dorian Gray
-    '9788491051657', //Las aventuras de Huckelberry Finn
-    '9788445076736', //El Hobit
-    '9788491221166',  //Charlie y la fabrica de chocolate
-    '9786073120319',  //La ladrona de libros
-    '9789685146098', //Romero y Julieta
+    '9780141187761', '9780618260300', '9788420659404', '9788408176022',
+    '9786073117364', '9788491051657', '9788445076736', '9788491221166',
+    '9786073120319', '9789685146098'
 ];
-//Se va a usar el día de la fecha "elegir"el isbn.
-$indice = $fechaHoy->format('d') % count($aIsbns); //el indice será el resto de dividir el numero del día por el numero de isbns de la lista.
-$isbnHoy = $aIsbns[$indice];
-$oLibro=REST::apiLibros($isbnHoy);
 
-$aDptosWP = REST::apiDptos(); //aqui se retorna un array de objetos dptos
+if (isset($_REQUEST['enviarLibro'])) {
+    $entradaOK = true;
+    $aErrores['tituloLibro'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['tituloLibro'], 100, 1, 1);
 
-//Se crea un array con los datos del usuario para pasarlos a la vista
+    if ($aErrores['tituloLibro'] != null) {
+        $entradaOK = false;
+    }
+
+    if ($entradaOK) {
+        // Si la validación es correcta, intentamos buscar el libro
+        $oLibro = REST::apiLibroPorTitulo($_REQUEST['tituloLibro']);
+    }
+}
+
+// Si no se busca nada salen un libro por defecto
+if (!$oLibro) {
+    $indice = (int)$fechaHoy->format('d') % count($aIsbns);
+    $isbnHoy = $aIsbns[$indice];
+    $oLibro = REST::apiLibros($isbnHoy);
+}
+
+
+// Listado de departamentos
+$aDptosWP = REST::apiDptos();
+
+
+// PREPARACIÓN DEL ARRAY PARA LA VISTA
 $avRest = [
     'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial(),
-    'tituloNasa'=>$oFotoNasa->getTitulo(),
-    'fotoNasa'=>$oFotoNasa->getUrl(),
-    'explicacionNasa'=>$oFotoNasa->getExplicacion(),
-    'libro'=>$oLibro,
-    'dptos'=>$aDptosWP
+    'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",
+    'fotoNasa' => ($oFotoNasa) ? $oFotoNasa->getUrl() : "",
+    'fechaNasa' => $fechaNasa,
+    'explicacionNasa' => ($oFotoNasa) ? $oFotoNasa->getExplicacion() : "",
+    'errorNasa' => $aErrores['fechaNasa'],
+    'fechaHoy' => $fechaHoyFormateada,
+    'libro' => $oLibro,
+    'errorLibro' => $aErrores['tituloLibro'],
+    'dptos' => $aDptosWP
 ];
-
 
 
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web

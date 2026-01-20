@@ -1056,7 +1056,7 @@ Estilos de  la pagina REST
 
  .wrapper{
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1065,7 +1065,6 @@ Estilos de  la pagina REST
     margin-bottom: 20px;
 }
 .tituloRest{
-     padding-top: 50px;
     font-size: 36px;
     letter-spacing: -1px;
     font-weight: 700;
@@ -1092,6 +1091,7 @@ Estilos de  la pagina REST
     width: 100%;
     height: auto;
     display: block;
+    margin-bottom: 10px;
 }
 .infoRest2 img {
     width: 90%;
@@ -1100,6 +1100,56 @@ Estilos de  la pagina REST
 .explicacionNasa span{
     font-weight: 700;
 }
+#fechaNasa{
+    width:150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+#nasa{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 60px;
+}
+#libro{
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 10px;
+    height: 60px;
+}
+#tituloLibro{
+    width:150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+.contenedorInputRest{
+    height: 60px;
+}
+
+#botonSessionRest {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+    height: 40px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.botonSessionRest:hover {
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+
 /* Fin estilos REST=====================================================*/
 
 

@@ -42,6 +42,27 @@ class REST{
         }
         return null;
     }
+
+    public static function apiLibroPorTitulo($titulo) {
+    $tituloUrl = urlencode($titulo);
+    // Buscamos en la API de búsqueda por titulo
+    $resultado = @file_get_contents("https://openlibrary.org/search.json?title=$tituloUrl&limit=1");
+    
+    if ($resultado) {
+        $archivoApi = json_decode($resultado, true);
+        
+        // La API de búsqueda devuelve los resultados en un array llamado 'docs'
+        if (isset($archivoApi['docs'][0]['isbn'][0])) {
+            // Extraemos el primer ISBN que encuentre para ese título
+            $isbnEncontrado = $archivoApi['docs'][0]['isbn'][0];
+            
+            // REUTILIZACIÓN: Llamamos a la función que ya tenemos pasándole el ISBN
+            return self::apiLibros($isbnEncontrado);
+        }
+    }
+    return null;
+}
+
     public static function apiDptos(){
             // Se accede a la api de dptos de wordpress
             $resultado = file_get_contents($url = "https://veroniquegru.ieslossauces.es/VG-api-dept/wp-json/wp/v2/departamento");
