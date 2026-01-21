@@ -1050,8 +1050,110 @@ td:nth-child(odd) {
     font-weight: 700;
 }
 
+/* 
+Estilos de  la pagina REST
+=====================================================*/
 
-/*Estilos del footer*/
+ .wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding-top: 50px;
+    margin-bottom: 20px;
+}
+.tituloRest{
+    font-size: 36px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    color: var(--colorAzul2);
+}
+.containerRest{
+    border: 1px solid var(--colorGris);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    min-width: min(30%, 100%);
+}
+.infoRest2{
+    display: inline-block;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.infoRest3{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.infoRest img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+.infoRest2 img {
+    width: 90%;
+    display: block;
+}
+.explicacionNasa span{
+    font-weight: 700;
+}
+#fechaNasa{
+    width:150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+#nasa{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 60px;
+}
+#libro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 60px;
+}
+#tituloLibro{
+    width:150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+.contenedorInputRest{
+    height: 60px;
+}
+
+#botonSessionRest {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+    height: 40px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.botonSessionRest:hover {
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+
+/* Fin estilos REST=====================================================*/
+
+
+/*Estilos del footer============================================*/
 footer {
     /* position: absolute; */
     bottom: 0;
@@ -1069,13 +1171,37 @@ footer .pais {
     display: flex;
     justify-content: space-between;
 }
-
+/* .social-media{
+    display: flex;
+}
+.divGithub{
+    background: rebeccapurple;
+    display: flex;
+}
+.divCV{
+    background: blue;
+    display: flex;
+} */
+ .divCentral{
+    width: 70%;
+ }
 .bxl-github {
     font-size: 2rem;
     border-radius: 50%;
-    margin-right: 38px;
+    margin-right: 15px;
     color: var(--colorClaro);
     background-color: var(--colorAzul);
+}
+.cv{
+    text-decoration: none;
+    font-size: 1.4rem; 
+    font-weight: bold; 
+    color: var(--colorAzul);
+    margin-right: 30px;
+    border: 1px solid var(--colorAzul);
+    border-radius: 50%;
+    padding: 2px;
+    letter-spacing: -2px;
 }
 
 .footerInfo {

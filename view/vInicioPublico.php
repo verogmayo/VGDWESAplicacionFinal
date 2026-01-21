@@ -33,7 +33,7 @@
         <input type="radio" name="rd" id="rd5">
 
         <div class="photos">
-            <img src="webroot/images/AppLogin-AppMulticapaV3.png" alt="App Multicapa">
+            <img src="webroot/images/ArbolNavegacion.png" alt="App Multicapa">
             <img src="webroot/images/AppLogin-MapaWeb.png" alt="Mapa Web">
             <img src="webroot/images/DiagramaDeClases.png" alt="Diagrama de Clases">
             <img src="webroot/images/AppLogin-ModeloFisico.png" alt="Modelo Fisico">

@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Véro Grué - DWESAplicacionFinal</title>
+    <title>Véro Grué - AplicacionFinal</title>
     <!--Fuente de google font-->
     <!--Para descargar iconos. https://v2.boxicons.com/usage  (import the css)-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -33,14 +33,15 @@
         <div class="proyecto">
             <?php if ($_SESSION['paginaEnCurso'] == 'cuenta' ) { ?>
                 <!-- En la página cuenta aparecerá la palabra cuenta al ldo del logo -->
-                <p id="textoCuentaLogo">LOGIN<span>&nbsp;</span>LOGOFF
+                <p id="textoCuentaLogo">APLICACIÓN<span>&nbsp;</span>FINAL
                     <span id="textoCuenta">Cuenta</span>
                 </p>
             <?php } else { ?>
                 <p class="letras">
-                    <span>L</span><span>O</span><span>G</span><span>I</span><span>N</span>
-                    <span>&nbsp;</span>
-                    <span>L</span><span>O</span><span>G</span><span>O</span><span>F</span><span>F</span>
+                    <p class="letras"><span>A</span><span>P</span><span>L</span><span>C</span><span>A</span><span>C</span><span>I</span><span>O</span><span>N</span></p>
+                    <!-- <span>&nbsp;</span> -->
+                     <p class="letras"><span>F</span><span>I</span><span>N</span><span>A</span><span>L</span></p>
+                    
                 <?php } ?>
                 </p>
 
@@ -52,8 +53,13 @@
             <div class="footer">
                 <div class="pais">
                     <p>España</p>
+                    <div class="divCentral"></div>
+                    
                     <div class="social-media">
-                        <a href="https://github.com/verogmayo/VGDWESAplicacionFinal" target="_blank"><i class='bx bxl-github'></i></a>
+                        <a  href="https://github.com/verogmayo/VGDWESAplicacionFinal" target="_blank"><i class='bx bxl-github'></i></a>
+                    </div>
+                    <div class="divCV">
+                        <a class="cv" href="doc/VeroGrueCV.pdf" target="_blank">CV</a>
                     </div>
                 </div>
                 <div class="footerInfo">
@@ -62,11 +68,12 @@
                             2025-26 IES LOS SAUCES. &#169;Todos los derechos reservados.</p>
                         <address><a href="https://veroniquegru.ieslossauces.es/" target="_blank">Véronique Grué.</a>
                             Fecha de Actualización :
-                            <time datetime="2025-12-15"></time> 07-01-2026
+                            <time datetime="2026-01-15">15-01-2026</time> 
                         </address>
                     </div>
                     <div class="google">
                         <a href="https://www.google.com/"><i class="fa-brands fa-google" style="color: #1a73e8;"></i></a>
+                        
                     </div>
                 </div>
             </div>

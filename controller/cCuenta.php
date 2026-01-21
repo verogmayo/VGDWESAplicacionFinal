@@ -9,7 +9,7 @@ if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -18,7 +18,7 @@ if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -27,7 +27,7 @@ if (isset($_REQUEST['cerrar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -36,7 +36,7 @@ if (isset($_REQUEST['cambiarPassword'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'cambiarPassword';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // Se comprueba si el botón "borrar" ha sido pulsado.
@@ -44,7 +44,7 @@ if (isset($_REQUEST['borrarCuenta'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'borrarCuenta';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // Se comprueba si el botón "cancelar" ha sido pulsado.
@@ -52,7 +52,7 @@ if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 $oUsuarioActual = $_SESSION['usuarioVGDAWAppAplicacionFinal'];
@@ -65,7 +65,7 @@ if (isset($_REQUEST['enviar'])) {
     if ($oUsuarioNuevo) {
         $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuarioNuevo;
         $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-        header('Location: indexAplicacionFinal.php');
+        header('Location: index.php');
         exit;
     }
 }

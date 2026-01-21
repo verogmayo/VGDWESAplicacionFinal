@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 15/12/2025
+ * @since: 20/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
@@ -11,6 +11,10 @@ require_once 'core/miLibreriaStatic.php';
 require_once 'model/Usuario.php'; 
 require_once 'model/UsuarioPDO.php';
 require_once 'model/AppError.php';
+require_once 'model/REST.php';
+require_once 'model/FotoNasa.php';
+require_once 'model/Libro.php';
+require_once 'model/Departamento.php';
 
 $controller = [
   'inicioPublico' => 'controller/cInicioPublico.php',
@@ -22,7 +26,9 @@ $controller = [
   'cambiarPassword' => 'controller/cCambiarPassword.php',
   'borrarCuenta' => 'controller/cBorrarCuenta.php',
   'error' => 'controller/cError.php',
-  'wip' => 'controller/cWIP.php'
+  'wip' => 'controller/cWIP.php',
+  'rest' => 'controller/cRest.php',
+  'detallesNasa' => 'controller/cDetallesNasa.php'
 ];
 
 $view = [
@@ -36,6 +42,8 @@ $view = [
   'cambiarPassword' => 'view/vCambiarPassword.php',
   'borrarCuenta' => 'view/vBorrarCuenta.php',
   'error' => 'view/vError.php',
-  'wip' => 'view/vWIP.php'
+  'wip' => 'view/vWIP.php',
+  'rest' => 'view/vRest.php',
+  'detallesNasa' => 'view/vDetallesNasa.php'
 ];  
 ?>

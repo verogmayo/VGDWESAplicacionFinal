@@ -10,13 +10,13 @@ if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 // Si se hace clic en el botón volver no sigue y redirige a la página de inicio
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaEnCurso'] = 'cuenta';
-    header('Location: indexAplicacionFinal.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -36,7 +36,7 @@ if (isset($_REQUEST['borrar'])) {
         session_destroy();
         //Redirige a la página de inicio público     
         //$_SESSION['paginaEnCurso'] = 'inicioPublico';
-        header('Location: indexAplicacionFinal.php');
+        header('Location: index.php');
         exit;
     } else {
         //Sino se ha podido borrar sale el mensaje
