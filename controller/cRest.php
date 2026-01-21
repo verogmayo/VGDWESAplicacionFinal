@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Véro Grué
- * @since: 17/01/2026
+ * @since: 20/01/2026
  */
 //Si no se iniciado session, se redirige a la pagina de inicio publico
 if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
@@ -37,6 +37,17 @@ if(isset($_REQUEST['volver'])){
     header('Location: index.php');
     exit;
 }
+// si se pulsa el boton detalles Nasa, redirige a la vista de detalles de la nasa
+if(isset($_REQUEST['detallesNasa'])){
+    // se guarda la pagina anterior
+     $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
+     // se guarda la fecha para utilizarla en la detalle
+     $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
+    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
+    $_SESSION['paginaEnCurso'] = 'detallesNasa';
+    header('Location: index.php');
+    exit;
+}
 
 // Inicializamos variables de control y errores
 $aErrores = [
@@ -68,12 +79,21 @@ $oFotoNasa = REST::apiNasa($fechaNasa);
 
 
 // Validación al darle al boton de enviar de OpenLibrary
-$aIsbns = [
-    '9780141187761', '9780618260300', '9788420659404', '9788408176022',
-    '9786073117364', '9788491051657', '9788445076736', '9788491221166',
-    '9786073120319', '9789685146098'
+$aTitulos = [
+    '1984', 
+    'El Hobbit', 
+    'El Principito', 
+    'El codigo Da Vinci', 
+    'El retrato de Dorian Gray', 
+    'Las aventuras de Huckleberry Finn', 
+    'Charlie y la fabrica de chocolate', 
+    'La ladrona de libros', 
+    'Romeo y Julieta'
 ];
 
+$oLibro = null;
+
+// Si el usuario ha buscado un título
 if (isset($_REQUEST['enviarLibro'])) {
     $entradaOK = true;
     $aErrores['tituloLibro'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['tituloLibro'], 100, 1, 1);
@@ -83,24 +103,21 @@ if (isset($_REQUEST['enviarLibro'])) {
     }
 
     if ($entradaOK) {
-        // Si la validación es correcta, intentamos buscar el libro
         $oLibro = REST::apiLibroPorTitulo($_REQUEST['tituloLibro']);
     }
 }
 
-// Si no se busca nada salen un libro por defecto
+// Si no se ha buscado nada o la búsqueda no dio resultados, se pone el un libro del día
 if (!$oLibro) {
-    $indice = (int)$fechaHoy->format('d') % count($aIsbns);
-    $isbnHoy = $aIsbns[$indice];
-    $oLibro = REST::apiLibros($isbnHoy);
+    $indice = (int)$fechaHoy->format('d') % count($aTitulos);
+    $tituloHoy = $aTitulos[$indice];
+    $oLibro = REST::apiLibroPorTitulo($tituloHoy);
 }
 
 
-// Listado de departamentos
-$aDptosWP = REST::apiDptos();
 
 
-// PREPARACIÓN DEL ARRAY PARA LA VISTA
+// Array para la vista
 $avRest = [
     'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial(),
     'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",
@@ -109,9 +126,11 @@ $avRest = [
     'explicacionNasa' => ($oFotoNasa) ? $oFotoNasa->getExplicacion() : "",
     'errorNasa' => $aErrores['fechaNasa'],
     'fechaHoy' => $fechaHoyFormateada,
-    'libro' => $oLibro,
+    'tituloLibro' => $oLibro->getTitulo(),
+    'autorLibro'=>$oLibro->getAutor(),
+    'portadaLibro'=>$oLibro->getPortada(),
+    'anioPublicacion'=>$oLibro->getAnioPublicacion(),
     'errorLibro' => $aErrores['tituloLibro'],
-    'dptos' => $aDptosWP
 ];
 
 

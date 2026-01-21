@@ -2,7 +2,7 @@
 <main class="mainForm">
     <section class="formularioRegistro">
         <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
-            <p class="pInicioSession"> Cambiar contraseña en Login Logoff</p>
+            <p class="pInicioSession"> Cambiar contraseña en Aplicación Final</p>
         </div>
         <form class="form" action="index.php" method="post">
             <div class="contenedorInput">

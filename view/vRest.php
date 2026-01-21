@@ -26,6 +26,7 @@
                          <input type="date" name="fechaNasa" id="fechaNasa" value="<?php echo $avRest['fechaNasa'] ?>" max="<?php echo $avRest['fechaHoy'] ?>">
                          <button id="botonSessionRest" class="" type="submit" name="enviarNasa">Enviar</button>
                          <?php echo ($avRest['errorNasa']) ? "<span style='color:red'>".$avRest['errorNasa']."</span>" : ""; ?>
+                         <button id="botonSessionRest" class="" type="submit" name="detallesNasa">Detalle</button>
                      </form>
                  </div>
                  <div class="tituloRest">
@@ -33,12 +34,11 @@
                  </div>
                  <div class="infoRest">
                      <img src="<?php echo $avRest['fotoNasa']; ?>">
-                    <button id="botonSessionRest" class="" type="submit" name="detallesNasa">Detalles Foto</button>
                  </div>
              </div>
              <div class="containerRest">
                 <div class="contenedorInputRest">
-                    <p>Busca un libro: </p>
+                    
                      <form method="post" id="libro" name="libro">
                          <input type="text" name="tituloLibro" id="tituloLibro" value="" >
                          <button id="botonSessionRest" class="" type="submit" name="enviarLibro">Enviar</button>
@@ -46,13 +46,13 @@
                      </form>
                  </div>
                  <div class="tituloRest">
-                     <p><?php echo $avRest['libro']->getTitulo(); ?></p>
+                     <p>Busca un libro: </p>
                  </div>
                  <div class="infoRest2">
-                     <img src="<?php echo $avRest['libro']->getPortada(); ?>" alt="Portada" style="box-shadow: 2px 2px 10px rgba(0,0,0,0.3);">
-                     <h3><?php echo $avRest['libro']->getTitulo(); ?></h3>
-                     <p><strong>Autor:</strong> <?php echo $avRest['libro']->getAutor(); ?></p>
-                     <p><strong>Nº de páginas:</strong> <?php echo $avRest['libro']->getPaginas(); ?></p>
+                     <img src="<?php echo $avRest['portadaLibro']; ?>" alt="Portada" style="box-shadow: 2px 2px 10px rgba(0,0,0,0.3);">
+                     <h3><?php echo $avRest['tituloLibro']; ?></h3>
+                     <p><strong>Autor:</strong> <?php echo $avRest['autorLibro']; ?></p>
+                     <p><strong>Año de publicaión:</strong> <?php echo $avRest['anioPublicacion']; ?></p>
 
                  </div>
              </div>
@@ -61,24 +61,7 @@
                      DEPARTAMENTOS
                  </div>
                  <div class="infoRest3">
-                     <?php if (!empty($avRest['dptos'])): ?>
-                         <table border="1">
-                             <tr>
-                                 <th>Código</th>
-                                 <th>Descripción</th>
-                                 <th>Volumen</th>
-                             </tr>
-                             <?php foreach ($avRest['dptos'] as $dpto): ?>
-                                 <tr>
-                                     <td><?php echo $dpto->getCodDepartamento(); ?></td>
-                                     <td><?php echo $dpto->getDescDepartamento(); ?></td>
-                                     <td><?php echo number_format($dpto->getVolumenDeNegocio(), 2); ?> €</td>
-                                 </tr>
-                             <?php endforeach; ?>
-                         </table>
-                     <?php else: ?>
-                         <p>No se han encontrado departamentos en WordPress.</p>
-                     <?php endif; ?>
+                     
                  </div>
              </div>
 

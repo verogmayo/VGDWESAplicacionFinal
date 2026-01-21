@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 17/01/2026
+ * @since: 20/01/2026
  * Clase para gestionar la infomración de los paises de la api de Rest Countries
  */
 
@@ -10,13 +10,13 @@ class Libro{
     private $titulo;
     private $autor;
     private $portada;
-    private $paginas;
+    private $anioPublicacion;
 
-    public function __construct($titulo, $autor, $portada, $paginas)    {
+    public function __construct($titulo, $autor, $portada, $anioPublicacion)    {
         $this->titulo = $titulo;
         $this->autor = $autor;
         $this->portada = $portada;
-        $this->paginas = $paginas;
+        $this->anioPublicacion = $anioPublicacion;
     }
 
     /**
@@ -46,8 +46,8 @@ class Libro{
     /**
      * Get the value of paginas
      */
-    public function getPaginas()
+    public function getAnioPublicacion()
     {
-        return $this->paginas;
+        return $this->anioPublicacion;
     }
 }

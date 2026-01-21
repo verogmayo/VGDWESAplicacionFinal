@@ -2,7 +2,7 @@
 <main class="mainForm">
     <section class="formularioRegistro">
         <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
-            <p class="pInicioSession"> Inicia Sesión en Login Logoff</p>
+            <p class="pInicioSession"> Inicia Sesión en Aplicación Final</p>
         </div>
         <form class="form" action="index.php" method="post">
             <div class="contenedorInput">

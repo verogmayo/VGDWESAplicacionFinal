@@ -1115,7 +1115,7 @@ Estilos de  la pagina REST
 }
 #libro{
     display: flex;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
     gap: 10px;
     height: 60px;

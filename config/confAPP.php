@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 17/01/2026
+ * @since: 20/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
@@ -27,7 +27,8 @@ $controller = [
   'borrarCuenta' => 'controller/cBorrarCuenta.php',
   'error' => 'controller/cError.php',
   'wip' => 'controller/cWIP.php',
-  'rest' => 'controller/cRest.php'
+  'rest' => 'controller/cRest.php',
+  'detallesNasa' => 'controller/cDetallesNasa.php'
 ];
 
 $view = [
@@ -42,6 +43,7 @@ $view = [
   'borrarCuenta' => 'view/vBorrarCuenta.php',
   'error' => 'view/vError.php',
   'wip' => 'view/vWIP.php',
-  'rest' => 'view/vRest.php'
+  'rest' => 'view/vRest.php',
+  'detallesNasa' => 'view/vDetallesNasa.php'
 ];  
 ?>
