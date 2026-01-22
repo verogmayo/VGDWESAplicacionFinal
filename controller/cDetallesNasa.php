@@ -33,6 +33,7 @@ if (isset($_REQUEST['cuenta'])) {
 // Se comprueba si el botón "volver" ha sido pulsado.
 if(isset($_REQUEST['volver'])){
      $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
+     $_SESSION['fechaAnterior'] = $_SESSION['fechaEncurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'rest';
     header('Location: index.php');

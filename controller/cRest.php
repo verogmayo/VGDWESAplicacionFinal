@@ -49,6 +49,7 @@ if(isset($_REQUEST['detallesNasa'])){
     exit;
 }
 
+if(empty($_SESSION['InfoNasa'])){
 // Inicializamos variables de control y errores
 $aErrores = [
     'fechaNasa' => null, 
@@ -72,10 +73,17 @@ if (isset($_REQUEST['enviarNasa'])) {
 
     if ($entradaOK) {
         $fechaNasa = $_REQUEST['fechaNasa'];
+        // Llamada a la API de la NASA (con la fecha de hoy o la elegida)
+        $oFotoNasa = REST::apiNasa($_SESSION['fechaDetalleNasa']);
+        $_SESSION['InfoNasa']=$oFotoNasa;
     }
 }
-// Llamada a la API de la NASA (con la fecha de hoy o la elegida)
-$oFotoNasa = REST::apiNasa($fechaNasa);
+}else {
+    $_SESSION($_SESSION['InfoNasa']);
+}
+
+
+
 
 
 // Validación al darle al boton de enviar de OpenLibrary
@@ -130,7 +138,7 @@ $avRest = [
     'autorLibro'=>$oLibro->getAutor(),
     'portadaLibro'=>$oLibro->getPortada(),
     'anioPublicacion'=>$oLibro->getAnioPublicacion(),
-    'errorLibro' => $aErrores['tituloLibro'],
+    'errorLibro' => $aErrores['tituloLibro']
 ];
 
 

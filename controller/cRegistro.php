@@ -16,15 +16,17 @@ if (isset($_REQUEST['volver'])) {
 
 // Arrays para errores y respuestas
 $aErrores = [
-    'usuario' => null,
+    'codUsuario' => null,
     'password' => null,
-    'nombreCompleto' => null
+    'descUsuario' => null,
+    'confirmaPassword' => null
 ];
 
 $aRespuestas = [
-    'usuario' => '',
+    'codUsuario' => '',
     'password' => '',
-    'nombreCompleto' => ''
+    'descUsuario' => '',
+    'confirmaPassword' => ''
 ];
 
 // Variable para controlar si la entrada es correcta
@@ -39,14 +41,16 @@ if (isset($_REQUEST['enviar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
 
     // Validar los campos del formulario
-    $aErrores['usuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['usuario'], 8, 4, 1);
+    $aErrores['codUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['codUsuario'], 8, 4, 1);
     $aErrores['password'] = validacionFormularios::validarPassword($_REQUEST['password'], 8, 4, 1, 1);
-    $aErrores['nombreCompleto'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['nombreCompleto'], 255, 4, 1);
+    $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
+    $aErrores['confirmaPassword'] = validacionFormularios::validarPassword($_REQUEST['confirmaPassword'], 8, 4, 1, 1);
 
     // Guardar las respuestas para rellenar el formulario si hay algun error
-    $aRespuestas['usuario'] = $_REQUEST['usuario'];
+    $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
     $aRespuestas['password'] = $_REQUEST['password'];
-    $aRespuestas['nombreCompleto'] = $_REQUEST['nombreCompleto'];
+    $aRespuestas['descUsuario'] = $_REQUEST['descUsuario'];
+    $aRespuestas['confirmaPassword'] = $_REQUEST['confirmaPassword'];
 
     // Verificar si hay errores de validación
     foreach ($aErrores as $valorCampo => $msjError) {
@@ -58,15 +62,19 @@ if (isset($_REQUEST['enviar'])) {
     // Si la validación es correcta, validar con la BD
     if ($entradaOK) {
         // Se comprueba si el código de usuario ya existe
-        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['usuario'])) {
-            $aErrores['usuario'] = "El nombre de usuario ya existe.";
+        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
+            $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
+        if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
+            $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
+            $entradaOK = false;
+        } 
         } else {
             // Si no existe, se crea el nuevo usuario
             $oUsuario = UsuarioPDO::crearUsuario(
-                $_REQUEST['usuario'],
+                $_REQUEST['codUsuario'],
                 $_REQUEST['password'],
-                $_REQUEST['nombreCompleto']
+                $_REQUEST['descUsuario']
             );
 
             if ($oUsuario === null) {

@@ -25,7 +25,6 @@
     <?php endif; ?>
     <div class="cabeceraPerfil">
         <h1>Información personal</h1>
-
     </div>
     <div class="paginaCuentaContainer">
         <aside class="menuLateral">
