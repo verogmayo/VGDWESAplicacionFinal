@@ -52,7 +52,7 @@ if (isset($_REQUEST['error'])) {
 // Se comprueba si el botón "dpto" ha sido pulsado.
 if (isset($_REQUEST['dpto'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'dpto';
     header('Location: index.php');
     exit;
 }
