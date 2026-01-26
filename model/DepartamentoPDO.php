@@ -14,6 +14,7 @@ class DepartamentoPDO{
             SELECT *
             FROM T02_Departamento 
             WHERE T02_DescDepartamento LIKE :descDpto
+            ORDER BY T02_DescDepartamento ASC;
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [

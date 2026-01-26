@@ -16,7 +16,6 @@ if (isset($_REQUEST['volver'])) {
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-   $_SESSION['busquedaDepartamentos'] = $_SESSION['busquedaEnCurso'];
     header('Location: index.php');
     exit;
 }
@@ -28,7 +27,17 @@ if (isset($_REQUEST['cerrar'])) {
     header('Location: index.php');
     exit;
 }
+// Se comprueba si el botón "cuenta" ha sido pulsado.
+if(isset($_REQUEST['cuenta'])){
+    $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
+    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
+    $_SESSION['paginaEnCurso'] = 'cuenta';
+    header('Location: index.php');
+    exit;
+}
+
 // Inicialización de variables 
+$descripcionBuscada="";
 $aErrores = [
     'descDepartamento' => null
 ];
@@ -46,24 +55,27 @@ if (isset($_REQUEST['buscar'])) {
     $entradaOK = false;
 }
 
-// Si la entrada es OK, se hace la busqueda
+// Si la entrada es OK
 if ($entradaOK) {
-    $descripcionBuscada = $_REQUEST['descDepartamento'];
+//se recoge la descripción buscada y se guarda en sesión
+    $descripcionBuscada = $_REQUEST['descDepartamento'] ?? '';
+    $_SESSION['busquedaDptoEnCurso'] = $descripcionBuscada;
 }else{
-    $descripcionBuscada="";
+    //si  la entrada no es OK y hay una búsqueda en curso en sesión, se recoge la busqueda de la sesión
+    if (isset($_SESSION['busquedaDptoEnCurso'])) {
+        $descripcionBuscada = $_SESSION['busquedaDptoEnCurso'];
+    }
 }
 
 
 
 
-// if (empty($_REQUEST['descripcion']) && isset($_SESSION['busquedaDepartamentos'])) {
-//     $descripcionBuscada = $_SESSION['busquedaDepartamentos'];
-// }
+
 
 $aListaDepartamentos = [];   
 //array de objetos de departamento
 $aObjDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
-$_SESSION['busquedaDepartamentos'] = $descripcionBuscada;
+
 
 if (!is_null($aObjDepartamentos) && is_array($aObjDepartamentos)) {
     foreach ($aObjDepartamentos as $oDepartamento) {

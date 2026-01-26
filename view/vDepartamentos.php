@@ -43,11 +43,10 @@
                                 <td><?php echo $dpto['volumenDeNegocio']; ?></td>
                                 <td><?php echo $dpto['fechaBajaDepartamento']; ?></td>
                                  <td class="iconosDpto"><i class="fa-solid fa-eye"></td>
-                                
                                 <td class="iconosDpto"><i class="fa-regular fa-pen-to-square"></i></td>
                                 <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
                                 <td class="iconosAltaBaja">
-                                    <?php if ($dpto['fechaBajaDepartamento'] === null): ?>
+                                    <?php if ($dpto['fechaBajaDepartamento'] === ''): ?>
                                         <span id="activo" ><i class="fa-regular fa-flag"></i></span>
                                     <?php else: ?>
                                         <span id="baja" ><i class="fa-regular fa-flag"></i></span>

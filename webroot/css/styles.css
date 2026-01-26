@@ -874,7 +874,7 @@ Pagina Cuenta
 .filaDato:first-child {
     border-radius: 20px 20px 5px 5px;
 
-    & .valor .contenedorFoto{
+    & .icono{
         & .inicialGrande {
             display: inline-block;
             font-weight: 700;
