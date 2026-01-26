@@ -5,7 +5,7 @@
  * @since: 17/01/2026
  */
 //Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
+if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
@@ -52,7 +52,8 @@ if (isset($_REQUEST['error'])) {
 // Se comprueba si el botón "dpto" ha sido pulsado.
 if (isset($_REQUEST['dpto'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'wip';
+    $_SESSION['paginaEnCurso'] = 'dpto';
+    $_SESSION['busquedaEnCurso'] = $_SESSION['busquedaDepartamentos'];
     header('Location: index.php');
     exit;
 }
@@ -69,10 +70,10 @@ $idioma = $_COOKIE['idioma'] ?? 'es';
 
 //Se crea un array con los datos del usuario para pasarlos a la vista
 $avInicioPrivado = [
-    'descUsuario' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getDescUsuario(),
-    'numAccesos' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getNumAccesos(),
-    'fechaHoraUltimaConexionAnterior' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getFechaHoraUltimaConexionAnterior(),
-    'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial()
+    'descUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getDescUsuario(),
+    'numAccesos' => $_SESSION['usuarioVGDAWAplicacionFinal']->getNumAccesos(),
+    'fechaHoraUltimaConexionAnterior' => $_SESSION['usuarioVGDAWAplicacionFinal']->getFechaHoraUltimaConexionAnterior(),
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
 ];
 
 

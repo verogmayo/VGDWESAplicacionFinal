@@ -4,7 +4,7 @@
  * @since: 20/01/2026
  */
 //Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
+if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
@@ -49,6 +49,7 @@ if(isset($_REQUEST['detallesNasa'])){
     exit;
 }
 
+if(empty($_SESSION['InfoNasa'])){
 // Inicializamos variables de control y errores
 $aErrores = [
     'fechaNasa' => null, 
@@ -72,10 +73,17 @@ if (isset($_REQUEST['enviarNasa'])) {
 
     if ($entradaOK) {
         $fechaNasa = $_REQUEST['fechaNasa'];
+        // Llamada a la API de la NASA (con la fecha de hoy o la elegida)
+        $oFotoNasa = REST::apiNasa($_SESSION['fechaDetalleNasa']);
+        $_SESSION['InfoNasa']=$oFotoNasa;
     }
 }
-// Llamada a la API de la NASA (con la fecha de hoy o la elegida)
-$oFotoNasa = REST::apiNasa($fechaNasa);
+}else {
+    $_SESSION($_SESSION['InfoNasa']);
+}
+
+
+
 
 
 // Validación al darle al boton de enviar de OpenLibrary
@@ -119,7 +127,7 @@ if (!$oLibro) {
 
 // Array para la vista
 $avRest = [
-    'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial(),
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
     'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",
     'fotoNasa' => ($oFotoNasa) ? $oFotoNasa->getUrl() : "",
     'fechaNasa' => $fechaNasa,
@@ -130,7 +138,7 @@ $avRest = [
     'autorLibro'=>$oLibro->getAutor(),
     'portadaLibro'=>$oLibro->getPortada(),
     'anioPublicacion'=>$oLibro->getAnioPublicacion(),
-    'errorLibro' => $aErrores['tituloLibro'],
+    'errorLibro' => $aErrores['tituloLibro']
 ];
 
 

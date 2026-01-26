@@ -6,7 +6,7 @@
  */
 
 //Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
+if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
@@ -29,7 +29,7 @@ if (isset($_REQUEST['borrar'])) {
 
     $errorBorrar = "";
     //Si el usuario se borra correctamente, se vuelve a inicio público y sino se muestra un mensaje de error
-    if (UsuarioPDO::borrarUsuario($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
+    if (UsuarioPDO::borrarUsuario($_SESSION['usuarioVGDAWAplicacionFinal'])) {
         //Se limpia el array de sesión
         $_SESSION = array();
         //Se destruye la sesión

@@ -5,7 +5,7 @@
  * @since: 14/01/2026
  */
 //Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAppAplicacionFinal'])) {
+if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPublico';
@@ -55,29 +55,58 @@ if (isset($_REQUEST['cancelar'])) {
     header('Location: index.php');
     exit;
 }
-$oUsuarioActual = $_SESSION['usuarioVGDAWAppAplicacionFinal'];
+
+
+// /** @var Usuario $oUsuarioActual */
+$oUsuarioActual = $_SESSION['usuarioVGDAWAplicacionFinal'];
+
+// Arrays para la gestión de errores y respuestas
+$aErrores = ['descUsuario' => null];
+$aRespuestas = ['descUsuario' => $oUsuarioActual->getDescUsuario()];
+$entradaOK = true;
+
 if (isset($_REQUEST['enviar'])) {
-    //Se coge el nuevo nombre
-    $nuevoNombre = $_REQUEST['descUsuario'];
-    //Se llama al modelo para actualizar el nombre
-    $oUsuarioNuevo = UsuarioPDO::modificarUsuario($oUsuarioActual, $nuevoNombre);
-    //Se cambia la descrusuario de la session y se vuelve a  inicio privado
-    if ($oUsuarioNuevo) {
-        $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuarioNuevo;
-        $_SESSION['paginaEnCurso'] = 'inicioPrivado';
-        header('Location: index.php');
-        exit;
+    // Se Valida el campo usando tu librería de validación
+    $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
+
+    // SE Comprueba si hay errores
+    if ($aErrores['descUsuario'] !== null) {
+        $entradaOK = false;
+    }
+
+    //  Si entradaOK se modifica el nombre del usuario
+    if ($entradaOK) {
+        $nuevoNombre = $_REQUEST['descUsuario'];
+        
+        // Llamamos al modelo
+        $oUsuarioNuevo = UsuarioPDO::modificarUsuario($oUsuarioActual, $nuevoNombre);
+
+        if ($oUsuarioNuevo) {
+            // Actualizamos la sesión con el objeto que nos devuelve el modelo
+            $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuarioNuevo;
+            
+            // Redirigimos a la página de inicio
+            $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+            header('Location: index.php');
+            exit;
+        } else {
+            // Error técnico en la base de datos (opcional)
+            $aErrores['descUsuario'] = "No se pudo actualizar el nombre en la base de datos.";
+        }
     }
 }
+
+
+
 $avCuenta = [
-    'codUsuario' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getCodUsuario(),
-    'descUsuario' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getDescUsuario(),
-    'numAccesos' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getNumAccesos(),
-    'fechaHoraUltimaConexionAnterior' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getFechaHoraUltimaConexionAnterior()? $_SESSION['usuarioVGDAWAppAplicacionFinal']->getFechaHoraUltimaConexionAnterior()->format('d/m/Y H:i:s'):'Primera Conexión',
-    'fechaHoraUltimaConexion' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getFechaHoraUltimaConexion()->format('d/m/Y H:i:s'),
-    'perfil' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getPerfil(),
-    'imagenUsuario' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getImagenUsuario(),
-    'inicial' => $_SESSION['usuarioVGDAWAppAplicacionFinal']->getInicial()
+    'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),
+    'descUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getDescUsuario(),
+    'numAccesos' => $_SESSION['usuarioVGDAWAplicacionFinal']->getNumAccesos(),
+    'fechaHoraUltimaConexionAnterior' => $_SESSION['usuarioVGDAWAplicacionFinal']->getFechaHoraUltimaConexionAnterior() ? $_SESSION['usuarioVGDAWAplicacionFinal']->getFechaHoraUltimaConexionAnterior()->format('d/m/Y H:i:s') : 'Primera Conexión',
+    'fechaHoraUltimaConexion' => $_SESSION['usuarioVGDAWAplicacionFinal']->getFechaHoraUltimaConexion()->format('d/m/Y H:i:s'),
+    'perfil' => $_SESSION['usuarioVGDAWAplicacionFinal']->getPerfil(),
+    'imagenUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getImagenUsuario(),
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
 ];
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web
 require_once $view['layout'];

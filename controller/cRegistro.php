@@ -12,19 +12,19 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
-
-
 // Arrays para errores y respuestas
 $aErrores = [
-    'usuario' => null,
+    'codUsuario' => null,
     'password' => null,
-    'nombreCompleto' => null
+    'descUsuario' => null,
+    'confirmaPassword' => null
 ];
 
 $aRespuestas = [
-    'usuario' => '',
+    'codUsuario' => '',
     'password' => '',
-    'nombreCompleto' => ''
+    'descUsuario' => '',
+    'confirmaPassword' => ''
 ];
 
 // Variable para controlar si la entrada es correcta
@@ -39,14 +39,22 @@ if (isset($_REQUEST['enviar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
 
     // Validar los campos del formulario
-    $aErrores['usuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['usuario'], 8, 4, 1);
+    $aErrores['codUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['codUsuario'], 8, 4, 1);
     $aErrores['password'] = validacionFormularios::validarPassword($_REQUEST['password'], 8, 4, 1, 1);
-    $aErrores['nombreCompleto'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['nombreCompleto'], 255, 4, 1);
+    $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
+    $aErrores['confirmaPassword'] = validacionFormularios::validarPassword($_REQUEST['confirmaPassword'], 8, 4, 1, 1);
+
+    //se comprueba que las contraseñas coincidan
+    if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
+                $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
+                $entradaOK = false;
+            }
 
     // Guardar las respuestas para rellenar el formulario si hay algun error
-    $aRespuestas['usuario'] = $_REQUEST['usuario'];
+    $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
     $aRespuestas['password'] = $_REQUEST['password'];
-    $aRespuestas['nombreCompleto'] = $_REQUEST['nombreCompleto'];
+    $aRespuestas['descUsuario'] = $_REQUEST['descUsuario'];
+    $aRespuestas['confirmaPassword'] = $_REQUEST['confirmaPassword'];
 
     // Verificar si hay errores de validación
     foreach ($aErrores as $valorCampo => $msjError) {
@@ -58,15 +66,16 @@ if (isset($_REQUEST['enviar'])) {
     // Si la validación es correcta, validar con la BD
     if ($entradaOK) {
         // Se comprueba si el código de usuario ya existe
-        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['usuario'])) {
-            $aErrores['usuario'] = "El nombre de usuario ya existe.";
+        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
+            $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
+            
         } else {
             // Si no existe, se crea el nuevo usuario
             $oUsuario = UsuarioPDO::crearUsuario(
-                $_REQUEST['usuario'],
+                $_REQUEST['codUsuario'],
                 $_REQUEST['password'],
-                $_REQUEST['nombreCompleto']
+                $_REQUEST['descUsuario']
             );
 
             if ($oUsuario === null) {
@@ -79,13 +88,7 @@ if (isset($_REQUEST['enviar'])) {
                 exit;
             } else {
                 // Login correcto
-                $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuario;
-                // Se saca la inicial del usuario aqui para poder utilizarla en el boton de cuenta.
-                // Se saca el nombre del usuario.
-                // $nombre = $oUsuario->getDescUsuario();
-                // //Se saca la inicial. https://www.php.net/manual/fr/function.mb-strtoupper.php  (caracteres en mayúsculas)
-                // //https://www.php.net/manual/fr/function.mb-strtoupper.php (primer caracter)
-                // $_SESSION['inicialVGDAW'] = mb_strtoupper(mb_substr($nombre, 0, 1));
+                $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuario;
                 $_SESSION['paginaEnCurso'] = 'inicioPrivado';
                 header('Location: index.php');
                 exit;

@@ -68,7 +68,7 @@ if (isset($_REQUEST['enviar'])) {
     if ($entradaOK) {
         $oUsuario = UsuarioPDO::actualizarUltimaConexion($oUsuario);
         // Login correcto, se crea el usuario en la sesión
-        $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuario;
+        $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuario;
         // Si el login es correcto, se redirige a la página de inicio privado
         $_SESSION['paginaEnCurso'] = 'inicioPrivado';
         header('Location: index.php');

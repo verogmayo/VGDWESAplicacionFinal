@@ -25,7 +25,6 @@
     <?php endif; ?>
     <div class="cabeceraPerfil">
         <h1>Información personal</h1>
-
     </div>
     <div class="paginaCuentaContainer">
         <aside class="menuLateral">
@@ -47,13 +46,10 @@
 
                         </li>
                     </form>
-
                 </ul>
             </nav>
         </aside>
-
         <section class="contenidoPerfil">
-
             <form method="post">
                 <div class="tablaDatosGrid">
                     <div class="filaDato">

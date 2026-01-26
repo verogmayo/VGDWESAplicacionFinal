@@ -15,6 +15,7 @@ require_once 'model/REST.php';
 require_once 'model/FotoNasa.php';
 require_once 'model/Libro.php';
 require_once 'model/Departamento.php';
+require_once 'model/DepartamentoPDO.php';
 
 $controller = [
   'inicioPublico' => 'controller/cInicioPublico.php',
@@ -28,7 +29,8 @@ $controller = [
   'error' => 'controller/cError.php',
   'wip' => 'controller/cWIP.php',
   'rest' => 'controller/cRest.php',
-  'detallesNasa' => 'controller/cDetallesNasa.php'
+  'detallesNasa' => 'controller/cDetallesNasa.php',
+  'dpto' => 'controller/cDepartamentos.php'
 ];
 
 $view = [
@@ -44,6 +46,7 @@ $view = [
   'error' => 'view/vError.php',
   'wip' => 'view/vWIP.php',
   'rest' => 'view/vRest.php',
-  'detallesNasa' => 'view/vDetallesNasa.php'
+  'detallesNasa' => 'view/vDetallesNasa.php',
+  'dpto' => 'view/vDepartamentos.php'
 ];  
 ?>

@@ -57,7 +57,7 @@ if (isset($_REQUEST['enviar'])) {
     // Si la validación es correcta, validar con la BD
     if ($entradaOK) {
         // Se obtiene el usuario actual 
-        $oUsuarioActual = $_SESSION['usuarioVGDAWAppAplicacionFinal'];
+        $oUsuarioActual = $_SESSION['usuarioVGDAWAplicacionFinal'];
 
         // Se verifica que la contraseña actual es correcta
         $passwordActualHasheada = hash('sha256', $oUsuarioActual->getCodUsuario() . $_REQUEST['passwordActual']);
@@ -76,12 +76,12 @@ if (isset($_REQUEST['enviar'])) {
     // Si todo es correcto, se cambia la contraseña
     if ($entradaOK) {
         $oUsuarioModificado = UsuarioPDO::cambiarPassword(
-            $_SESSION['usuarioVGDAWAppAplicacionFinal'], 
+            $_SESSION['usuarioVGDAWAplicacionFinal'], 
             $_REQUEST['password']
         );
         // si se ha cambiado correctamente, se actualiza la sesión y se redirige a la página cuenta
         if ($oUsuarioModificado != null) {
-            $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuarioModificado;
+            $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuarioModificado;
             //para poner un mensaje de contraseña cambiada, en la pagina cuenta, hay que guardar el valoe en sesion porque sino se pierde al hacer el cmabio de pagina. 
             $_SESSION['mensajeExito']= "Contraseña cambiada correctamente.";
             $_SESSION['paginaEnCurso'] = 'cuenta';
