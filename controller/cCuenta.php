@@ -98,10 +98,6 @@ if (isset($_REQUEST['enviar'])) {
 
 
 
-
-
-
-
 $avCuenta = [
     'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),
     'descUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getDescUsuario(),

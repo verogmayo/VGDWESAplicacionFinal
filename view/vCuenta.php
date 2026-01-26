@@ -52,24 +52,12 @@
         <section class="contenidoPerfil">
             <form method="post">
                 <div class="tablaDatosGrid">
-                    <div class="filaDato filaDesplegable">
-                        <div class="etiqueta">FOTO DE PERFIL</div>
-                        <div class="valor">
-                            <div class="contenedorFoto">
-                                <?php if ($avCuenta['imagenUsuario']): ?>
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($avCuenta['imagenUsuario']); ?>"
-                                       ">
-                                <?php else: ?>
-                                    <span class="inicialGrande"><?php echo $avCuenta['inicial']; ?></span>
-                                <?php endif; ?>
-                            </div>
-
-                            <div class="desplegable">
-                                
-                                <input type="file" name="nuevaFoto" id="nuevaFoto" accept="image/*" style="display:block;" ">
-                            </div>
+                    <div class="filaDato">
+                        <div class="etiqueta">FOTO</div>
+                        <div class="valor">Añade una foto de perfil para personalizar tu cuenta</div>
+                        <div class="icono">
+                            <div class="inicialGrande"><?php echo $avCuenta['inicial']; ?></div>
                         </div>
-                        <div class="icono"><span class="flecha">&rsaquo;</span></div>
                     </div>
 
                     <div class="filaDato">

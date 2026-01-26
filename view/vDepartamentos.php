@@ -2,12 +2,12 @@
     <p>MANTENIMIENTO DE DEPARTAMENTO</p>
 </div>
 <form class="botonesDetalles">
-            <div class="botonVolverLogin">
-                <button id="botonVolverDetalles" class="botonAzul" type="submit" name="volver">Volver</button>
-            </div>
-            <button id="botonCuenta" class="botonCuenta" type="submit" name="cuenta"><?php echo $avDepartamentos['inicial']; ?></button>
-            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="cerrar">Cerrar Sessión</button>
-        </form>
+    <div class="botonVolverLogin">
+        <button id="botonVolverDetalles" class="botonAzul" type="submit" name="volver">Volver</button>
+    </div>
+    <button id="botonCuenta" class="botonCuenta" type="submit" name="cuenta"><?php echo $avDepartamentos['inicial']; ?></button>
+    <button id="botonSessionIPrivado" class="botonSession" type="submit" name="cerrar">Cerrar Sessión</button>
+</form>
 </header>
 <main>
 
@@ -37,30 +37,16 @@
                 </thead>
                 <tbody>
                     <?php if (count($avDepartamentos['dptos']) > 0): ?>
-                        <?php foreach ($avDepartamentos['dptos'] as $oDpto): ?>
+                        <?php foreach ($avDepartamentos['dptos'] as $dpto) { ?>
                             <tr>
-                                <td><?php echo $oDpto->getCodDepartamento(); ?></td>
-                                <td><?php echo $oDpto->getDescDepartamento(); ?></td>
-                                <td><?php
-                                    $fechaAlta = new DateTime($oDpto->getFechaCreacionDepartamento());
-                                    echo $fechaAlta->format('d-m-Y');
-                                    ?>
-                                </td>
-                                <td><?php echo number_format($oDpto->getVolumenDeNegocio(), 2, ',', '.'); ?>€</td>
-                                <td>
-                                    <?php
-                                    if ($oDpto->getFechaBajaDepartamento() !== null) {
-                                        $fechaBaja = new DateTime($oDpto->getFechaBajaDepartamento());
-                                        echo $fechaBaja->format('d-m-Y');
-                                    } else {
-                                        echo "-";
-                                    }
-                                    ?>
-                                </td>
-                               
-                                <td class="iconosDpto"><i class="fa-solid fa-eye"></td>
+                                <td><?php echo $dpto['codDepartamento']; ?></td>
+                                <td><?php echo $dpto['descDepartamento']; ?></td>
+                                <td><?php echo $dpto['fechaCreacionDepartamento']; ?></td>
+                                <td><?php echo $dpto['volumenDeNegocio']; ?></td>
+                                <td><?php echo $dpto['fechaBajaDepartamento']; ?></td>
+                                 <td class="iconosDpto"><i class="fa-solid fa-eye"></td>
                                  <td class="iconosAltaBaja">
-                                    <?php if ($oDpto->getFechaBajaDepartamento() === null): ?>
+                                    <?php if ($dpto['fechaBajaDepartamento'] === null): ?>
                                         <span id="activo" ><i class="fa-regular fa-flag"></i></span>
                                     <?php else: ?>
                                         <span id="baja" ><i class="fa-regular fa-flag"></i></span>
@@ -69,15 +55,13 @@
                                 <td class="iconosDpto"><i class="fa-regular fa-pen-to-square"></i></td>
                                 <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     <?php else: ?>
                         <tr>
                             <td colspan="9">No se han encontrado departamentos.</td>
                         </tr>
                     <?php endif; ?>
-                    <tr>
-                        <td id="numRegistrosDpto" colspan="9"><strong>Número de registros:</strong> <?php echo count($avDepartamentos['dptos']); ?></td>
-                    </tr>
+                    
                 </tbody>
             </table>
 

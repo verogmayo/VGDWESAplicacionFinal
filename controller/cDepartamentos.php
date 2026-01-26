@@ -52,7 +52,35 @@ if ($entradaOK) {
     $descripcionBuscada="";
 }
 
-$listaDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+
+
+
+
+
+$listaDepartamentos = [];   
+$olistaDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+
+if (!is_null($olistaDepartamentos) && is_array($olistaDepartamentos)) {
+    foreach ($olistaDepartamentos as $departamento) {
+
+        $fechaCreacion = new DateTime($departamento->getFechaCreacionDepartamento());
+
+        $fechaBajaFormateada = '';
+        if (!is_null($departamento->getFechaBajaDepartamento())) {
+            $fechaBaja = new DateTime($departamento->getFechaBajaDepartamento());
+            $fechaBajaFormateada = $fechaBaja->format('d/m/Y');
+        }
+
+        $listaDepartamentos[] = [
+            'codDepartamento'           => $departamento->getCodDepartamento(),
+            'descDepartamento'          => $departamento->getDescDepartamento(),
+            'fechaCreacionDepartamento' => $fechaCreacion->format('d/m/Y'),
+            'volumenDeNegocio'          => number_format($departamento->getVolumenDeNegocio(), 2, ',', '.') . ' €',
+            'fechaBajaDepartamento'     => $fechaBajaFormateada
+        ];
+    }
+}
+
 $avDepartamentos = [
     'dptos' => $listaDepartamentos,
     'errores' => $aErrores,
