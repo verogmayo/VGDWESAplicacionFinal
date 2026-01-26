@@ -53,6 +53,7 @@ if (isset($_REQUEST['error'])) {
 if (isset($_REQUEST['dpto'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'dpto';
+    $_SESSION['busquedaEnCurso'] = $_SESSION['busquedaDepartamentos'];
     header('Location: index.php');
     exit;
 }

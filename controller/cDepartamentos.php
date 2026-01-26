@@ -16,6 +16,7 @@ if (isset($_REQUEST['volver'])) {
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+   $_SESSION['busquedaDepartamentos'] = $_SESSION['busquedaEnCurso'];
     header('Location: index.php');
     exit;
 }
@@ -55,34 +56,38 @@ if ($entradaOK) {
 
 
 
+// if (empty($_REQUEST['descripcion']) && isset($_SESSION['busquedaDepartamentos'])) {
+//     $descripcionBuscada = $_SESSION['busquedaDepartamentos'];
+// }
 
+$aListaDepartamentos = [];   
+//array de objetos de departamento
+$aObjDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+$_SESSION['busquedaDepartamentos'] = $descripcionBuscada;
 
-$listaDepartamentos = [];   
-$olistaDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+if (!is_null($aObjDepartamentos) && is_array($aObjDepartamentos)) {
+    foreach ($aObjDepartamentos as $oDepartamento) {
 
-if (!is_null($olistaDepartamentos) && is_array($olistaDepartamentos)) {
-    foreach ($olistaDepartamentos as $departamento) {
-
-        $fechaCreacion = new DateTime($departamento->getFechaCreacionDepartamento());
+        $fechaCreacion = new DateTime($oDepartamento->getFechaCreacionDepartamento());
 
         $fechaBajaFormateada = '';
-        if (!is_null($departamento->getFechaBajaDepartamento())) {
-            $fechaBaja = new DateTime($departamento->getFechaBajaDepartamento());
+        if (!is_null($oDepartamento->getFechaBajaDepartamento())) {
+            $fechaBaja = new DateTime($oDepartamento->getFechaBajaDepartamento());
             $fechaBajaFormateada = $fechaBaja->format('d/m/Y');
         }
 
-        $listaDepartamentos[] = [
-            'codDepartamento'           => $departamento->getCodDepartamento(),
-            'descDepartamento'          => $departamento->getDescDepartamento(),
+        $aListaDepartamentos[] = [
+            'codDepartamento'           => $oDepartamento->getCodDepartamento(),
+            'descDepartamento'          => $oDepartamento->getDescDepartamento(),
             'fechaCreacionDepartamento' => $fechaCreacion->format('d/m/Y'),
-            'volumenDeNegocio'          => number_format($departamento->getVolumenDeNegocio(), 2, ',', '.') . ' €',
+            'volumenDeNegocio'          => number_format($oDepartamento->getVolumenDeNegocio(), 2, ',', '.') . ' €',
             'fechaBajaDepartamento'     => $fechaBajaFormateada
         ];
     }
 }
 
 $avDepartamentos = [
-    'dptos' => $listaDepartamentos,
+    'dptos' => $aListaDepartamentos,
     'errores' => $aErrores,
     'busqueda' => $descripcionBuscada,
     'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),

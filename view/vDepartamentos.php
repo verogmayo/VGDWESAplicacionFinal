@@ -29,10 +29,8 @@
                         <th>Fecha de Creación</th>
                         <th>Volumen</th>
                         <th>Fecha de baja</th>
-                        <th>Ver</th>
-                        <th>Estado</th>
-                        <th>Editar</th>
-                        <th>Borrar</th>
+                        <th colspan="4">Acción</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -45,15 +43,16 @@
                                 <td><?php echo $dpto['volumenDeNegocio']; ?></td>
                                 <td><?php echo $dpto['fechaBajaDepartamento']; ?></td>
                                  <td class="iconosDpto"><i class="fa-solid fa-eye"></td>
-                                 <td class="iconosAltaBaja">
+                                
+                                <td class="iconosDpto"><i class="fa-regular fa-pen-to-square"></i></td>
+                                <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
+                                <td class="iconosAltaBaja">
                                     <?php if ($dpto['fechaBajaDepartamento'] === null): ?>
                                         <span id="activo" ><i class="fa-regular fa-flag"></i></span>
                                     <?php else: ?>
                                         <span id="baja" ><i class="fa-regular fa-flag"></i></span>
                                     <?php endif; ?>
                                 </td>
-                                <td class="iconosDpto"><i class="fa-regular fa-pen-to-square"></i></td>
-                                <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
                             </tr>
                         <?php } ?>
                     <?php else: ?>
