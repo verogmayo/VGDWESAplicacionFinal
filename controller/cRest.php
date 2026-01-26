@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author: Véro Grué
  * @since: 20/01/2026
@@ -30,37 +31,38 @@ if (isset($_REQUEST['cuenta'])) {
     exit;
 }
 // Se comprueba si el botón "volver" ha sido pulsado.
-if(isset($_REQUEST['volver'])){
-     $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
+if (isset($_REQUEST['volver'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
     header('Location: index.php');
     exit;
 }
 // si se pulsa el boton detalles Nasa, redirige a la vista de detalles de la nasa
-if(isset($_REQUEST['detallesNasa'])){
+if (isset($_REQUEST['detallesNasa'])) {
     // se guarda la pagina anterior
-     $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
-     // se guarda la fecha para utilizarla en la detalle
-     $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    // se guarda la fecha para utilizarla en la detalle
+    $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'detallesNasa';
     header('Location: index.php');
     exit;
 }
 
-if(empty($_SESSION['InfoNasa'])){
-// Inicializamos variables de control y errores
-$aErrores = [
-    'fechaNasa' => null, 
-    'tituloLibro' => null];
-$oFotoNasa = null;
-$oLibro = null; // IMPORTANTE: Inicializar para evitar el error de la línea 91
-
-// Se obtiene la fecha de hoy para valores por defecto
 $fechaHoy = new DateTime();
 $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
-$fechaNasa = $fechaHoyFormateada; // Por defecto hoy
+
+// Inicializamos variables de control y errores
+$aErrores = [
+    'fechaNasa' => null,
+    'tituloLibro' => null
+];
+
+// Se obtiene la fecha de hoy para valores por defecto
+
+$oFotoNasa = $_SESSION['InfoNasa'] ?? null;
+$fechaNasa = $_SESSION['fechaDetalleNasa'] ?? $fechaHoyFormateada;
 
 // validación al darle al boton enviar de la NAsa
 if (isset($_REQUEST['enviarNasa'])) {
@@ -71,16 +73,22 @@ if (isset($_REQUEST['enviarNasa'])) {
         $entradaOK = false;
     }
 
+
     if ($entradaOK) {
-        $fechaNasa = $_REQUEST['fechaNasa'];
+        $fechaNueva = $_REQUEST['fechaNasa'];
         // Llamada a la API de la NASA (con la fecha de hoy o la elegida)
-        $oFotoNasa = REST::apiNasa($_SESSION['fechaDetalleNasa']);
-        $_SESSION['InfoNasa']=$oFotoNasa;
+        if (!isset($_SESSION['fechaDetalleNasa']) || $fechaNueva != $_SESSION['fechaDetalleNasa']) {
+
+            $oFotoNasa = REST::apiNasa($fechaNueva);
+            $_SESSION['InfoNasa'] = $oFotoNasa;
+            $_SESSION['fechaDetalleNasa'] = $fechaNueva;
+        }
+
+        //  Usamos los datos ya guardados
+        $fechaNasa = $_SESSION['fechaDetalleNasa'];
     }
 }
-}else {
-    $_SESSION($_SESSION['InfoNasa']);
-}
+
 
 
 
@@ -88,14 +96,14 @@ if (isset($_REQUEST['enviarNasa'])) {
 
 // Validación al darle al boton de enviar de OpenLibrary
 $aTitulos = [
-    '1984', 
-    'El Hobbit', 
-    'El Principito', 
-    'El codigo Da Vinci', 
-    'El retrato de Dorian Gray', 
-    'Las aventuras de Huckleberry Finn', 
-    'Charlie y la fabrica de chocolate', 
-    'La ladrona de libros', 
+    '1984',
+    'El Hobbit',
+    'El Principito',
+    'El codigo Da Vinci',
+    'El retrato de Dorian Gray',
+    'Las aventuras de Huckleberry Finn',
+    'Charlie y la fabrica de chocolate',
+    'La ladrona de libros',
     'Romeo y Julieta'
 ];
 
@@ -135,13 +143,12 @@ $avRest = [
     'errorNasa' => $aErrores['fechaNasa'],
     'fechaHoy' => $fechaHoyFormateada,
     'tituloLibro' => $oLibro->getTitulo(),
-    'autorLibro'=>$oLibro->getAutor(),
-    'portadaLibro'=>$oLibro->getPortada(),
-    'anioPublicacion'=>$oLibro->getAnioPublicacion(),
+    'autorLibro' => $oLibro->getAutor(),
+    'portadaLibro' => $oLibro->getPortada(),
+    'anioPublicacion' => $oLibro->getAnioPublicacion(),
     'errorLibro' => $aErrores['tituloLibro']
 ];
 
 
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web
 require_once $view['layout'];
-?>
