@@ -8,33 +8,34 @@ require_once 'Departamento.php';
 class DepartamentoPDO{
     
 
-   public static function buscarDepartamentoPorDesc($codDepartamento){
+   public static function buscarDepartamentoPorDesc($descDepartamento=null){
+    $aDepartamentos = [];
       $sql = <<<SQL
             SELECT *
-            FROM T02_Departamento
+            FROM T02_Departamento 
+            WHERE T02_DescDepartamento LIKE :descDpto
         SQL;
 
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':descDepartamento' => $codDepartamento       
+            ':descDpto' => "%$descDepartamento%"       
              ]);
 
-         $departamentoDB = $consulta->fetchObject();
+       
          //Se convierte la fecha en datetime
-            $fechaAlta = $departamentoDB['T02_FechaCreacionDepartamento'];
-            $oFechaValida = ($fechaAlta) ? new DateTime($fechaAlta) : null;
+            // $fechaAlta = $departamentoDB['T02_FechaCreacionDepartamento'];
+            // $oFechaValida = ($fechaAlta) ? new DateTime($fechaAlta) : null;
             // Crear el objeto Usuario con los datos de la BD
 
-            $oDepartamento = new Departamento(
-                $departamentoDB['T02_CodDepartamento'],
-                $departamentoDB['T02_descDepartamento'],
-                $departamentoDB['T02_FechaCreacionDepartamento'],
-                $departamentoDB['T02_VolumenDeNegocio'],
-                $departamentoDB
-            )
-
+            while ($oDpto = $consulta->fetchObject()) {
+        $aDepartamentos[] = new Departamento(
+            $oDpto->T02_CodDepartamento,
+            $oDpto->T02_DescDepartamento,
+            $oDpto->T02_FechaCreacionDepartamento,
+            $oDpto->T02_VolumenDeNegocio,
+            $oDpto->T02_FechaBajaDepartamento
+        );
+    }
+    return $aDepartamentos;
    }
 }
-
-
-
 ?>

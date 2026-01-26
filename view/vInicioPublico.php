@@ -34,10 +34,10 @@
 
         <div class="photos">
             <img src="webroot/images/ArbolNavegacion.png" alt="App Multicapa">
-            <img src="webroot/images/AppLogin-MapaWeb.png" alt="Mapa Web">
-            <img src="webroot/images/DiagramaDeClases.png" alt="Diagrama de Clases">
-            <img src="webroot/images/AppLogin-ModeloFisico.png" alt="Modelo Fisico">
-            <img src="webroot/images/UsoSession.png" alt="UsoSession">
+            <img src="webroot/images/RelacionFicherosAppFinal.png" alt="Relación Ficheros">
+            <img src="webroot/images/RelacionFicherosAppFinal2.png" alt="Relación Ficheros">
+            <img src="webroot/images/DiagramaClasesAppFinal.png" alt="Diagrama de Clases">
+            <img src="webroot/images/UsoSessionAppFinal.png" alt="UsoSession">
         </div>
     </div>
 </section>

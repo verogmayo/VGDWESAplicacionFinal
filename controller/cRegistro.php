@@ -12,8 +12,6 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
-
-
 // Arrays para errores y respuestas
 $aErrores = [
     'codUsuario' => null,
@@ -46,6 +44,12 @@ if (isset($_REQUEST['enviar'])) {
     $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
     $aErrores['confirmaPassword'] = validacionFormularios::validarPassword($_REQUEST['confirmaPassword'], 8, 4, 1, 1);
 
+    //se comprueba que las contraseñas coincidan
+    if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
+                $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
+                $entradaOK = false;
+            }
+
     // Guardar las respuestas para rellenar el formulario si hay algun error
     $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
     $aRespuestas['password'] = $_REQUEST['password'];
@@ -65,10 +69,7 @@ if (isset($_REQUEST['enviar'])) {
         if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
             $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
-        if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
-            $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
-            $entradaOK = false;
-        } 
+            
         } else {
             // Si no existe, se crea el nuevo usuario
             $oUsuario = UsuarioPDO::crearUsuario(
@@ -87,13 +88,7 @@ if (isset($_REQUEST['enviar'])) {
                 exit;
             } else {
                 // Login correcto
-                $_SESSION['usuarioVGDAWAppAplicacionFinal'] = $oUsuario;
-                // Se saca la inicial del usuario aqui para poder utilizarla en el boton de cuenta.
-                // Se saca el nombre del usuario.
-                // $nombre = $oUsuario->getDescUsuario();
-                // //Se saca la inicial. https://www.php.net/manual/fr/function.mb-strtoupper.php  (caracteres en mayúsculas)
-                // //https://www.php.net/manual/fr/function.mb-strtoupper.php (primer caracter)
-                // $_SESSION['inicialVGDAW'] = mb_strtoupper(mb_substr($nombre, 0, 1));
+                $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuario;
                 $_SESSION['paginaEnCurso'] = 'inicioPrivado';
                 header('Location: index.php');
                 exit;

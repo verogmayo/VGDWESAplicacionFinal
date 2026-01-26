@@ -40,7 +40,7 @@ class UsuarioPDO
                 ':codUsuario'  => $codUsuario,
                 ':password' => $codUsuario . $password
             ]);
-            
+
 
             // Obtener el resultado
             $usuarioDB = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -66,7 +66,7 @@ class UsuarioPDO
                 mb_strtoupper(mb_substr($usuarioDB['T01_DescUsuario'], 0, 1))
             );
 
-           
+
 
             return $oUsuario;
         } catch (Exception $e) {
@@ -220,8 +220,10 @@ class UsuarioPDO
      */
     public static function borrarUsuario($oUsuario)
     {
-        $sql = "DELETE FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
-
+        $sql = <<<SQL
+        DELETE FROM T01_Usuario 
+        WHERE T01_CodUsuario = :codUsuario
+    SQL;
         try {
             $consulta = DBPDO::ejecutarConsulta($sql, [
                 ':codUsuario' => $oUsuario->getCodUsuario()
@@ -241,27 +243,50 @@ class UsuarioPDO
      * Modifica la descripción del usuario de la base de datos
      * @param Usuario $oUsuario Objeto del usuario a modificar
      * @param string $nuevoNombre nuevo nombre del usuario
-     * @return boolean True si se borró correctamente, false si no se borró
+     * @return Usuario|null El objeto usuario actualizado o null si falla
      */
     public static function modificarUsuario($oUsuario, $nuevoNombre)
     {
-        $sql = "UPDATE T01_Usuario SET T01_DescUsuario = :nuevaDesc WHERE T01_CodUsuario = :descUsuario";
-
+        $sql = <<<SQL
+        UPDATE T01_Usuario 
+        SET T01_DescUsuario = :nuevaDesc 
+        WHERE T01_CodUsuario = :descUsuario
+        SQL;
         try {
             $consulta = DBPDO::ejecutarConsulta($sql, [
                 ':nuevaDesc' => $nuevoNombre,
                 ':descUsuario' => $oUsuario->getCodUsuario()
             ]);
 
-            
+
             if ($consulta) {
                 //Se actualiza la descripcion del usuario
                 $oUsuario->setDescUsuario($nuevoNombre);
                 return $oUsuario;
             }
         } catch (Exception $e) {
-            return false;
+            return null;
         }
         return null;
+    }
+
+    /**
+     * Cambia la foto de perfil de un usuario en la base de datos.
+     *
+     * @param string $codUsuario Código identificador del usuario.
+     * @param string  $imagen     Imagen del usuario en formato BLOB.
+     * @return int Número de filas afectadas por el update : 1 si la foto se ha actualizado,0 si no hubo cambios (misma imagen o usuario inexistente).
+     */
+    public static function cambiarFoto($codUsuario, $imagen)
+    {
+        $sql = <<<SQL
+        UPDATE T01_Usuario 
+        SET T01_ImagenUsuario = :foto 
+        WHERE T01_CodUsuario = :codUsuario
+        SQL;
+        $parametros = [':foto' => $imagen, ':codUsuario' => $codUsuario];
+        $resultado = DBPDO::ejecutarConsulta($sql, $parametros);
+        //Devulve 0 si hay no se ha cambiado la foto y 1 si se ha cambiado la foto
+        return $resultado->rowCount();
     }
 }
