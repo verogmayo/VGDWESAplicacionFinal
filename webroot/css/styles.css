@@ -1226,13 +1226,24 @@ footer {
     padding: 15px 0;
 }
 
-footer .pais {
+/* footer .pais {
     padding-left: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--colorGris);
     color: #202124;
     display: flex;
     justify-content: space-between;
+} */
+
+footer .pais {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--colorGris);
+    color: #202124;
+
+    display: flex;
+    justify-content: space-between; /* España | centro | Github */
+    align-items: center; 
 }
 /* .social-media{
     display: flex;
@@ -1245,17 +1256,51 @@ footer .pais {
     background: blue;
     display: flex;
 } */
- .divCentral{
+/* .phpDoc a{
+    color:var(--colorAzul);
+    border: 1px solid var(--colorAzul);
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 700;
+   
+} */
+ .phpDoc a {
+    color: #202124;
+    border: 1px solid #202124;
+    border-radius: 50%;
+    padding: 6px 10px;
+    text-decoration: none;
+}
+.divCentral {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 40px; 
+}
+ /* .divCentral{
     width: 70%;
- }
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+ } */
 .bxl-github {
     font-size: 2rem;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 20px;
     color: var(--colorClaro);
     background-color: var(--colorAzul);
 }
-.cv{
+
+.cv {
+    text-decoration: none;
+    font-size: 1.2rem;  
+    color: #202124;
+    border: 1px solid #202124;
+    border-radius: 50%;
+    padding: 6px 10px;
+    letter-spacing: normal;
+}
+/* .cv{
     text-decoration: none;
     font-size: 1.4rem; 
     font-weight: bold; 
@@ -1265,7 +1310,7 @@ footer .pais {
     border-radius: 50%;
     padding: 2px;
     letter-spacing: -2px;
-}
+} */
 
 .footerInfo {
     padding: 0 20px;

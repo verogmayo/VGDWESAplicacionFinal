@@ -1,15 +1,35 @@
 <?php
 /**
-* @author: Véro Grué
-* @since: 20/01/2026
-*/
-// enlace para obtener la apikey de la nasa : https://api.nasa.gov/
-
-
+ * Clase para consumir APIs REST externas
+ * 
+ * Proporciona métodos estáticos para realizar peticiones a diferentes
+ * APIs públicas (NASA APOD, Open Library) y devolver objetos PHP
+ * estructurados con la información obtenida
+ *
+ * @author Véro Grué
+ * @since 20/01/2026
+ * @version 1.0.0
+ * @link https://api.nasa.gov/ Documentación API NASA
+ * @link https://openlibrary.org/dev/docs/api/search Documentación Open Library
+ */
 class REST{
+     /**
+     * Clave de API para acceder al servicio NASA APOD
+     * 
+     * @var string
+     * @link https://api.nasa.gov/ Obtener API Key
+     */
 
     const API_KEY_NASA = '083Uw36QI57jfPsnN7WLo6modct0fAyaxHzzaBNN';
-
+/**
+     * Obtiene la foto astronómica del día de la NASA para una fecha específica
+     *
+     * Realiza una petición a la API APOD (Astronomy Picture of the Day) de NASA
+     * y devuelve un objeto FotoNasa con la información de la imagen
+     *
+     * @param string $fecha Fecha en formato YYYY-MM-DD
+     * @return FotoNasa|null Objeto con los datos de la foto o null si falla
+     */
      public static function apiNasa($fecha){
             // se accede a la url de la nasa
             $resultado = file_get_contents($url = "https://api.nasa.gov/planetary/apod?date=$fecha&api_key=" . self::API_KEY_NASA);
@@ -72,6 +92,15 @@ class REST{
 //     return null;
 // }
 
+/**
+     * Busca información de un libro por su título en Open Library
+     *
+     * Realiza una búsqueda en la API de Open Library y devuelve
+     * el primer resultado encontrado como objeto Libro
+     *
+     * @param string $titulo Título del libro a buscar
+     * @return Libro|null Objeto Libro con la información encontrada o null si no hay resultados
+     */
 
     public static function apiLibroPorTitulo($titulo) {
     $tituloUrl = urlencode($titulo);

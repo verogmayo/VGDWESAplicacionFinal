@@ -1,18 +1,53 @@
 <?php
-
 /**
- * @author: Véro Grué
- * @since: 20/01/2026
- * Clase para gestionar la infomración de los paises de la api de Rest Countries
+ * Clase entidad para representar un libro
+ * 
+ * Encapsula la información básica de un libro obtenida
+ * de la API de Open Library
+ *
+ * @author Véro Grué
+ * @since 20/01/2026
+ * @version 1.0.0
  */
-
-class Libro{
+class Libro {
+    
+    /**
+     * Título del libro
+     *
+     * @var string
+     */
     private $titulo;
+    
+    /**
+     * Nombre del autor
+     *
+     * @var string
+     */
     private $autor;
+    
+    /**
+     * URL de la imagen de portada
+     *
+     * @var string
+     */
     private $portada;
+    
+    /**
+     * Año de publicación
+     *
+     * @var string|int
+     */
     private $anioPublicacion;
 
-    public function __construct($titulo, $autor, $portada, $anioPublicacion)    {
+    /**
+     * Constructor de la clase Libro
+     *
+     * @param string $titulo Título del libro
+     * @param string $autor Nombre del autor
+     * @param string $portada URL de la portada
+     * @param string|int $anioPublicacion Año de publicación
+     */
+    public function __construct($titulo, $autor, $portada, $anioPublicacion) {
         $this->titulo = $titulo;
         $this->autor = $autor;
         $this->portada = $portada;
@@ -20,34 +55,39 @@ class Libro{
     }
 
     /**
-     * Get the value of titulo
+     * Obtiene el título del libro
+     *
+     * @return string Título
      */
-    public function getTitulo()
-    {
+    public function getTitulo() {
         return $this->titulo;
     }
 
     /**
-     * Get the value of autor
+     * Obtiene el nombre del autor
+     *
+     * @return string Autor
      */
-    public function getAutor()
-    {
+    public function getAutor() {
         return $this->autor;
     }
 
     /**
-     * Get the value of portada
+     * Obtiene la URL de la portada
+     *
+     * @return string URL de la portada
      */
-    public function getPortada()
-    {
+    public function getPortada() {
         return $this->portada;
     }
 
     /**
-     * Get the value of paginas
+     * Obtiene el año de publicación
+     *
+     * @return string|int Año de publicación
      */
-    public function getAnioPublicacion()
-    {
+    public function getAnioPublicacion() {
         return $this->anioPublicacion;
     }
 }
+?>
