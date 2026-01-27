@@ -59,7 +59,7 @@
                         <a  href="https://github.com/verogmayo/VGDWESAplicacionFinal" target="_blank"><i class='bx bxl-github'></i></a>
                     </div>
                     <div class="divCV">
-                        <a href="webroot/doc/VeroGrueCV.pdf" class="cv" href="doc/VeroGrueCV.pdf" target="_blank">CV</a>
+                        <a href="webroot/doc/CV2026.pdf" class="cv" target="_blank">CV</a>
                     </div>
                 </div>
                 <div class="footerInfo">
