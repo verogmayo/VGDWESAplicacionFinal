@@ -14,7 +14,7 @@
             <div class="containerDetallesNasa">
 
                 <h1><?php echo $avDetallesNasa['tituloNasa']; ?></h1>
-
+    <p><?php echo $avDetallesNasa['fechaNasa']; ?></p>
                 <div class="contenedorFotoHd">
                         <img src="<?php echo $avDetallesNasa['fotoNasaHD']; ?>" alt="Foto NASA HD" style="max-width:100%; border-radius:10px;">
                     </a>

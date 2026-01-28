@@ -42,7 +42,7 @@ if (isset($_REQUEST['volver'])) {
 if (isset($_REQUEST['detallesNasa'])) {
     // se guarda la pagina anterior
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    // se guarda la fecha para utilizarla en la detalle
+     // se guarda la fecha para utilizarla en la detalle
     $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'detallesNasa';
@@ -50,8 +50,8 @@ if (isset($_REQUEST['detallesNasa'])) {
     exit;
 }
 
-$fechaHoy = new DateTime();
-$fechaHoyFormateada = $fechaHoy->format('Y-m-d');
+$oFechaHoy = new DateTime();
+$fechaHoyFormateada = $oFechaHoy->format('Y-m-d');
 
 // Inicializamos variables de control y errores
 $aErrores = [
@@ -89,6 +89,13 @@ if (isset($_REQUEST['enviarNasa'])) {
     }
 }
 
+if (isset($_SESSION['InfoNasa'])) {
+    $oFotoNasa = $_SESSION['InfoNasa'];
+} else {
+    //se llama a la api con la fecha formateada
+    $oFotoNasa = REST::apiNasa($fechaHoyFormateada);
+    $_SESSION['InfoNasa']= $oFotoNasa;
+}
 
 
 
@@ -125,7 +132,7 @@ if (isset($_REQUEST['enviarLibro'])) {
 
 // Si no se ha buscado nada o la búsqueda no dio resultados, se pone el un libro del día
 if (!$oLibro) {
-    $indice = (int)$fechaHoy->format('d') % count($aTitulos);
+    $indice = (int)$oFechaHoy->format('d') % count($aTitulos);
     $tituloHoy = $aTitulos[$indice];
     $oLibro = REST::apiLibroPorTitulo($tituloHoy);
 }

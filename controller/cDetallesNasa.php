@@ -41,7 +41,7 @@ if(isset($_REQUEST['volver'])){
 }
 
 $fechaNasa=$_SESSION['fechaDetalleNasa'];
-$oFotoNasa= REST::apiNasa($fechaNasa);
+$oFotoNasa= $_SESSION['InfoNasa'];
 $avDetallesNasa=[
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
     'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",

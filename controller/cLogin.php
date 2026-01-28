@@ -55,8 +55,17 @@ if (isset($_REQUEST['enviar'])) {
 
 
     if ($entradaOK) {
-        $oUsuario = UsuarioPDO::validarUsuario($_REQUEST['codUsuario'], $_REQUEST['password']);
-        // si no esta en la base de datos entrada ok false
+        // Si todo es correcto, se valida el usuario en la base de datos
+        try {
+            $oUsuario = UsuarioPDO::validarUsuario($_REQUEST['codUsuario'], $_REQUEST['password']);
+        } catch (PDOException $e) {
+            // Redirigir a la página de error
+            error_log("Fallo de seguridad: Intento de login no válido " .$_REQUEST['codUsuario'] . " desde IP " . $_SERVER['REMOTE_ADDR']);
+        }
+          
+        
+        
+        
         if (!isset($oUsuario)) {
             $entradaOK = false;
         }

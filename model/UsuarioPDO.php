@@ -1,8 +1,13 @@
 <?php
 
 /**
+ * Clase para gestionar las operaciones de usuario en la base de datos utilizando PDO
+ * 
+ * Proporciona métodos estáticos para validar, crear, actualizar y eliminar usuarios
+ * 
  * @author: Véro Grué
  * @since: 18/12/2025
+ * @version: 1.0.0
  */
 require_once 'DBPDO.php';
 require_once 'Usuario.php';
