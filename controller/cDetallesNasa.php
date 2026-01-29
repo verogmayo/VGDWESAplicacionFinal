@@ -13,6 +13,7 @@ if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
     exit;
 }
 
+
 // Se comprueba si el botón "cerrar" ha sido pulsado.
 if (isset($_REQUEST['cerrar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
@@ -39,14 +40,18 @@ if(isset($_REQUEST['volver'])){
     header('Location: index.php');
     exit;
 }
-
-$fechaNasa=$_SESSION['fechaDetalleNasa'];
-$oFotoNasa= $_SESSION['InfoNasa'];
+$oFotoNasa = null;
+if(isset($_SESSION['fotoNasa'])){
+    $oFotoNasa = $_SESSION['InfoNasa'];
+}
+// $fechaNasa=$_SESSION['fechaDetalleNasa'];
+// $oFotoNasa= $_SESSION['InfoNasa'];
 $avDetallesNasa=[
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
     'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",
     'fotoNasaHD' => ($oFotoNasa) ? $oFotoNasa->getUrlhd(): "",
-    'fechaNasa' => $fechaNasa,
+    // 'fechaNasa' => $fechaNasa,
+    'fechaNasa' => ($oFotoNasa) ? $oFotoNasa->getFecha() : "No hay datos",
     'explicacionNasa' => ($oFotoNasa) ? $oFotoNasa->getExplicacion() : ""
 ];
 

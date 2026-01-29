@@ -43,11 +43,19 @@ if (isset($_REQUEST['detallesNasa'])) {
     // se guarda la pagina anterior
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
      // se guarda la fecha para utilizarla en la detalle
-    $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
+    // $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
+    $fechaHoy = new DateTime();
+    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'detallesNasa';
     header('Location: index.php');
     exit;
+}
+if(empty($_SESSION['InfoNasa'])){
+    // Se obtiene la fecha de hoy para valores.
+    $fechaHoy = new DateTime();
+    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
+    $_SESSION['InfoNasa'] = REST::apiNasa($fechaHoyFormateada);
 }
 
 $oFechaHoy = new DateTime();

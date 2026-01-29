@@ -2,6 +2,7 @@ USE DBVGDWESAplicacionFinal;
 
 INSERT INTO T01_Usuario (T01_CodUsuario,T01_Password,T01_DescUsuario,T01_ImagenUsuario)
                 VALUES
+            ('admin',SHA2('adminpaso',256),'Administrador','administrador'),   
             ('vero',SHA2('veropaso',256),'Véro Grué',null),
             ('heraclio',SHA2('heracliopaso',256),'Heraclio Borbujo',null),
             ('alvaroA',SHA2('alvaroApaso',256),'Alvaro Allen',null),
@@ -24,12 +25,7 @@ INSERT INTO T01_Usuario (T01_CodUsuario,T01_Password,T01_DescUsuario,T01_ImagenU
 ;
             
 
-/*INSERT INTO T_01Usuario (T01_CodUsuario,T01_Password,T01_NumConexiones,T01_FechaHoraUltimaConexion,T01_Perfil,T01_ImagenUsuario)
-solo se inserta en los campos (T01_CodUsuario,T01_Password,T01_Perfil,T01_ImagenUsuario)
-        T01_NumConexiones -  MySQL pone 0 (DEFAULT)
-        T01_FechaHoraUltimaConexion -  queda NULL (usuario nunca se conectó)
-        T01_ImagenUsuario - NULL hasta que subas una
-*/
+
 
 INSERT INTO T02_Departamento (T02_CodDepartamento,T02_DescDepartamento,T02_FechaCreacionDepartamento,T02_VolumenDeNegocio,T02_FechaBajaDepartamento)
                  VALUES 

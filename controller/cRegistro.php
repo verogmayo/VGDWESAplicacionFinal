@@ -46,14 +46,22 @@ if (isset($_REQUEST['enviar'])) {
     $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
     $aErrores['confirmaPassword'] = validacionFormularios::validarPassword($_REQUEST['confirmaPassword'], 8, 4, 1, 1);
     //Valores validos para la pregunta de seguridad
-    $valoresValidos=['pimentel'];
-    $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
+    // $valoresValidos=['pimentel'];
+    define("RSEGURIDAD", "pimentel");
+    if (empty($_REQUEST['preguntaSeguridad']) ){
+        $aErrores['preguntaSeguridad'] = "La pregunta de seguridad no puede estar vacía";
+     }elseif($_REQUEST['preguntaSeguridad'] !== RSEGURIDAD) {
+         $aErrores['preguntaSeguridad'] = "La pregunta de seguridad es incorrecta";
+    } else {
+        $aErrores['preguntaSeguridad'] = null;
+    }
+    // $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
 
     //se comprueba que las contraseñas coincidan
     if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
-                $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
-                $entradaOK = false;
-            }
+        $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
+        $entradaOK = false;
+    }
 
     // Guardar las respuestas para rellenar el formulario si hay algun error
     $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
@@ -75,7 +83,6 @@ if (isset($_REQUEST['enviar'])) {
         if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
             $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
-            
         } else {
             // Si no existe, se crea el nuevo usuario
             $oUsuario = UsuarioPDO::crearUsuario(
