@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 20/01/2026
+ * @since: 27/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
@@ -30,7 +30,9 @@ $controller = [
   'wip' => 'controller/cWIP.php',
   'rest' => 'controller/cRest.php',
   'detallesNasa' => 'controller/cDetallesNasa.php',
-  'dpto' => 'controller/cDepartamentos.php'
+  'dpto' => 'controller/cDepartamentos.php',
+  'altaDpto' => 'controller/cAltaDepartamento.php',
+  'modificarDpto' => 'controller/cModificaDepartamento.php'
 ];
 
 $view = [
@@ -47,6 +49,8 @@ $view = [
   'wip' => 'view/vWIP.php',
   'rest' => 'view/vRest.php',
   'detallesNasa' => 'view/vDetallesNasa.php',
-  'dpto' => 'view/vDepartamentos.php'
+  'dpto' => 'view/vDepartamentos.php',
+  'altaDpto' => 'view/vAltaDepartamento.php',
+  'modificarDpto' => 'view/vModificaDepartamento.php'
 ];  
 ?>

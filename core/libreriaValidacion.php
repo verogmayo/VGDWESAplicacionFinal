@@ -5,7 +5,8 @@
  *
  * Fichero con la clase validacionFormulario, que contiene funciones para validar los campos de los formularios
  *
- * PHP version 7.0
+ * @require PHP version 7.0
+ * @dependency mbstring
  */
 
 /**
@@ -14,11 +15,15 @@
  * 
  * Clase de validacion de formularios que contiene las funciones necesarias para validar los campos de un formulario.
  * 
+ * @author Version 1.8 Jesús Temprano
+ * @author Version 1.7 Véro Grué y Gonzalo Junquera
  * @author Version 1.6 Javier Nieto y Cristina Nuñez
  * @author Versión 1.3 Adrián Cando Oviedo
  * @category Validacion
  * @package  Validacion
  * @source ClaseValidacion.php
+ * @since 1.8 17/12/2025 Corregido error que hacia que comprobarAlfabetico() y comprobarAlfaNumerico() devolvieran un string cuando deveria devolver null al ser corrtas.
+ * @since 1.7 13/12/2025 Añadidas funciones comprobarFloatMonetarioES() y comprobarCadenaEspecifica(). Modificación funciones comprobarMaxTamanio() y comprobarMinTamanio().
  * @since 1.6 30/11/2020 Mejoras en las funciones comprobarEnter(), comprobarFloat(), validarPassword()
  * @since 1.5 mejorada la ortografía de los mensajes de error
  * se escribian cada vez que querías mostrarlos ahora ya los devuelve cada función a la que se ha llamado sin tener que escribir nada.
@@ -42,9 +47,11 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      * Funcion que compueba si el parametro recibido esta compuesto por caracteres alfabeticos
      * 
      * @author Adrián Cando Oviedo
+     * @author Jesús Temprano Gallego
+     * @version 1.1 Corregido error que hacia que devolviera un string cuando deveria devolver null.
      * @version 1.0 He eliminado todos los if innecesrios que había simplificandolo a llamar a las funciones internas de errores que devuelven un error si le hay
      * concatenando esos errores en una cadena. Y comprobando que está vacío siempre que sea obligatorio. He añadido algunos comentarios explicando los nuevos cambios.
-     * @since 2018-10-23
+     * @since 2025-12-17
      * @param string $cadena Cadena que se va a comprobar.
      * @param int $maxTamanio Tamaño máximo de la cádena.
      * @param int $minTamanio Tamaño mínimo de la cadena.
@@ -52,7 +59,7 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      * @return null|string Devuelve null si es correcto o un mensaje de error en caso de que lo haya.
      */
 
-    public static function comprobarAlfabetico($cadena, $maxTamanio, $minTamanio, $obligatorio) {  //AÑADIDOS VALORES POR DEFECTO Y MEJORADA LA RESPUESTA
+    public static function comprobarAlfabetico($cadena, $maxTamanio = 1000, $minTamanio = 1, $obligatorio = 0) {  //AÑADIDOS VALORES POR DEFECTO Y MEJORADA LA RESPUESTA
         // Patrón para campos de solo texto
         $patron_texto = "/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙñÑ\s]+$/";
         $cadena = htmlspecialchars(strip_tags(trim((string) $cadena)));
@@ -67,8 +74,13 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
         if (!preg_match($patron_texto, $cadena) && !empty($cadena)) {
             $mensajeError = " Solo se admiten letras.";
         }
-        $mensajeError .= self::comprobarMaxTamanio($cadena, $maxTamanio);
-        $mensajeError .= self::comprobarMinTamanio($cadena, $minTamanio);
+        // Concatena el error solo si la comprobacion de tamaño devuelve uno
+        if ($error = self::comprobarMaxTamanio($cadena, $maxTamanio)) {
+            $mensajeError .= $error;
+        }
+        if ($error = self::comprobarMinTamanio($cadena, $minTamanio)) {
+            $mensajeError .= $error;
+        }
         return $mensajeError;
     }
 
@@ -82,24 +94,31 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      * Funcion que compueba si el parametro recibido esta compuesto por caracteres alfabeticos y numericos conjuntamente.
      *         
      * @author Adrián Cando Oviedo
+     * @author Jesús Temprano Gallego
+     * @version 1.1 Corregido error que hacia que devolviera un string cuando deveria devolver null.
      * @version 1.0 He eliminado todos los if innecesrios que había simplificandolo a llamar a las funciones internas de errores que devuelven un error si le hay
      * concatenando esos errores en una cadena. Y comprobando que está vacío siempre que sea obligatorio. He añadido algunos comentarios explicando los nuevos cambios.
-     * @since 2018-10-23
+     * @since 2025-12-17
      * @param string $cadena Cadena que se va a comprobar.
      * @param int $maxTamanio Tamaño máximo de la cádena.
      * @param int $minTamanio Tamaño mínimo de la cadena.
      * @param boolean $obligatorio Valor booleano indicado mediante 1, si es obligatorio o 0 si no lo es.
      * @return null|string Devuelve null si es correcto o un mensaje de error en caso de que lo haya.
      */
-    public static function comprobarAlfaNumerico($cadena, $maxTamanio , $minTamanio, $obligatorio) {  //AÑADIDOS VALORES POR DEFECTO Y MEJORADA LA RESPUESTA
+    public static function comprobarAlfaNumerico($cadena, $maxTamanio = 1000, $minTamanio = 1, $obligatorio = 0) {  //AÑADIDOS VALORES POR DEFECTO Y MEJORADA LA RESPUESTA
         $cadena = htmlspecialchars(strip_tags(trim((string) $cadena)));
         $mensajeError = null;
         //Si es obligatorio se hace la comprobación de que no está vacío
         if ($obligatorio == 1 && $cadena != '0') {
             $mensajeError = self::comprobarNoVacio($cadena);
         }
-        $mensajeError .= self::comprobarMaxTamanio($cadena, $maxTamanio);
-        $mensajeError .= self::comprobarMinTamanio($cadena, $minTamanio);
+         // Concatena el error solo si la comprobacion de tamaño devuelve uno
+        if ($error = self::comprobarMaxTamanio($cadena, $maxTamanio)) {
+            $mensajeError .= $error;
+        }
+        if ($error = self::comprobarMinTamanio($cadena, $minTamanio)) {
+            $mensajeError .= $error;
+        }
         return $mensajeError;
     }
 
@@ -121,17 +140,15 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      * @param $obligatorio Valor booleano indicado mediante 1, si es obligatorio o 0 si no lo es.
      * @return null|string Devuelve null en el caso en el que esté correcto, si no devuelve una cadena con el mensaje de error.
      */
-    public static function comprobarEntero($integer, $max = PHP_INT_MAX, $min = -PHP_INT_MAX, $obligatorio) {  //AÑADIDOS VALORES POR DEFECTO Y AHORA DETECTA EL 0
+    public static function comprobarEntero($integer, $max = PHP_INT_MAX, $min = -PHP_INT_MAX, $obligatorio = 0) {  //AÑADIDOS VALORES POR DEFECTO Y AHORA DETECTA EL 0
         $mensajeError = null;
 
         if ($obligatorio == 1 && $integer != '0') {
             $mensajeError = self::comprobarNoVacio($integer);
         }
-     
 
         if (($obligatorio == 0 && $integer != null) || ($obligatorio == 1 && empty($mensajeError))) {//COMPROBAMOS QUE SI ES OPCIONAL, NO ESTÉ VACÍO Y SI ES OBLIGATORIO QUE NO HAYA GUARDADO UN MENSAJE DE ERROR ANTERIOR (QUE EL CAMPO NO ESTÉ VACÍO)  
             $integer = str_replace('.', ',', $integer); //SI SE HA INTRODUCIDO UN NÚMERO CON '.'(FLOAT), SUSTITUIMOS EL PUNTO POR UNA COMA PARA QUE SEA UN STRING
-            
             if (!is_numeric($integer)) { //SI NO ES UN NÚMERO O STRING NUMÉRICO
                 $mensajeError = "El campo no es un entero. ";
             } else {
@@ -142,8 +159,8 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
                     $mensajeError = $mensajeError . "El número no puede ser menor que " . $min . ".";
                 }
             }
-        
         }
+
         return $mensajeError;
     }
 
@@ -205,7 +222,7 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
     public static function validarEmail($email, $obligatorio = 0) { //ELIMINADoS MAX Y MIN, IMPLEMENTACION DE PARAMETRO POR DEFECTO Y MEJORADA  LA RESPUESTA
         $mensajeError = null;
 
-        //Compruebo si está vacío cuadno es obligatorio
+        //Compruebo si está vacío cuando es obligatorio
         if ($obligatorio == 1) {
             $mensajeError = self::comprobarNoVacio($email);
         }
@@ -418,7 +435,7 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      */
     public static function comprobarMaxTamanio($cadena, $tamanio) {
         $mensajeError = null;
-        if (strlen($cadena) > $tamanio) {
+        if (mb_strlen($cadena, 'UTF-8') > $tamanio) {
             $mensajeError = " El tamaño máximo es de " . $tamanio . " caracteres.";
         }
         return $mensajeError;
@@ -442,7 +459,7 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
      */
     public static function comprobarMinTamanio($cadena, $tamanio) {
         $mensajeError = null;
-        if (strlen($cadena) < $tamanio && strlen($cadena) > 0) { //AÑADIDA SEGUNDA COMPROBACIÓN. Para que cuando el campo esté vacío no muestre este mensaje, sólo cuando haya mínimo 1 caracter para advertir del tamaño mínimo
+        if (mb_strlen($cadena, 'UTF-8') < $tamanio && mb_strlen($cadena, 'UTF-8') > 0) { //AÑADIDA SEGUNDA COMPROBACIÓN. Para que cuando el campo esté vacío no muestre este mensaje, sólo cuando haya mínimo 1 caracter para advertir del tamaño mínimo
             $mensajeError = " El tamaño mínimo es de " . $tamanio . " caracteres.";
         }
         return $mensajeError;
@@ -524,6 +541,79 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
         }
         return $mensajeError;
     }
+
+       /**
+     * Comprueba si una cadena representa un número decimal (float) en formato español (usando coma)
+     * y, si es correcto, valida que esté dentro de un rango [min, max].
+     * * Esta función acepta signo negativo. El valor se convierte a formato float (con punto)
+     * para realizar las comparaciones de rango.
+     * @author Véronique Grué
+     * @version 1.0 Creada la función.
+     * @since 2025-10-15
+     * @param string $float Cadena a validar. Se espera que contenga un número decimal con coma (ej. "1.234,56" o "-1,50").
+     * @param float $max Valor máximo permitido (incluido). Por defecto es el valor máximo de PHP_FLOAT.
+     * @param float $min Valor mínimo permitido (incluido). Por defecto es el valor negativo de PHP_FLOAT.
+     * @param int $obligatorio Indica si el campo es obligatorio (1) o opcional (0). Por defecto es opcional.
+     * @return null|string Devuelve null si el formato y el rango son correctos, o un mensaje de error en caso contrario.
+     */
+    public static function comprobarFloatMonetarioES($float, $max = PHP_FLOAT_MAX, $min = -PHP_FLOAT_MAX, $obligatorio = 0) {
+        $mensajeError = null;
+
+        if ($obligatorio == 1 && $float !== '0') {
+            $mensajeError = self::comprobarNoVacio($float);
+        }
+        if (($obligatorio == 0 && $float !== null && $float !== '') || ($obligatorio == 1 && empty($mensajeError))) {
+
+            if (!preg_match('/^-?[0-9]+(,[0-9]+)?$/', $float)) {
+                $mensajeError = "Formato decimal incorrecto";
+            } else {
+                //se convierte a float con punto para la base de datos
+                $floatConvertido = str_replace(',', '.', $float);
+
+                if ($floatConvertido > $max) {
+                   $mensajeError .= "El número no puede ser mayor que " . $max . ".";
+                }
+                if ($floatConvertido < $min) {
+                    $mensajeError .= "El número no puede ser menor que " . $min . ".";
+                }
+            }
+        }
+        return $mensajeError;
+    }
+
+
+
+    /**
+     * Función para comprobar una cadena con valores predefinidos.
+     * @author Véronique Grué
+     * @version 1.0 Creada la función.
+     * @since 2025-10-15
+     * @param string $cadena Valor introducido por el usuario.
+     * @param array $aValoresValidos Lista de respuestas válidas permitidas.
+     * @param bool $obligatorio Indica si el campo es obligatorio (1 si true, 0 si false).
+     * @return string|null Devuelve mensaje de error si hay problema, o null si es válido.
+     */
+    public static function comprobarCadenaEspecifica($cadena, $aValoresValidos, $obligatorio) {
+        $mensajeError = null;
+
+        // Elimina espacios en blanco al principio y al final
+        $respuestaSeguridad = trim($cadena);
+
+        // Si el campo es obligatorio y está vacío
+        if ($obligatorio == 1 && empty($cadena)) {
+            $mensajeError = "La pregunta de seguridad no puede estar vacía.";
+        }
+
+        // Si no está vacío y no coincide con ninguno de los valores válidos
+        if (!empty($cadena) && !in_array($cadena, $aValoresValidos)) {
+            $mensajeError = "La respuesta de seguridad es incorrecta.";
+        }
+
+        // Si todo está correcto
+        return $mensajeError;
+    }
 }
+
+
 
 ?>

@@ -36,7 +36,7 @@
                 <tbody>
                     <?php if (count($avDepartamentos['dptos']) > 0): ?>
                         <?php foreach ($avDepartamentos['dptos'] as $dpto) { ?>
-                            <tr>
+                            <tr class="<?php echo ($dpto['fechaBajaDepartamento'] !== '') ? 'dptoBaja' : ''; ?>">
                                 <td><?php echo $dpto['codDepartamento']; ?></td>
                                 <td><?php echo $dpto['descDepartamento']; ?></td>
                                 <td><?php echo $dpto['fechaCreacionDepartamento']; ?></td>
@@ -47,9 +47,9 @@
                                 <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
                                 <td class="iconosAltaBaja">
                                     <?php if ($dpto['fechaBajaDepartamento'] === ''): ?>
-                                        <span id="activo" ><i class="fa-regular fa-flag"></i></span>
+                                        <span id="activo" ><i class="fa-solid fa-circle-arrow-down"></i></span>
                                     <?php else: ?>
-                                        <span id="baja" ><i class="fa-regular fa-flag"></i></span>
+                                        <span id="baja" ><i class="fa-solid fa-circle-arrow-up"></i></span>
                                     <?php endif; ?>
                                 </td>
                             </tr>

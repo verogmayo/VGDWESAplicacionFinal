@@ -499,7 +499,7 @@ main {
 
 .formularioRegistro {
     width: 70%;
-    height: 530px;
+    height: 550px;
     border-radius: 20px;
     background-color: white;
     display: flex;
@@ -550,7 +550,7 @@ input {
     width: 75%;
     display: block;
     padding: 0 10px;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.1rem;
     border: 1px solid;
     border-radius: 5px;
     outline: none;
@@ -560,7 +560,7 @@ input {
 #password,
 #descUsuario,
 #passwordActual,
-#confirmaPassword {
+#confirmaPassword,#preguntaSeguridad {
     background-color: var(--colorCampoObligatorio);
 }
 
@@ -734,6 +734,13 @@ input:focus {
     background-color: white;
     border-color: var(--colorAzul2);
     box-shadow: 0 0 0 .5px blue;
+}
+
+/* 
+REGISTRO
+=====================================================*/
+.contenedorInputRegistro{
+    position: relative;
 }
 
 
@@ -1187,14 +1194,27 @@ PAgina Mantenimineto de Departamento
     & thead tr th{
         color: var(--colorAzulCuenta);
         background-color: var(--colorAzul2);
+        padding: 5px 15px 5px 15px;
     }
     & tbody tr td{
         background-color: white;
         font-size: 1rem;
         font-weight: 600;
         padding: 5px;
+         &:nth-child(3){
+            text-align: center;
+        }
+        &:nth-child(4){
+            text-align: end;
+        }
+        &:nth-child(5){
+            text-align: center;
+        }
     }
     
+}
+.dptoBaja{
+    color:red;
 }
 #numRegistrosDpto{
     text-align: center;
