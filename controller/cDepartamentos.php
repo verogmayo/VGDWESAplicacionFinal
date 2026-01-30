@@ -100,7 +100,7 @@ $aListaDepartamentos = [];
 $aObjDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
 
 
-if (!is_null($aObjDepartamentos) && is_array($aObjDepartamentos)) {
+if (!is_null($aObjDepartamentos)) {
     foreach ($aObjDepartamentos as $oDepartamento) {
 
         $fechaCreacion = new DateTime($oDepartamento->getFechaCreacionDepartamento());
@@ -120,6 +120,7 @@ if (!is_null($aObjDepartamentos) && is_array($aObjDepartamentos)) {
         ];
     }
 }
+
 
 $avDepartamentos = [
     'dptos' => $aListaDepartamentos,

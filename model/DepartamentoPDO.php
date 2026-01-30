@@ -120,5 +120,7 @@ class DepartamentoPDO {
 
         return null;
     }
+
+    public static
 }
 ?>

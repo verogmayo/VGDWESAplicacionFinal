@@ -84,7 +84,7 @@ if (isset($_REQUEST['enviar'])) {
             $_SESSION['departamentoEnCurso'] = $oDepartamentoNuevo;
             
             // Redirigimos a la página de inicio
-            $_SESSION['paginaEnCurso'] = 'vDepartamentos';
+            $_SESSION['paginaEnCurso'] = 'dpto';
             header('Location: index.php');
             exit;
         } else {
@@ -94,12 +94,17 @@ if (isset($_REQUEST['enviar'])) {
     }
 }
 
-
+$fechaCreacionDpto = new DateTime($oDepartamentoEnCurso->getFechaCreacionDepartamento());
+$fechaBajaFormateada = '';
+if (!is_null($oDepartamentoEnCurso->getFechaBajaDepartamento())) {
+    $fechaBaja = new DateTime($oDepartamentoEnCurso->getFechaBajaDepartamento());
+    $fechaBajaFormateada = $fechaBaja->format('d/m/Y');
+}
 
 $avVerModificarDpto = [
     'codDepartamento' => $oDepartamentoEnCurso->getCodDepartamento(),
     'descDepartamento' => $oDepartamentoEnCurso->getDescDepartamento(),
-    'fechaCreacionDpto' => $oDepartamentoEnCurso->getFechaCreacionDepartamento(),
+    'fechaCreacionDpto' => $fechaCreacionDpto->format('d/m/Y'),
     'volumenDeNegocio' => $oDepartamentoEnCurso->getVolumenDeNegocio(),
     'fechaBajaDepartamento' => $oDepartamentoEnCurso->getFechaBajaDepartamento() ? $oDepartamentoEnCurso->getFechaBajaDepartamento() : 'Activo',
     'modo' => $modo, 
