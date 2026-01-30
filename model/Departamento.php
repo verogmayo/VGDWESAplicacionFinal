@@ -116,7 +116,46 @@ class Departamento {
      */ 
     public function setCodDepartamento($codDepartamento) {
         $this->codDepartamento = $codDepartamento;
-        return $this;
+    }
+
+    /**
+     * Establece la descripción del departamento
+     *
+     * @param string $descDepartamento Descripción del departamento
+     * @return self
+     */
+    public function setDescDepartamento($descDepartamento) {
+        $this->descDepartamento = $descDepartamento;   
+    }
+
+    /**
+     * Establece la fecha de creación del departamento
+     *
+     * @param string $fechaCreacionDepartamento Fecha de creación
+     * @return self
+     */
+    public function setFechaCreacionDepartamento($fechaCreacionDepartamento) {
+        $this->fechaCreacionDepartamento = $fechaCreacionDepartamento;
+    }
+
+    /**
+     * Establece el volumen de negocio del departamento
+     *
+     * @param float $volumenDeNegocio Volumen de negocio
+     * @return self
+     */
+    public function setVolumenDeNegocio($volumenDeNegocio) {
+        $this->volumenDeNegocio = $volumenDeNegocio;
+    }
+
+    /**
+     * Establece la fecha de baja del departamento
+     *
+     * @param string|null $fechaBajaDepartamento Fecha de baja
+     * @return self
+     */
+    public function setFechaBajaDepartamento($fechaBajaDepartamento) {
+        $this->fechaBajaDepartamento = $fechaBajaDepartamento;
     }
 }
 ?>

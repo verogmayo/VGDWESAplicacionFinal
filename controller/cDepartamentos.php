@@ -35,7 +35,30 @@ if(isset($_REQUEST['cuenta'])){
     header('Location: index.php');
     exit;
 }
+//si se pulsa el boton del ojo de consultar
+if (isset($_REQUEST['consultar'])) {
+    $objDpto = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['consultar']);
+    if ($objDpto) {
+        $_SESSION['departamentoEnCurso'] = $objDpto;
+        $_SESSION['modoVista'] = 'consultar'; //se guarda la vista de consultar
+        //se redirige a la página de consultar/modificar departamento
+        $_SESSION['paginaEnCurso'] = 'modificarDpto'; 
+        header('Location: index.php');
+        exit;
+    }
+}
 
+// Si se pulsa el lápiz de modificar
+if (isset($_REQUEST['modificar'])) {
+    $objDpto = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['modificar']);
+    if ($objDpto) {
+        $_SESSION['departamentoEnCurso'] = $objDpto;
+        $_SESSION['modoVista'] = 'modificar'; // se guarda la vista de modificar
+        $_SESSION['paginaEnCurso'] = 'modificarDpto';
+        header('Location: index.php');
+        exit;
+    }
+}
 // Inicialización de variables 
 $descripcionBuscada="";
 $aErrores = [

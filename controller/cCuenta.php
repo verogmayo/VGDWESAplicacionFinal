@@ -57,7 +57,7 @@ if (isset($_REQUEST['cancelar'])) {
 }
 
 
-// /** @var Usuario $oUsuarioActual */
+// Ususario de la session
 $oUsuarioActual = $_SESSION['usuarioVGDAWAplicacionFinal'];
 
 // Arrays para la gestión de errores y respuestas

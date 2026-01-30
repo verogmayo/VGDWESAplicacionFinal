@@ -14,9 +14,7 @@
          <button id="botonSessionIPrivado" class="botonSession" type="submit" name="cerrar">Cerrar Sesión</button>
      </form>
  </nav>
-
  </header>
-
  <main>
      <section class="sectionDiv">
          <div class="wrapper">
@@ -38,7 +36,6 @@
              </div>
              <div class="containerRest">
                 <div class="contenedorInputRest">
-                    
                      <form method="post" id="libro" name="libro">
                          <input type="text" name="tituloLibro" id="tituloLibro" value="" >
                          <button id="botonSessionRest" class="" type="submit" name="enviarLibro">Enviar</button>
@@ -53,7 +50,6 @@
                      <h3><?php echo $avRest['tituloLibro']; ?></h3>
                      <p><strong>Autor:</strong> <?php echo $avRest['autorLibro']; ?></p>
                      <p><strong>Año de publicaión:</strong> <?php echo $avRest['anioPublicacion']; ?></p>
-
                  </div>
              </div>
              <div class="containerRest">

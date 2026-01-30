@@ -30,7 +30,7 @@
                         <th>Volumen</th>
                         <th>Fecha de baja</th>
                         <th colspan="4">Acción</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -42,16 +42,27 @@
                                 <td><?php echo $dpto['fechaCreacionDepartamento']; ?></td>
                                 <td><?php echo $dpto['volumenDeNegocio']; ?></td>
                                 <td><?php echo $dpto['fechaBajaDepartamento']; ?></td>
-                                 <td class="iconosDpto"><i class="fa-solid fa-eye"></td>
-                                <td class="iconosDpto"><i class="fa-regular fa-pen-to-square"></i></td>
+                                <form class="formDpto" method="post">
+                                    <td class="iconosDpto">
+                                    <button type="submit" name="consultar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td class="iconosDpto">
+                                    <button type="submit" name="modificar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </td>
                                 <td class="iconosDpto"><i class="fa-regular fa-trash-can"></i></td>
                                 <td class="iconosAltaBaja">
                                     <?php if ($dpto['fechaBajaDepartamento'] === ''): ?>
-                                        <span id="activo" ><i class="fa-solid fa-circle-arrow-down"></i></span>
+                                        <span id="activo"><i class="fa-solid fa-circle-arrow-down"></i></span>
                                     <?php else: ?>
-                                        <span id="baja" ><i class="fa-solid fa-circle-arrow-up"></i></span>
+                                        <span id="baja"><i class="fa-solid fa-circle-arrow-up"></i></span>
                                     <?php endif; ?>
                                 </td>
+                                </form>
+                                
                             </tr>
                         <?php } ?>
                     <?php else: ?>
@@ -59,7 +70,7 @@
                             <td colspan="9">No se han encontrado departamentos.</td>
                         </tr>
                     <?php endif; ?>
-                    
+
                 </tbody>
             </table>
 

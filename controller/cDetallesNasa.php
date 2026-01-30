@@ -40,12 +40,13 @@ if(isset($_REQUEST['volver'])){
     header('Location: index.php');
     exit;
 }
-$oFotoNasa = null;
-if(isset($_SESSION['fotoNasa'])){
-    $oFotoNasa = $_SESSION['InfoNasa'];
-}
-// $fechaNasa=$_SESSION['fechaDetalleNasa'];
-// $oFotoNasa= $_SESSION['InfoNasa'];
+// $oFotoNasa = null;
+// if(isset($_SESSION['fotoNasa'])){
+//     $oFotoNasa = $_SESSION['InfoNasa'];
+// }
+
+// $fechaNasa=$_SESSION['fechaEnCurso'];
+$oFotoNasa= $_SESSION['InfoNasa'] ?? null;
 $avDetallesNasa=[
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
     'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",

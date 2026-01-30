@@ -38,14 +38,15 @@ if (isset($_REQUEST['volver'])) {
     header('Location: index.php');
     exit;
 }
+// Se obtiene la fecha de hoy
+$oFechaHoy = new DateTime();
+$fechaHoyFormateada = $oFechaHoy->format('Y-m-d');
 // si se pulsa el boton detalles Nasa, redirige a la vista de detalles de la nasa
 if (isset($_REQUEST['detallesNasa'])) {
     // se guarda la pagina anterior
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
      // se guarda la fecha para utilizarla en la detalle
     // $_SESSION['fechaDetalleNasa'] = $_REQUEST['fechaNasa'];
-    $fechaHoy = new DateTime();
-    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
     $_SESSION['paginaEnCurso'] = 'detallesNasa';
     header('Location: index.php');
@@ -53,13 +54,12 @@ if (isset($_REQUEST['detallesNasa'])) {
 }
 if(empty($_SESSION['InfoNasa'])){
     // Se obtiene la fecha de hoy para valores.
-    $fechaHoy = new DateTime();
-    $fechaHoyFormateada = $fechaHoy->format('Y-m-d');
     $_SESSION['InfoNasa'] = REST::apiNasa($fechaHoyFormateada);
+    //SE guarda la fecha en curso
+    $_SESSION['fechaEnCurso'] = $fechaHoyFormateada;
 }
 
-$oFechaHoy = new DateTime();
-$fechaHoyFormateada = $oFechaHoy->format('Y-m-d');
+
 
 // Inicializamos variables de control y errores
 $aErrores = [
@@ -69,8 +69,8 @@ $aErrores = [
 
 // Se obtiene la fecha de hoy para valores por defecto
 
-$oFotoNasa = $_SESSION['InfoNasa'] ?? null;
-$fechaNasa = $_SESSION['fechaDetalleNasa'] ?? $fechaHoyFormateada;
+// $oFotoNasa = $_SESSION['InfoNasa'] ?? null;
+// $fechaNasa = $_SESSION['fechaDetalleNasa'] ?? $fechaHoyFormateada;
 
 // validación al darle al boton enviar de la NAsa
 if (isset($_REQUEST['enviarNasa'])) {
@@ -85,27 +85,29 @@ if (isset($_REQUEST['enviarNasa'])) {
     if ($entradaOK) {
         $fechaNueva = $_REQUEST['fechaNasa'];
         // Llamada a la API de la NASA (con la fecha de hoy o la elegida)
-        if (!isset($_SESSION['fechaDetalleNasa']) || $fechaNueva != $_SESSION['fechaDetalleNasa']) {
+        if ( $fechaNueva !== $_SESSION['fechaEnCurso']) {
 
             $oFotoNasa = REST::apiNasa($fechaNueva);
             $_SESSION['InfoNasa'] = $oFotoNasa;
-            $_SESSION['fechaDetalleNasa'] = $fechaNueva;
+            $_SESSION['fechaEnCurso'] = $fechaNueva;
         }
 
         //  Usamos los datos ya guardados
-        $fechaNasa = $_SESSION['fechaDetalleNasa'];
+        // $fechaNasa = $_SESSION['fechaEnCurso'];
     }
 }
 
-if (isset($_SESSION['InfoNasa'])) {
-    $oFotoNasa = $_SESSION['InfoNasa'];
-} else {
-    //se llama a la api con la fecha formateada
-    $oFotoNasa = REST::apiNasa($fechaHoyFormateada);
-    $_SESSION['InfoNasa']= $oFotoNasa;
-}
+// if (isset($_SESSION['InfoNasa'])) {
+//     $oFotoNasa = $_SESSION['InfoNasa'];
+// } else {
+//     //se llama a la api con la fecha formateada
+//     $oFotoNasa = REST::apiNasa($fechaHoyFormateada);
+//     $_SESSION['InfoNasa']= $oFotoNasa;
+// }
 
-
+//se asgina las variables para la vista
+$oFotoNasa = $_SESSION['InfoNasa'];
+$fechaNasa = $_SESSION['fechaEnCurso'];
 
 
 

@@ -32,7 +32,7 @@ $controller = [
   'detallesNasa' => 'controller/cDetallesNasa.php',
   'dpto' => 'controller/cDepartamentos.php',
   'altaDpto' => 'controller/cAltaDepartamento.php',
-  'modificarDpto' => 'controller/cModificaDepartamento.php'
+  'modificarDpto' => 'controller/cConsultarModificarDepartamento.php'
 ];
 
 $view = [
@@ -51,6 +51,6 @@ $view = [
   'detallesNasa' => 'view/vDetallesNasa.php',
   'dpto' => 'view/vDepartamentos.php',
   'altaDpto' => 'view/vAltaDepartamento.php',
-  'modificarDpto' => 'view/vModificaDepartamento.php'
+  'modificarDpto' => 'view/vConsultarModificarDepartamento.php'
 ];  
 ?>
