@@ -32,7 +32,11 @@ $controller = [
   'detallesNasa' => 'controller/cDetallesNasa.php',
   'dpto' => 'controller/cDepartamentos.php',
   'altaDpto' => 'controller/cAltaDepartamento.php',
-  'modificarDpto' => 'controller/cConsultarModificarDepartamento.php'
+  'modificarDpto' => 'controller/cConsultarModificarDepartamento.php',
+  'eliminarDpto' => 'controller/cEliminarDepartamento.php',
+  'mtoUsuarios' => 'controller/cMantenimientoUsuarios.php',
+  'altaDpto' => 'controller/cAltaDepartamento.php'
+
 ];
 
 $view = [
@@ -51,6 +55,46 @@ $view = [
   'detallesNasa' => 'view/vDetallesNasa.php',
   'dpto' => 'view/vDepartamentos.php',
   'altaDpto' => 'view/vAltaDepartamento.php',
-  'modificarDpto' => 'view/vConsultarModificarDepartamento.php'
-];  
+  'modificarDpto' => 'view/vConsultarModificarDepartamento.php',
+  'eliminarDpto' => 'view/vEliminarDepartamento.php',
+  'mtoUsuarios' => 'view/vMantenimientoUsuarios.php',
+  'altaDpto' => 'view/vAltaDepartamento.php'
+]; 
+
+//Para la relación de Roles y permisos se crea un array con los permisos de cada rol.
+$aRolPerfil = [
+    'administrador' => [
+        'inicioPrivado', 
+        'detalles', 
+        'cuenta', 
+        'cambiarPassword', 
+        'borrarCuenta', 
+        'rest',
+        'dpto', 
+        'altaDpto', 
+        'modificarDpto', 
+        'eliminarDpto',
+        'mtoUsuarios'
+    ],
+    'usuario' => [
+      'inicioPrivado', 
+      'detalles', 
+      'cuenta', 
+      'cambiarPassword', 
+      'borrarCuenta', 
+      'rest',
+      'dpto', 
+      'altaDpto', 
+      'modificarDpto', 
+      'eliminarDpto']
+    ];
+
+    // paginas permitidas sin estar logueado(para poder indicarlo en el index y no repetirlo en cada controlador)
+    $aPaginasPublicas = [
+      'inicioPublico',
+      'login',
+      'registro',
+      'error',
+      'wip'
+    ];
 ?>

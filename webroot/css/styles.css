@@ -201,6 +201,24 @@ nav button {
     box-shadow: 0 0 10px var(--colorAzulTranparente);
 }
 
+.botonSessionAltaDpto {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+}
+
+.botonSessionAltaDpto:hover {
+    /**/
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+
 #botonSessionLogin {
     background-color: var(--colorAzul);
     color: var(--colorBlanco);
@@ -230,6 +248,8 @@ nav button {
     margin-right: 10px;
 }
 
+
+
 #botonSessionIPrivado:hover {
     /**/
     color: white;
@@ -237,6 +257,22 @@ nav button {
     box-shadow: 0 0 10px var(--colorAzulTranparente);
 }
 
+#botonAltaDpto {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
+    margin-right: 10px;
+}
+#botonAltaDpto:hover {
+    /**/
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
 .botonCuenta {
     width: 40px;
     height: 40px;
@@ -511,7 +547,11 @@ main {
     font-size: 14px;
     margin-bottom: 10px;
 }
-
+.errorAltaDepartamentoDiv{
+    color: var(--colorRojo);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
 .form {
     padding-top: 75px;
     right: 250px;
@@ -560,7 +600,7 @@ input {
 #password,
 #descUsuario,
 #passwordActual,
-#confirmaPassword,#preguntaSeguridad {
+#confirmaPassword,#preguntaSeguridad,#descDepartamentoAlta,#codDepartamento, #volumenDeNegocio,#fechaCreacionDepartamento {
     background-color: var(--colorCampoObligatorio);
 }
 
@@ -605,7 +645,7 @@ input {
     padding-right: 30px;
 }
 
-/*Imagenes centrales*/
+/*Imagenes centrales CARRUSEL*/
 
 .seccionCarrusel {
     display: flex;
@@ -641,7 +681,18 @@ input {
     /* Para que los diagramas no se deformen */
     background-color: white;
 }
+.photos a {
+    width: 20%;
+    height: 100%;
+    flex-shrink: 0;
+}
 
+.photos a img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: white;
+}
 /* Estilo de los botones (Radios) */
 .carrusel-contenedor input {
     position: absolute;
@@ -1178,7 +1229,7 @@ PAgina Mantenimineto de Departamento
     height: 60px;
 }
 #descDepartamento{
-    width:40rem;
+    width:30rem;
     height: 40px;
     border-radius: 5px;
     margin-bottom: 0;

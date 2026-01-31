@@ -164,28 +164,33 @@ class UsuarioPDO
 
         return $oUsuario;
     }
-
+//validarCodigoNoExiste
     /**
-     * Comprueba si un código de usuario ya existe en la BD
-     * @param string $codUsuario
-     * @return boolean true si existe, false si no
-     */
-    public static function validarCodigoNoExiste($codUsuario)
-    {
-        $existe = false;
-        $sql = "SELECT T01_CodUsuario FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
+ * Comprueba si un código de usuario ya existe en la BD
+ * @param string $codUsuario
+ * @return boolean true si existe, false si no
+ */
+public static function validarCodUsuarioExiste($codUsuario)
+{
+    $existe = false;
+    $sql = "SELECT T01_CodUsuario FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
 
-        try {
-            //si la consulta devuelve alguna fila es que el codigo ya existe
-            $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
-            if ($consulta->rowCount() > 0) {
-                $existe = true;
-            }
-        } catch (Exception $e) {
-            $existe = false;
+    try {
+        $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
+        
+        // Si fetch devuelve algo, es que el código ya está en uso
+        if ($consulta->fetch()) {
+            $existe = true;
         }
-        return $existe;
+    } catch (Exception $e) {
+        // Registro del error (OWASP A09)
+        error_log("Error crítico en validación de usuario: " . $e->getMessage());
+        // Ante la duda por error técnico, se bloque para evitar duplicados
+        return true; 
     }
+    
+    return $existe;
+}
 
     /**
      * Cambia la contraseña de un usuario existente

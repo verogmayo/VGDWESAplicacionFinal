@@ -40,23 +40,25 @@ if (isset($_REQUEST['enviar'])) {
 
     // Validar los campos del formulario
     $aErrores['codDepartamento'] = validacionFormularios::comprobarAlfabetico($_REQUEST['codDepartamento'], 3, 3, 1);
+    //Si la librería dice que está OK, se nuestra comprobación extra de mayúsculas. Si el usuario desactiva js y escribe en minúsculas sale el mensaje de error.
+if ($aErrores['codDepartamento'] == null) {
+    if (!preg_match('/^[A-Z]{3}$/', $_REQUEST['codDepartamento'])) {
+        $aErrores['codDepartamento'] = "El código debe estar formado por 3 letras MAYÚSCULAS.";
+        $entradaOK = false;
+    }
+}
     $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 4, 1);
-    $aErrores['fechaCreacionDepartamento'] = validacionFormularios::validarFecha($_REQUEST['fechaCreacionDepartamento'], null, null, 1);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::validarFloat($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, PHP_FLOAT_MIN, 1);
-    $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
 
-    //se comprueba que las contraseñas coincidan
-    if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
-                $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
-                $entradaOK = false;
-            }
 
     // Guardar las respuestas para rellenar el formulario si hay algun error
-    $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
-    $aRespuestas['password'] = $_REQUEST['password'];
-    $aRespuestas['descUsuario'] = $_REQUEST['descUsuario'];
-    $aRespuestas['confirmaPassword'] = $_REQUEST['confirmaPassword'];
-    $aRespuestas['preguntaSeguridad'] = $_REQUEST['preguntaSeguridad'];
+    $aRespuestas['codDepartamento'] = $_REQUEST['codDepartamento'];
+    $aRespuestas['descDepartamento'] = $_REQUEST['descDepartamento'];
+    $aRespuestas['fechaCreacionDepartamento'] = $_REQUEST['fechaCreacionDepartamento'];
+    //conversion de la coma en punto en el float
+    $volumenConPunto = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
+    // Asignación del valor al array 
+    $aRespuestas['volumenDeNegocio'] = $volumenConPunto;
 
     // Verificar si hay errores de validación
     foreach ($aErrores as $valorCampo => $msjError) {
@@ -65,33 +67,32 @@ if (isset($_REQUEST['enviar'])) {
         }
     }
 
-    // Si la validación es correcta, validar con la BD
+    // Si la validación es correcta, se crea el nuevo departamento
     if ($entradaOK) {
-        // Se comprueba si el código de usuario ya existe
-        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
-            $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
+        // Se comprueba si el código de departamento ya existe
+        if (DepartamentoPDO::validarCodDepartamentoExiste($_REQUEST['codDepartamento'])) {
+            $aErrores['codDepartamento'] = "El código de departamento ya existe.";
             $entradaOK = false;
-            
         } else {
-            // Si no existe, se crea el nuevo usuario
-            $oUsuario = UsuarioPDO::crearUsuario(
-                $_REQUEST['codUsuario'],
-                $_REQUEST['password'],
-                $_REQUEST['descUsuario']
+            // Si no existe, se crea el nuevo departamento
+            $oDepartamento = DepartamentoPDO::altaDepartamento(
+                $_REQUEST['codDepartamento'],
+                $_REQUEST['descDepartamento'],
+                $volumenConPunto
             );
 
-            if ($oUsuario === null) {
+
+            if ($oDepartamento === null) {
                 $entradaOK = false;
-                //Se crea el error en el caso de que no se pueda crear el usuario
-                $_SESSION['errorRegistro'] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
+                //Se crea el error en el caso de que no se pueda crear el departamento
+                $_SESSION['errorAltaDepartamento'] = "Error al crear el departamento. Por favor, inténtalo de nuevo.";
                 //Se redirige al login 
-                $_SESSION['paginaEnCurso'] = 'login';
+                $_SESSION['paginaEnCurso'] = 'dpto';
                 header('Location: index.php');
                 exit;
             } else {
-                // Login correcto
-                $_SESSION['usuarioVGDAWAplicacionFinal'] = $oUsuario;
-                $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+                // si se ha creado correctamente, se redirige a mantenimiento departamentos
+                $_SESSION['paginaEnCurso'] = 'dpto';
                 header('Location: index.php');
                 exit;
             }
@@ -101,12 +102,16 @@ if (isset($_REQUEST['enviar'])) {
     // Si no se ha enviado el formulario
     $entradaOK = false;
 }
-$avRegistro = [
-    'codUsuario' => $aRespuestas['codUsuario'],
-    'password' => $aRespuestas['password'],
-    'descUsuario' => $aRespuestas['descUsuario'],
-    'confirmaPassword' => $aRespuestas['confirmaPassword'],
-    'preguntaSeguridad' => $aRespuestas['preguntaSeguridad'],
+//Fecha de hoy para ponerla por defecto en el formulario
+$fechaCreacionHoy = new DateTime();
+$fechaCreacionHoyFormateada = $fechaCreacionHoy->format('Y-m-d');
+$aRespuestas['fechaCreacionDepartamento'] = $fechaCreacionHoyFormateada;
+// Si la entrada no es correcta, se carga el formulario
+$avAltaDepartmento = [
+    'codDepartamento' => $aRespuestas['codDepartamento'],
+    'descDepartamento' => $aRespuestas['descDepartamento'],
+    'fechaCreacionDepartamento' => $aRespuestas['fechaCreacionDepartamento'],
+    'volumenDeNegocio' => $aRespuestas['volumenDeNegocio'],
     'aErrores' => $aErrores
 ];
 

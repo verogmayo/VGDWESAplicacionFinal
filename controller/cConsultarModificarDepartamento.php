@@ -1,16 +1,9 @@
 <?php
 /**
  * @author: Véro Grué
- * @since: 26/01/2026
+ * @since: 28/01/2026
  */
-//Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
+
 
 // Se comprueba si el botón "volver" ha sido pulsado.
 if (isset($_REQUEST['volver'])) {
@@ -44,7 +37,7 @@ if (isset($_REQUEST['cerrar'])) {
 if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'inicioPrivado';
+    $_SESSION['paginaEnCurso'] = 'dpto';
     header('Location: index.php');
     exit;
 }
@@ -65,7 +58,7 @@ $entradaOK = true;
 if (isset($_REQUEST['enviar'])) {
     // Se Valida el campo usando tu librería de validación
     $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 4, 1);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloat($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
     // SE Comprueba si hay errores
     
     if ($aErrores['descDepartamento'] !== null || $aErrores['volumenDeNegocio'] !== null) {
@@ -75,7 +68,8 @@ if (isset($_REQUEST['enviar'])) {
     //  Si entradaOK se modifica el nombre del departamento
     if ($entradaOK) {
         $descDepartamentoNueva = $_REQUEST['descDepartamento'];
-        $volumenDeNegocioNuevo = $_REQUEST['volumenDeNegocio'];
+        //Se convierte la coma en punto para el float
+        $volumenDeNegocioNuevo = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
         
         // Llamamos al modelo
         $oDepartamentoNuevo = DepartamentoPDO::modificarDepartamento($oDepartamentoEnCurso, $descDepartamentoNueva, $volumenDeNegocioNuevo);

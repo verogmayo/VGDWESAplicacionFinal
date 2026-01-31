@@ -33,12 +33,27 @@
         <input type="radio" name="rd" id="rd5">
 
         <div class="photos">
-            <img src="webroot/images/ArbolNavegacion.png" alt="App Multicapa">
-            <img src="webroot/images/RelacionFicherosAppFinal.png" alt="Relación Ficheros">
-            <img src="webroot/images/RelacionFicherosAppFinal2.png" alt="Relación Ficheros">
-            <img src="webroot/images/DiagramaClasesAppFinal.png" alt="Diagrama de Clases">
-            <img src="webroot/images/UsoSessionAppFinal.png" alt="UsoSession">
-        </div>
+    <a href="webroot/doc/ArbolNavegacion.pdf" target="_blank">
+        <img src="webroot/images/ArbolNavegacion.png" alt="App Multicapa">
+    </a>
+
+    <a href="webroot/doc/RelacionFicherosAppFinal.pdf" target="_blank">
+        <img src="webroot/images/RelacionFicherosAppFinal.png" alt="Relación Ficheros">
+    </a>
+
+    <a href="webroot/doc/DiagramaDeCasosDeUso.pdf" target="_blank">
+        <img src="webroot/images/DiagramaDeClases.png" alt="Diagrama de Casos de Uso">
+    </a>
+
+    <a href="webroot/doc/DiagramaClasesAppFinal.pdf" target="_blank">
+        <img src="webroot/images/DiagramaClasesAppFinal.png" alt="Diagrama de Clases">
+    </a>
+
+    <a href="webroot/doc/UsoSessionAppFinal.pdf" target="_blank">
+        <img src="webroot/images/UsoSessionAppFinal.png" alt="UsoSession">
+    </a>
+</div>
+
     </div>
 </section>
 </main>

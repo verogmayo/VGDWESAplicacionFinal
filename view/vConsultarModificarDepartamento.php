@@ -76,7 +76,7 @@
 
         <div class="filaDato">
             <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
-            <input name="volumenDeNegocio" id="volumenDeNegocio" type="number" step="0.01"
+            <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
                    value='<?php echo $avVerModificarDpto['volumenDeNegocio'] ?>'
                    <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
             <div class="icono"><span></span></div>
