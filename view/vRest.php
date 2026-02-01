@@ -23,7 +23,7 @@
                      <form method="post" id="nasa" name="nasa">
                          <input type="date" name="fechaNasa" id="fechaNasa" value="<?php echo $avRest['fechaNasa'] ?>" max="<?php echo $avRest['fechaHoy'] ?>">
                          <button id="botonSessionRest" class="" type="submit" name="enviarNasa">Enviar</button>
-                         <?php echo ($avRest['errorNasa']) ? "<span style='color:red'>".$avRest['errorNasa']."</span>" : ""; ?>
+                         <?php echo ($avRest['errorNasa']) ? "<span style='color:red'>" . $avRest['errorNasa'] . "</span>" : ""; ?>
                          <button id="botonSessionRest" class="" type="submit" name="detallesNasa">Detalle</button>
                      </form>
                  </div>
@@ -31,15 +31,28 @@
                      <?php echo $avRest['tituloNasa']; ?>
                  </div>
                  <div class="infoRest">
-                     <img src="<?php echo $avRest['fotoNasa']; ?>">
+                     <div class="imagenNasa">
+                         <?php if (!empty($avRest['fotoSerializada'])): ?>
+                             <img src="<?php echo $avRest['fotoSerializada']; ?>" alt="Foto NASA">
+                         <?php else: ?>
+                             <p style="color:orange;"> <?php echo $avRest['errorNasa'] ?? "No hay imagen disponible para esta fecha."; ?></p>
+                         <?php endif; ?>
+                     </div>
+                     <div class="infoRestUso">
+                         <h4>Paso a Paso del Uso de la Api</h4>
+
+                         <p>Se solicita la <span style="font-weight:bold">apiKey</span> en el enlace de la <a href="https://api.nasa.gov/" target="_blank">Nasa</a></p>
+                         <p>Se forma la url para solicitar la foto del día, con la url, la fecha($fecha) y la apiKey <span style="font-weight:bold">https://api.nasa.gov/planetary/apod?api_key=APINASA&date=$fecha</span> </p>
+                         <p>Gracias a la extensíon curl de php, se envía la petición a la nasa, que responde enviando un json que hay que pasar a array para poder usar la información </p>
+                     </div>
                  </div>
              </div>
              <div class="containerRest">
-                <div class="contenedorInputRest">
+                 <div class="contenedorInputRest">
                      <form method="post" id="libro" name="libro">
-                         <input type="text" name="tituloLibro" id="tituloLibro" value="" >
+                         <input type="text" name="tituloLibro" id="tituloLibro" value="">
                          <button id="botonSessionRest" class="" type="submit" name="enviarLibro">Enviar</button>
-                         <?php echo ($avRest['errorLibro']) ? "<span style='color:red'>".$avRest['errorLibro']."</span>" : ""; ?>
+                         <?php echo ($avRest['errorLibro']) ? "<span style='color:red'>" . $avRest['errorLibro'] . "</span>" : ""; ?>
                      </form>
                  </div>
                  <div class="tituloRest">
@@ -57,7 +70,7 @@
                      DEPARTAMENTOS
                  </div>
                  <div class="infoRest3">
-                     
+
                  </div>
              </div>
 

@@ -20,7 +20,7 @@ class REST{
      * @link https://api.nasa.gov/ Obtener API Key
      */
 
-    const API_KEY_NASA = '083Uw36QI57jfPsnN7WLo6modct0fAyaxHzzaBNN';
+    // const API_KEY_NASA = '083Uw36QI57jfPsnN7WLo6modct0fAyaxHzzaBNN';
 /**
      * Obtiene la foto astronómica del día de la NASA para una fecha específica
      *
@@ -30,20 +30,11 @@ class REST{
      * @param string $fecha Fecha en formato YYYY-MM-DD
      * @return FotoNasa|null Objeto con los datos de la foto o null si falla
      */
-    //  public static function apiNasa($fecha){
-    //         // se accede a la url de la nasa
-    //         $resultado = file_get_contents($url = "https://api.nasa.gov/planetary/apod?date=$fecha&api_key=" . self::API_KEY_NASA);
-    //         $archivoApi=json_decode($resultado,true);
-    //         //si el archivo se a descodificado correctamente, rotorna la foto
-    //         if(isset($archivoApi)){
-    //              $oFotoNasa= new FotoNasa($archivoApi['title'],$archivoApi['url'], $archivoApi['date'],$archivoApi['explanation'],$archivoApi['hdurl']);
-    //              return $oFotoNasa;
-    //         }
-    // }
+   
 
     public static function apiNasa($fecha) {
     // URL de la API de NASA con la clave y la fecha
-    $url = "https://api.nasa.gov/planetary/apod?api_key=". self::API_KEY_NASA ."&date=$fecha";
+    $url = "https://api.nasa.gov/planetary/apod?api_key=". API_KEY_NASA ."&date=$fecha";
     
     // Inicializar cURL (una librería de PHP para hacer peticiones HTTP más robustas). 
     // https://www.php.net/manual/es/book.curl.php
@@ -77,19 +68,51 @@ class REST{
     $archivoApi = json_decode($resultado, true);
     
     // Si el JSON tiene los datos necesarios, crear el objeto FotoNasa. Si solo se pone if(isset($archivoApi)), devuelve siempre algo aunque no haya datos
-    if(isset($archivoApi['title'])){
+    if(isset($archivoApi['title']) && isset($archivoApi['media_type']) && $archivoApi['media_type'] == 'image'){
+     //Se descarga la imagen con curl para que funcione en explotación 
+        $chImg = curl_init();
+        curl_setopt($chImg, CURLOPT_URL, $archivoApi['url']);
+        //devuelve el resultado en lugar de imprimirlo
+        curl_setopt($chImg, CURLOPT_RETURNTRANSFER, true);
+        //verifica el sertificado ssl
+        curl_setopt($chImg, CURLOPT_SSL_VERIFYPEER, true);
+        $imagenBinaria = curl_exec($chImg);
+
+        // Se serializa: se para a imagenBase64 para guardar la imagen 
+        $imagenBase64 = "";
+        if ($imagenBinaria) {
+            $imagenBase64 = 'data:image/jpeg;base64,' . base64_encode($imagenBinaria);
+        }
+
+        $chImgHD = curl_init();
+        curl_setopt($chImgHD, CURLOPT_URL, $archivoApi['url']);
+        //devuelve el resultado en lugar de imprimirlo
+        curl_setopt($chImgHD, CURLOPT_RETURNTRANSFER, true);
+        //verifica el sertificado ssl
+        curl_setopt($chImgHD, CURLOPT_SSL_VERIFYPEER, true);
+        $imagenBinariaHD = curl_exec($chImgHD);
+
+        // Se serializa: se pasa a imagenBase64 para guardar la imagen 
+        $imagenBase64HD = "";
+        if ($imagenBinariaHD) {
+            $imagenBase64HD = 'data:image/jpeg;base64,' . base64_encode($imagenBinariaHD);
+        }
+        // SE crea el objeto FotoNasa
         $fotoNasa = new FotoNasa(
             $archivoApi['title'],
             $archivoApi['url'], 
             $archivoApi['date'],
             $archivoApi['explanation'],
-            $archivoApi['hdurl'] ?? ''  
+            $archivoApi['hdurl'] ?? '',
+            $imagenBase64,
+            $imagenBase64HD
+
         );
+        
         return $fotoNasa;
     }
-    
-    // Si no se pudo obtener la foto, retornar null
-    return null;
+//Si la cadena no es una imagen retorna el texto NoHayImagen
+    return "NoHayImagen"; 
 }
 
 /**

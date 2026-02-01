@@ -1,15 +1,15 @@
 <!-- <div class="header"> -->
-        <div class="tituloCentralDetalles">
-            <h3>Detalles del Sistema</h3>
-        </div>
-        <form class="botonesDetalles">
-            <div class="botonVolverLogin">
-                <button id="botonVolverDetalles" class="botonAzul" type="submit" name="volver">Volver</button>
-            </div>
-            <button id="botonCuenta" class="botonCuenta" type="submit" name="cuenta"><?php echo $avDetalles['inicial']; ?></button>
-            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="cerrar">Cerrar Sessión</button>
-        </form>
-    <!-- </div>   -->
+<div class="tituloCentralDetalles">
+    <h3>Detalles del Sistema</h3>
+</div>
+<form class="botonesDetalles">
+    <div class="botonVolverLogin">
+        <button id="botonVolverDetalles" class="botonAzul" type="submit" name="volver">Volver</button>
+    </div>
+    <button id="botonCuenta" class="botonCuenta" type="submit" name="cuenta"><?php echo $avDetalles['inicial']; ?></button>
+    <button id="botonSessionIPrivado" class="botonSession" type="submit" name="cerrar">Cerrar Sessión</button>
+</form>
+<!-- </div>   -->
 </header>
 <main>
     <section class="sectionDetalles">
@@ -18,6 +18,10 @@
         echo '<h3>Contenido de la variable $_SESSION</h3><br>';
         echo ' <article class="articleSG">';
         echo '<table class="tableSG" >';
+        echo '<colgroup>
+        <col style="width: 28%;">
+        <col style="width: 72%;">
+      </colgroup>';
         echo '<tr><th>Variable</th><th>Valor</th></tr>';
         if (!empty($_SESSION)) {
             foreach ($_SESSION as $variable => $resultado) {
@@ -36,6 +40,10 @@
         //Contenido de la variable $_COOKIE---------------------------------------------------
         echo '<br><br><h3>Contenido de la variable $_COOKIE</h3><br>';
         echo ' <article class="articleSG">';
+        echo '<colgroup>
+        <col style="width: 28%;">
+        <col style="width: 72%;">
+      </colgroup>';
         echo '<table class="tableSG" >';
         echo '<tr><th>Variable</th><th>Valor</th></tr>';
         if (!empty($_COOKIE)) {
@@ -59,6 +67,10 @@
         echo ' <article class="articleSG">';
 
         echo '<table class="tableSG" >';
+        echo '<colgroup>
+        <col style="width: 28%;">
+        <col style="width: 72%;">
+      </colgroup>';
         echo '<tr><th>Variable</th><th>Valor</th></tr>';
         if (!empty($_SERVER)) {
             foreach ($_SERVER as $variable => $resultado) {

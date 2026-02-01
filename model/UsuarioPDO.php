@@ -185,7 +185,7 @@ class UsuarioPDO
         } catch (Exception $e) {
             // Registro del error (OWASP A09)
             error_log("Error crítico en validación de usuario: " . $e->getMessage());
-            // Ante la duda por error técnico, se bloque para evitar duplicados
+            //si hay un problema, devuelve true para evitar problemas
             return true;
         }
 

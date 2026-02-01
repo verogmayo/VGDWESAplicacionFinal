@@ -5,8 +5,6 @@
  */
 
 
-
-
 // Se comprueba si el botón "cerrar" ha sido pulsado.
 if (isset($_REQUEST['cerrar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
@@ -33,20 +31,20 @@ if(isset($_REQUEST['volver'])){
     header('Location: index.php');
     exit;
 }
-// $oFotoNasa = null;
-// if(isset($_SESSION['fotoNasa'])){
-//     $oFotoNasa = $_SESSION['InfoNasa'];
-// }
+
 
 // $fechaNasa=$_SESSION['fechaEnCurso'];
 $oFotoNasa= $_SESSION['InfoNasa'] ?? null;
+// se crea un booleano para comprobar que oFotoNasa es un objeto
+$esObjetoNasa = ($oFotoNasa instanceof FotoNasa);
+
+$fechaNasa = new DateTime($oFotoNasa->getFecha());
 $avDetallesNasa=[
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
-    'tituloNasa' => ($oFotoNasa) ? $oFotoNasa->getTitulo() : "No hay datos",
-    'fotoNasaHD' => ($oFotoNasa) ? $oFotoNasa->getUrlhd(): "",
-    // 'fechaNasa' => $fechaNasa,
-    'fechaNasa' => ($oFotoNasa) ? $oFotoNasa->getFecha() : "No hay datos",
-    'explicacionNasa' => ($oFotoNasa) ? $oFotoNasa->getExplicacion() : ""
+    'tituloNasa' => $esObjetoNasa ? $oFotoNasa->getTitulo() : "No hay título",
+    'fotoSerializadaHD' => $esObjetoNasa ? $oFotoNasa->getImagenHDBase64() : "",
+    'fechaNasa' => $esObjetoNasa ? $fechaNasa->format('d/m/Y') : "No hay fecha",
+    'explicacionNasa' => $esObjetoNasa ? $oFotoNasa->getExplicacion() : "No hay explicación"
 ];
 
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web

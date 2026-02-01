@@ -17,6 +17,9 @@ require_once 'model/Libro.php';
 require_once 'model/Departamento.php';
 require_once 'model/DepartamentoPDO.php';
 
+//ApiKey de la nasa
+define('API_KEY_NASA', '083Uw36QI57jfPsnN7WLo6modct0fAyaxHzzaBNN'); 
+
 $controller = [
   'inicioPublico' => 'controller/cInicioPublico.php',
   'login' => 'controller/cLogin.php',
@@ -77,11 +80,15 @@ $aRolPerfil = [
         'cuenta', 
         'cambiarPassword', 
         'borrarCuenta', 
+        'error',
+        'wip',
         'rest',
+        'detallesNasa',
         'dpto', 
         'altaDpto', 
         'modificarDpto', 
         'eliminarDpto',
+        'altaDpto',
         'mtoUsuarios',
         'modificarUsuario',
         'cambiarPasswordAdmin',
@@ -94,11 +101,15 @@ $aRolPerfil = [
       'cuenta', 
       'cambiarPassword', 
       'borrarCuenta', 
+      'error',
+      'wip',
       'rest',
+      'detallesNasa',
       'dpto', 
       'altaDpto', 
       'modificarDpto', 
-      'eliminarDpto'
+      'eliminarDpto',
+      'altaDpto'
       ]
     ];
 
