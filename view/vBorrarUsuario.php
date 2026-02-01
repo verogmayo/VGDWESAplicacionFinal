@@ -1,0 +1,29 @@
+</header>
+<main class="mainForm">
+    <section class="formulario">
+        <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
+            <p class="pInicioSession"> Borrar cuenta en Aplicación Final</p>
+        </div>
+        <form class="form" action="index.php" method="post">
+
+            <div class="contenedorInput">
+                <div class="textoBorrarUsuario"><p>¿Estás seguro de que quieres borrar la cuenta de <span><?php echo$avBorrarUsuario['descUsuario'];?></span>.</p> 
+                <p>Los datos se borrarán de forma permanente y no podrás recuperarlos.</p>
+                </div>
+                <!-- Mensaje de error si no se pouede borrar el usuario -->
+                <?php if (!empty($errorBorrar)): ?>
+                    <div class="errorBorrar">
+                        <p><?php echo $errorBorrar; ?></p>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="divBotones">
+                <button id="botonSessionLogin" class="botonSession" type="submit" name="borrar">Borrar Usuario</button>
+                <div class="botonVolverLogin">
+                    <button id="botonVolverLogin" class="botonAzul" type="submit" name="volver">Volver</button>
+                </div>
+
+            </div>
+        </form>
+    </section>
+</main>

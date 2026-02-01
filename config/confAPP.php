@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 27/01/2026
+ * @since: 30/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
@@ -34,8 +34,12 @@ $controller = [
   'altaDpto' => 'controller/cAltaDepartamento.php',
   'modificarDpto' => 'controller/cConsultarModificarDepartamento.php',
   'eliminarDpto' => 'controller/cEliminarDepartamento.php',
-  'mtoUsuarios' => 'controller/cMantenimientoUsuarios.php',
-  'altaDpto' => 'controller/cAltaDepartamento.php'
+  'altaDpto' => 'controller/cAltaDepartamento.php',
+  'mtoUsuarios' => 'controller/cMtoUsuarios.php',
+  'modificarUsuario' => 'controller/cConsultarModificarUsuario.php',
+  'cambiarPasswordAdmin'=>'controller/cCambiarPasswordAdmin.php',
+  'borrarUsuario'=>'controller/cBorrarUsuario.php',
+  'altaUsuario'=>'controller/cAltaUsuario.php'
 
 ];
 
@@ -57,8 +61,12 @@ $view = [
   'altaDpto' => 'view/vAltaDepartamento.php',
   'modificarDpto' => 'view/vConsultarModificarDepartamento.php',
   'eliminarDpto' => 'view/vEliminarDepartamento.php',
-  'mtoUsuarios' => 'view/vMantenimientoUsuarios.php',
-  'altaDpto' => 'view/vAltaDepartamento.php'
+  'altaDpto' => 'view/vAltaDepartamento.php',
+  'mtoUsuarios' => 'view/vMtoUsuarios.php',
+  'modificarUsuario'=>'view/vConsultarModificarUsuario.php',
+  'cambiarPasswordAdmin'=>'view/vCambiarPasswordAdmin.php',
+  'borrarUsuario'=>'view/vBorrarUsuario.php',
+  'altaUsuario'=>'view/vAltaUsuario.php'
 ]; 
 
 //Para la relación de Roles y permisos se crea un array con los permisos de cada rol.
@@ -74,7 +82,11 @@ $aRolPerfil = [
         'altaDpto', 
         'modificarDpto', 
         'eliminarDpto',
-        'mtoUsuarios'
+        'mtoUsuarios',
+        'modificarUsuario',
+        'cambiarPasswordAdmin',
+        'borrarUsuario',
+        'altaUsuario'
     ],
     'usuario' => [
       'inicioPrivado', 
@@ -86,7 +98,8 @@ $aRolPerfil = [
       'dpto', 
       'altaDpto', 
       'modificarDpto', 
-      'eliminarDpto']
+      'eliminarDpto'
+      ]
     ];
 
     // paginas permitidas sin estar logueado(para poder indicarlo en el index y no repetirlo en cada controlador)

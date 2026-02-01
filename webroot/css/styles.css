@@ -600,10 +600,12 @@ input {
 #password,
 #descUsuario,
 #passwordActual,
-#confirmaPassword,#preguntaSeguridad,#descDepartamentoAlta,#codDepartamento, #volumenDeNegocio,#fechaCreacionDepartamento {
+#confirmaPassword,#preguntaSeguridad,#descDepartamentoAlta,#codDepartamento, #volumenDeNegocio,#fechaCreacionDepartamento,#passwordAdmin, #perfilAdmin {
     background-color: var(--colorCampoObligatorio);
 }
-
+#perfilAdminGris,#passwordAdminGris,#descUsuarioAdminGris,#descUsuarioAdmin{
+    background-color: var(--colorCampoRestringido);
+}
 #usuario:not(:placeholder-shown),
 #password:not(:placeholder-shown),
 #nombre:not(:placeholder-shown),
@@ -642,6 +644,39 @@ input {
     display: flex;
     flex-direction: row-reverse;
     justify-content: end;
+    padding-right: 30px;
+}
+
+
+.divBotonesPassAdmin {
+    & button {
+        all: unset;
+        /*Así se quitan lo que los botones tengan por defecto*/
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: var(--colorClaro);
+        cursor: pointer;
+        /*Para que el cursor sea una mano*/
+        border-radius: 5px;
+        margin-top: 20px;
+
+
+        & .botonSession {
+            background-color: var(--colorAzul);
+            color: var(--colorBlanco);
+            padding: 10px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 100px;
+            border: var(--colorAzul);
+        }
+    }
+}
+
+.divBotonesPassAdmin {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
     padding-right: 30px;
 }
 
@@ -1050,6 +1085,11 @@ Pagina Cuenta
     padding: 40px;
 }
 
+.textoBorrarUsuario span {
+    font-size: 20px;
+    font-weight: 600;
+    color:var(--colorVerde);
+}
 .errorBorrar {
     color: var(--colorRojo);
     font-size: 14px;
@@ -1190,6 +1230,26 @@ Estilos de  la pagina REST
 }
 .contenedorInputRest{
     height: 60px;
+}
+.contenedorInputPerfilUsuario{
+    margin-top: 10px;
+    height: 60px;
+    justify-content: center;
+}
+.inputAlta{
+    border: 1px solid var(--colorNegro);
+    border-radius: 5px;
+    height: 60px;
+    width: 75%;
+    background: var(--colorCampoObligatorio);
+    text-align: start;
+    padding: 10px;
+    color: #999;
+}
+.selectAlta{
+    font-size: 1.2rem;
+    color:#999;
+    background: var(--colorCampoObligatorio);
 }
 
 #botonSessionRest {

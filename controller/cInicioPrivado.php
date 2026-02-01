@@ -50,9 +50,18 @@ if (isset($_REQUEST['dpto'])) {
     header('Location: index.php');
     exit;
 }
+//se compueba si se ha pulsado el boton "rest"
 if (isset($_REQUEST['rest'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'rest';
+    header('Location: index.php');
+    exit;
+}
+
+
+if (isset($_REQUEST['mtoUsuarios'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
     header('Location: index.php');
     exit;
 }

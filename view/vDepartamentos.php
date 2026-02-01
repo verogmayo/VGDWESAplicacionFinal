@@ -80,7 +80,7 @@
                         <?php } ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="9">No se han encontrado departamentos.</td>
+                            <td colspan="9">No se han encontrado departamentos con esta descripción.</td>
                         </tr>
                     <?php endif; ?>
 

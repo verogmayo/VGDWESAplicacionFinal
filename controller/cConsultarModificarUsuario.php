@@ -9,7 +9,7 @@
 if (isset($_REQUEST['volver'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'dpto';
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
     header('Location: index.php');
     exit;
 }
@@ -37,70 +37,77 @@ if (isset($_REQUEST['cerrar'])) {
 if (isset($_REQUEST['cancelar'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'dpto';
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
+    header('Location: index.php');
+    exit;
+}
+if (isset($_REQUEST['cambiarPassword'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
+    $_SESSION['paginaEnCurso'] = 'cambiarPasswordAdmin';
     header('Location: index.php');
     exit;
 }
 
 
 
-$oDepartamentoEnCurso = $_SESSION['departamentoEnCurso'];
+$oUsuarioEnCurso = $_SESSION['usuarioEnCurso'];
 $modo = $_SESSION['modoVista']; // 'consultar' o 'modificar'
 // Arrays para la gestión de errores y respuestas
 $aErrores = [
-    'descDepartamento' => null,
-    'volumenDeNegocio' => null
+    'perfil' => null
 ];
 $aRespuestas = [
-    'descDepartamento' => $oDepartamentoEnCurso->getDescDepartamento(), 'volumenDeNegocio' => $oDepartamentoEnCurso->getVolumenDeNegocio()];
+     'perfil' => $oUsuarioEnCurso->getPerfil()];
 $entradaOK = true;
 
-if (isset($_REQUEST['enviar'])) {
+if (isset($_REQUEST['actualizarPerfil'])) {
     // Se Valida el campo usando la librería de validación
-    $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 4, 1);
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
+    $aErrores['perfil'] = validacionFormularios::comprobarAlfabetico($_REQUEST['perfil'],25,4,1);
     // SE Comprueba si hay errores
     
-    if ($aErrores['descDepartamento'] !== null || $aErrores['volumenDeNegocio'] !== null) {
+    if ( $aErrores['perfil'] !== null) {
         $entradaOK = false;
     }
 
     //  Si entradaOK se modifica el nombre del departamento
     if ($entradaOK) {
-        $descDepartamentoNueva = $_REQUEST['descDepartamento'];
-        //Se convierte la coma en punto para el float
-        $volumenDeNegocioNuevo = str_replace(',', '.', $_REQUEST['volumenDeNegocio']);
+       $perfilNuevo=$_REQUEST['perfil'];
         
-        // Llamamos al modelo
-        $oDepartamentoNuevo = DepartamentoPDO::modificarDepartamento($oDepartamentoEnCurso, $descDepartamentoNueva, $volumenDeNegocioNuevo);
-        if ($oDepartamentoNuevo) {
+
+    $oUsuarioNuevo = UsuarioPDO::modificarUsuarioPorAdmin(
+        $oUsuarioEnCurso, 
+        $perfilNuevo
+    );
+        if ($oUsuarioNuevo) {
             // Actualizamos la sesión con el objeto que nos devuelve el modelo
-            $_SESSION['departamentoEnCurso'] = $oDepartamentoNuevo;
+            $_SESSION['usuarioEnCurso'] = $oUsuarioNuevo;
             
             // Redirigimos a la página de inicio
-            $_SESSION['paginaEnCurso'] = 'dpto';
+            $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
             header('Location: index.php');
             exit;
         } else {
             // Error técnico en la base de datos (opcional)
-            $aErrores['descDepartamento'] = "No se pudo actualizar el nombre en la base de datos.";
+            $aErrores['perfil'] = "No se pudo actualizar el nombre en la base de datos.";
         }
     }
 }
 
-$fechaCreacionDpto = new DateTime($oDepartamentoEnCurso->getFechaCreacionDepartamento());
-$fechaBajaFormateada = '';
-if (!is_null($oDepartamentoEnCurso->getFechaBajaDepartamento())) {
-    $fechaBaja = new DateTime($oDepartamentoEnCurso->getFechaBajaDepartamento());
-    $fechaBajaFormateada = $fechaBaja->format('d/m/Y');
+if ($oUsuarioEnCurso->getNumAccesos() == 0) {
+    $fechaAMostrar = 'Nunca';
+} else {
+    // Si tiene conexiones, obtenemos el objeto DateTime y lo formateamos
+    $oFecha = $oUsuarioEnCurso->getFechaHoraUltimaConexion();
+    $fechaAMostrar = ($oFecha) ? $oFecha->format('d/m/Y H:i:s') : 'Nunca';
 }
 
-$avVerModificarDpto = [
-    'codDepartamento' => $oDepartamentoEnCurso->getCodDepartamento(),
-    'descDepartamento' => $oDepartamentoEnCurso->getDescDepartamento(),
-    'fechaCreacionDpto' => $fechaCreacionDpto->format('d/m/Y'),
-    'volumenDeNegocio' => $oDepartamentoEnCurso->getVolumenDeNegocio(),
-    'fechaBajaDepartamento' => $oDepartamentoEnCurso->getFechaBajaDepartamento() ? $oDepartamentoEnCurso->getFechaBajaDepartamento() : 'Activo',
+$avVerModificarUsuario = [
+    'codUsuario' => $oUsuarioEnCurso->getCodUsuario(),
+    'descUsuario' => $oUsuarioEnCurso->getDescUsuario(),
+    'password'=>$oUsuarioEnCurso->getPassword(),
+    'fechaUltimaConexion' => $fechaAMostrar, 
+    'perfil' => $oUsuarioEnCurso->getPerfil(),
     'modo' => $modo, 
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
 ];
