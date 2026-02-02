@@ -52,6 +52,10 @@
                         <button class="botonCentral" type="submit" name="detalles" id="detalles">Detalles</button>
                         <button class="botonCentral" type="submit" name="error" id="error">Error</button>
                         <button class="botonCentral" type="submit" name="dpto" id="dpto">Mantenimiento de Departamentos</button>
+                      <?php if(in_array('mtoUsuarios',$avInicioPrivado['perfil'])){?>
+                        <button class="botonCentral" type="submit" name="mtoUsuarios" id="mtoUsuarios">Mantenimiento de Usuarios</button>
+                        <?php } ?>
+                    
                     </form>
                 </div>
             </section>

@@ -48,7 +48,7 @@ class UsuarioPDO
 
 
             // Obtener el resultado
-            $usuarioDB = $consulta->fetch(PDO::FETCH_ASSOC);
+            $usuarioDB = $consulta->fetchObject();
 
             // Si no existe el usuario o la contraseña es incorrecta
             if (!$usuarioDB) {
@@ -56,19 +56,19 @@ class UsuarioPDO
             }
 
             //Se convierte la fecha en datetime
-            $fechaBD = $usuarioDB['T01_FechaHoraUltimaConexion'];
+            $fechaBD = $usuarioDB->T01_FechaHoraUltimaConexion;
             $oFechaValida = ($fechaBD) ? new DateTime($fechaBD) : null;
             // Crear el objeto Usuario con los datos de la BD
             $oUsuario = new Usuario(
-                $usuarioDB['T01_CodUsuario'],
-                $usuarioDB['T01_Password'],
-                $usuarioDB['T01_DescUsuario'],
-                $usuarioDB['T01_NumConexiones'],
+                $usuarioDB->T01_CodUsuario,
+                $usuarioDB->T01_Password,
+                $usuarioDB->T01_DescUsuario,
+                $usuarioDB->T01_NumConexiones,
                 $oFechaValida,
                 null,                                         // fechaHoraUltimaConexionAnterior (empieza en null)
-                $usuarioDB['T01_Perfil'],
-                $usuarioDB['T01_ImagenUsuario'],
-                mb_strtoupper(mb_substr($usuarioDB['T01_DescUsuario'], 0, 1))
+                $usuarioDB->T01_Perfil,
+                $usuarioDB->T01_ImagenUsuario,
+                mb_strtoupper(mb_substr($usuarioDB->T01_DescUsuario, 0, 1))
             );
 
 
@@ -170,20 +170,25 @@ class UsuarioPDO
      * @param string $codUsuario
      * @return boolean true si existe, false si no
      */
-    public static function validarCodigoNoExiste($codUsuario)
+    public static function validarCodUsuarioExiste($codUsuario)
     {
         $existe = false;
         $sql = "SELECT T01_CodUsuario FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
 
         try {
-            //si la consulta devuelve alguna fila es que el codigo ya existe
             $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
-            if ($consulta->rowCount() > 0) {
+
+            // Si fetch devuelve algo, es que el código ya está en uso
+            if ($consulta->fetch()) {
                 $existe = true;
             }
         } catch (Exception $e) {
-            $existe = false;
+            // Registro del error (OWASP A09)
+            error_log("Error crítico en validación de usuario: " . $e->getMessage());
+            //si hay un problema, devuelve true para evitar problemas
+            return true;
         }
+
         return $existe;
     }
 
@@ -255,12 +260,12 @@ class UsuarioPDO
         $sql = <<<SQL
         UPDATE T01_Usuario 
         SET T01_DescUsuario = :nuevaDesc 
-        WHERE T01_CodUsuario = :descUsuario
+        WHERE T01_CodUsuario = :codUsuario
         SQL;
         try {
             $consulta = DBPDO::ejecutarConsulta($sql, [
                 ':nuevaDesc' => $nuevoNombre,
-                ':descUsuario' => $oUsuario->getCodUsuario()
+                ':codUsuario' => $oUsuario->getCodUsuario()
             ]);
 
 
@@ -294,4 +299,160 @@ class UsuarioPDO
         //Devulve 0 si hay no se ha cambiado la foto y 1 si se ha cambiado la foto
         return $resultado->rowCount();
     }
+
+    /**
+     * Crea un nuevo usuario por un administrador en la base de datos
+     * @param string $codUsuario
+     * @param string $password
+     * @param string $descUsuario
+     * @param string $perfil
+     * @return Usuario|null El objeto usuario si se crea con éxito, null si falla
+     */
+    public static function crearUsuarioPorAdmin($codUsuario, $password, $descUsuario, $perfil)
+    {
+        $sql = <<<SQL
+        INSERT INTO T01_Usuario 
+        (T01_CodUsuario, T01_Password, T01_DescUsuario, T01_FechaHoraUltimaConexion, T01_NumConexiones, T01_Perfil) 
+        VALUES 
+        (:codUsuario, SHA2(:password, 256), :descUsuario, null, 0, :perfil)
+    SQL;
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [
+                ':codUsuario' => $codUsuario,
+                ':password' => $codUsuario . $password, // Concatenación para el hash
+                ':descUsuario' => $descUsuario,
+                ':perfil' => $perfil
+            ]);
+
+            if ($consulta) {
+                // En lugar de validarUsuario, podrías simplemente devolver true
+                // o buscar al usuario de forma neutra
+                return self::buscarUsuarioPorCod($codUsuario);
+            }
+        } catch (Exception $e) {
+            error_log("Error crearUsuarioPorAdmin: " . $e->getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    /**
+     * Busca un usuario por su código de usuario
+     * @param string $codUsuario
+     * @return Usuario|null Objeto usuario o null si no existe
+     */
+    public static function buscarUsuarioPorCod($codUsuario)
+    {
+        $oUsuario = null;
+        $sql = "SELECT * FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
+            $usuarioBD = $consulta->fetchObject();
+
+            if ($usuarioBD) {
+                // Convertir string de la Base de Datos a objeto DateTime)
+                $oFechaValida = ($usuarioBD->T01_FechaHoraUltimaConexion)
+                    ? new DateTime($usuarioBD->T01_FechaHoraUltimaConexion)
+                    : null;
+
+                // SE crea el objeto Usuario con los 9 parámetros exactos
+                $oUsuario = new Usuario(
+                    $usuarioBD->T01_CodUsuario,
+                    $usuarioBD->T01_Password,
+                    $usuarioBD->T01_DescUsuario,
+                    $usuarioBD->T01_NumConexiones,
+                    $oFechaValida,
+                    null,
+                    $usuarioBD->T01_Perfil,
+                    $usuarioBD->T01_ImagenUsuario,
+                    mb_strtoupper(mb_substr($usuarioBD->T01_DescUsuario, 0, 1))
+                );
+            }
+        } catch (Exception $e) {
+            error_log("Error en buscarUsuarioPorCod: " . $e->getMessage());
+            return null;
+        }
+
+        return $oUsuario;
+    }
+
+    /**
+     * Busca usuarios cuya descripción contenga la cadena buscada
+     * @param string $descUsuario Cadena de búsqueda
+     * @return array Array de objetos Usuario
+     */
+    public static function buscarUsuariosPorDesc($descUsuario = "")
+    {
+        $aUsuarios = [];
+        $sql = "SELECT * FROM T01_Usuario WHERE T01_DescUsuario LIKE :descUsuario";
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [
+                ':descUsuario' => "%" . $descUsuario . "%"
+            ]);
+
+            // Usamos fetch para recorrer todos los resultados
+            while ($usuarioBD = $consulta->fetchObject()) {
+
+                // SE convierte la fecha de la base de datos a objeto DateTime
+                $oFecha = ($usuarioBD->T01_FechaHoraUltimaConexion)
+                    ? new DateTime($usuarioBD->T01_FechaHoraUltimaConexion)
+                    : null;
+
+                // se insertan los objetos Usuario en el array
+                $aUsuarios[] = new Usuario(
+                    $usuarioBD->T01_CodUsuario,
+                    $usuarioBD->T01_Password,
+                    $usuarioBD->T01_DescUsuario,
+                    $usuarioBD->T01_NumConexiones,
+                    $oFecha,
+                    null,
+                    $usuarioBD->T01_Perfil,
+                    $usuarioBD->T01_ImagenUsuario,
+                    mb_strtoupper(mb_substr($usuarioBD->T01_DescUsuario, 0, 1))
+                );
+            }
+        } catch (Exception $e) {
+            error_log("Error en buscarUsuariosPorDesc: " . $e->getMessage());
+        }
+
+        return $aUsuarios;
+    }
+
+    /**
+     * Modifica la contraseña y el perfil del usuario
+     * @param Usuario $oUsuario Objeto del usuario a modificar
+     * @param string $passwordNueva Nueva contraseña
+     * @param string $perfilNuevo Nuevo perfil del usuario
+     * @return Usuario|null El objeto actualizado o null si falla
+     */
+    public static function modificarUsuarioPorAdmin($oUsuario, $perfilNuevo)
+    {
+    
+        $sql = <<<SQL
+        UPDATE T01_Usuario 
+        SET T01_Perfil = :perfil
+        WHERE T01_CodUsuario = :codUsuario
+    SQL;
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [ 
+                ':perfil' => $perfilNuevo,
+                ':codUsuario' => $oUsuario->getCodUsuario()
+            ]);
+
+            if ($consulta) {
+                $oUsuario->setPerfil($perfilNuevo);
+                return $oUsuario;
+            }
+        } catch (Exception $e) {
+            error_log("Error en modificarUsuarioPorAdmin: " . $e->getMessage());
+            return null;
+        }
+        return null;
+    }
+
+   
 }

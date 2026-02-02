@@ -2,16 +2,9 @@
 
 /**
  * @author: Véro Grué
- * @since: 14/01/2026
+ * @since: 28/01/2026
  */
-//Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
+
 
 // Se comprueba si el botón "volver" ha sido pulsado.
 if (isset($_REQUEST['volver'])) {
@@ -57,7 +50,7 @@ if (isset($_REQUEST['cancelar'])) {
 }
 
 
-// /** @var Usuario $oUsuarioActual */
+// Ususario de la session
 $oUsuarioActual = $_SESSION['usuarioVGDAWAplicacionFinal'];
 
 // Arrays para la gestión de errores y respuestas

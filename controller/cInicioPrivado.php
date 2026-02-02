@@ -2,16 +2,9 @@
 
 /**
  * @author: Véro Grué
- * @since: 17/01/2026
+ * @since:28/01/2026
  */
-//Si no se iniciado session, se redirige a la pagina de inicio publico
-if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
+
 // Se comprueba si el botón "detalles" ha sido pulsado.
 if (isset($_REQUEST['detalles'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
@@ -57,15 +50,26 @@ if (isset($_REQUEST['dpto'])) {
     header('Location: index.php');
     exit;
 }
+//se compueba si se ha pulsado el boton "rest"
 if (isset($_REQUEST['rest'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
     $_SESSION['paginaEnCurso'] = 'rest';
     header('Location: index.php');
     exit;
 }
+
+
+if (isset($_REQUEST['mtoUsuarios'])) {
+    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
+    header('Location: index.php');
+    exit;
+}
 // Determinar el idioma (si no hubiera cookie, que sea 'es')
 $idioma = $_COOKIE['idioma'] ?? 'es';
 
+//SE obtiene el perfil del usuario
+$perfilActual = $_SESSION['usuarioVGDAWAplicacionFinal']->getPerfil();
 
 
 //Se crea un array con los datos del usuario para pasarlos a la vista
@@ -73,7 +77,8 @@ $avInicioPrivado = [
     'descUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getDescUsuario(),
     'numAccesos' => $_SESSION['usuarioVGDAWAplicacionFinal']->getNumAccesos(),
     'fechaHoraUltimaConexionAnterior' => $_SESSION['usuarioVGDAWAplicacionFinal']->getFechaHoraUltimaConexionAnterior(),
-    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
+    'perfil' => $aRolPerfil[$perfilActual]
 ];
 
 

@@ -2,7 +2,7 @@
 <main class="mainForm">
     <section class="formulario">
         <div class="imagen"><img src="webroot/images/logoV2.png" alt="logo" />
-            <p class="pInicioSession"> Borrar cuenta en Login Logoff</p>
+            <p class="pInicioSession"> Borrar cuenta en Aplicación Final</p>
         </div>
         <form class="form" action="index.php" method="post">
 

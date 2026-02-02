@@ -17,14 +17,16 @@ $aErrores = [
     'codUsuario' => null,
     'password' => null,
     'descUsuario' => null,
-    'confirmaPassword' => null
+    'confirmaPassword' => null,
+    'preguntaSeguridad' => null
 ];
 
 $aRespuestas = [
     'codUsuario' => '',
     'password' => '',
     'descUsuario' => '',
-    'confirmaPassword' => ''
+    'confirmaPassword' => '',
+    'preguntaSeguridad' => ''
 ];
 
 // Variable para controlar si la entrada es correcta
@@ -43,18 +45,30 @@ if (isset($_REQUEST['enviar'])) {
     $aErrores['password'] = validacionFormularios::validarPassword($_REQUEST['password'], 8, 4, 1, 1);
     $aErrores['descUsuario'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descUsuario'], 255, 4, 1);
     $aErrores['confirmaPassword'] = validacionFormularios::validarPassword($_REQUEST['confirmaPassword'], 8, 4, 1, 1);
+    //Valores validos para la pregunta de seguridad
+    // $valoresValidos=['pimentel'];
+    define("RSEGURIDAD", "pimentel");
+    if (empty($_REQUEST['preguntaSeguridad']) ){
+        $aErrores['preguntaSeguridad'] = "La pregunta de seguridad no puede estar vacía";
+     }elseif($_REQUEST['preguntaSeguridad'] !== RSEGURIDAD) {
+         $aErrores['preguntaSeguridad'] = "La pregunta de seguridad es incorrecta";
+    } else {
+        $aErrores['preguntaSeguridad'] = null;
+    }
+    // $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
 
     //se comprueba que las contraseñas coincidan
     if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
-                $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
-                $entradaOK = false;
-            }
+        $aErrores['confirmaPassword'] = "Las nuevas contraseñas no coinciden.";
+        $entradaOK = false;
+    }
 
     // Guardar las respuestas para rellenar el formulario si hay algun error
     $aRespuestas['codUsuario'] = $_REQUEST['codUsuario'];
     $aRespuestas['password'] = $_REQUEST['password'];
     $aRespuestas['descUsuario'] = $_REQUEST['descUsuario'];
     $aRespuestas['confirmaPassword'] = $_REQUEST['confirmaPassword'];
+    $aRespuestas['preguntaSeguridad'] = $_REQUEST['preguntaSeguridad'];
 
     // Verificar si hay errores de validación
     foreach ($aErrores as $valorCampo => $msjError) {
@@ -66,10 +80,9 @@ if (isset($_REQUEST['enviar'])) {
     // Si la validación es correcta, validar con la BD
     if ($entradaOK) {
         // Se comprueba si el código de usuario ya existe
-        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
+        if (UsuarioPDO::validarCodUsuarioExiste($_REQUEST['codUsuario'])) {
             $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
-            
         } else {
             // Si no existe, se crea el nuevo usuario
             $oUsuario = UsuarioPDO::crearUsuario(
@@ -99,6 +112,14 @@ if (isset($_REQUEST['enviar'])) {
     // Si no se ha enviado el formulario
     $entradaOK = false;
 }
+$avRegistro = [
+    'codUsuario' => $aRespuestas['codUsuario'],
+    'password' => $aRespuestas['password'],
+    'descUsuario' => $aRespuestas['descUsuario'],
+    'confirmaPassword' => $aRespuestas['confirmaPassword'],
+    'preguntaSeguridad' => $aRespuestas['preguntaSeguridad'],
+    'aErrores' => $aErrores
+];
 
 // Si hay errores o no se ha enviado, cargar el layout con el formulario
 require_once $view['layout'];

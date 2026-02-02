@@ -12,12 +12,14 @@
     <main>
         <section class="sectionDetalles">
             <div class="containerDetallesNasa">
-
                 <h1><?php echo $avDetallesNasa['tituloNasa']; ?></h1>
-    <p><?php echo $avDetallesNasa['fechaNasa']; ?></p>
+                <p style="color:blue; font-size:20px;"><?php echo $avDetallesNasa['fechaNasa']; ?></p>
                 <div class="contenedorFotoHd">
-                        <img src="<?php echo $avDetallesNasa['fotoNasaHD']; ?>" alt="Foto NASA HD" style="max-width:100%; border-radius:10px;">
-                    </a>
+                    <?php if (!empty($avDetallesNasa['fotoSerializadaHD'])): ?>
+                        <img src="<?php echo $avDetallesNasa['fotoSerializadaHD']; ?>" alt="Foto NASA HD" style="max-width:100%; border-radius:10px;">
+                    <?php else: ?>
+                        <p>No hay versión en alta resolución disponible.</p>
+                    <?php endif; ?>
                 </div>
                 <div class="explicacionNasa" style="margin-top:20px; text-align:justify; line-height:1.6; margin:0 5px 10px 5px">
                     <h3>Explicación: </h3>
