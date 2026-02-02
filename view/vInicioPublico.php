@@ -24,7 +24,80 @@
 </header>
 
 <main>
-    <section class="seccionCarrusel">
+    <section class="carruselInfinito">
+  <div class="listadoImagenes">
+
+    <!-- Primeros ficheros -->
+    <a href="webroot/doc/ArbolNavegacion.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_ArbolNavegacion.png" alt="Árbol Navegación">
+      <span>Árbol Navegación</span>
+    </a>
+
+    <a href="webroot/doc/RelacionFicherosAppFinal.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_RelacionFicheros.png" alt="Relación Ficheros">
+      <span>Relación Ficheros</span>
+    </a>
+
+    <a href="webroot/images/DiagramaClasesAppFinal2.png" target="_blank" class="item">
+      <img src="webroot/images/mini_DiagramaClases.png" alt="Diagrama Clases">
+      <span>Diagrama de Clases</span>
+    </a>
+
+    <a href="webroot/doc/UsoDeLaSessionAppFinal.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_Session.png" alt="Uso Session">
+      <span>Uso de Session</span>
+    </a>
+ <a href="webroot/doc/CatalogoDeRequisitos.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_CatalogoReq.png" alt="Catalogo Requisitos">
+      <span>Catalogo de Requisitos</span>
+    </a>
+
+    <a href="webroot/doc/DiagramaDeCasosDeUso.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_CasosUsos.png" alt="Casos Uso">
+      <span>Diagrama de Casos de Uso</span>
+    </a>
+<a href="webroot/doc/ModeloFisicoDeDatos.jpg" target="_blank" class="item">
+      <img src="webroot/images/mini_ModeloFisico.png" alt="Modelo Fisico">
+      <span>Modelo Fisico de Datos</span>
+    </a>
+    <!-- Ficheros Duplicados para efecto infinito -->
+     <a href="webroot/doc/ArbolNavegacion.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_ArbolNavegacion.png" alt="Árbol Navegación">
+      <span>Árbol Navegación</span>
+    </a>
+
+    <a href="webroot/doc/RelacionFicherosAppFinal.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_RelacionFicheros.png" alt="Relación Ficheros">
+      <span>Relación Ficheros</span>
+    </a>
+
+    <a href="webroot/images/DiagramaClasesAppFinal2.png" target="_blank" class="item">
+      <img src="webroot/images/mini_DiagramaClases.png" alt="Diagrama Clases">
+      <span>Diagrama de Clases</span>
+    </a>
+
+    <a href="webroot/doc/UsoDeLaSessionAppFinal.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_Session.png" alt="Uso Session">
+      <span>Uso de Session</span>
+    </a>
+ <a href="webroot/doc/CatalogoDeRequisitos.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_CatalogoReq.png" alt="Catalogo Requisitos">
+      <span>Catalogo de Requisitos</span>
+    </a>
+
+    <a href="webroot/doc/DiagramaDeCasosDeUso.pdf" target="_blank" class="item">
+      <img src="webroot/images/mini_CasosUsos.png" alt="Casos Uso">
+      <span>Diagrama de Casos de Uso</span>
+    </a>
+<a href="webroot/doc/ModeloFisicoDeDatos.jpg" target="_blank" class="item">
+      <img src="webroot/images/mini_ModeloFisico.png" alt="Modelo Fisico">
+      <span>Modelo Fisico de Datos</span>
+    </a>
+
+  </div>
+</section>
+
+    <!-- <section class="seccionCarrusel">
     <div class="carrusel-contenedor">
         <input type="radio" name="rd" id="rd1" checked>
         <input type="radio" name="rd" id="rd2">
@@ -55,5 +128,5 @@
 </div>
 
     </div>
-</section>
+</section> -->
 </main>

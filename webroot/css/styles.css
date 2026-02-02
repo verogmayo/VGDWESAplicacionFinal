@@ -1590,3 +1590,64 @@ footer .pais {
     font-size: 40px;
 
 }
+
+/* 
+Carrpusel Infinito
+=====================================================*/
+.carruselInfinito {
+  width: 100%;
+  overflow: hidden;
+  background: #f5f5f5;
+  padding: 20px 0;
+  border-top: 2px solid var(--colorAzul2);
+  border-bottom: 2px solid var(--colorAzul2);
+}
+
+.listadoImagenes {
+  display: flex;
+  width: max-content;
+  animation: scroll 25s linear infinite;
+}
+
+/* Pausar al pasar el ratón */
+.carruselInfinito:hover .listadoImagenes {
+  animation-play-state: paused;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 40px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s;
+}
+
+.item img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.item span {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Efecto hover */
+.item:hover {
+  transform: scale(1.1);
+}
+
+/* Animación infinita */
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

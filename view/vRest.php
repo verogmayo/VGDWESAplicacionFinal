@@ -24,7 +24,12 @@
                          <input type="date" name="fechaNasa" id="fechaNasa" value="<?php echo $avRest['fechaNasa'] ?>" max="<?php echo $avRest['fechaHoy'] ?>">
                          <button id="botonSessionRest" class="" type="submit" name="enviarNasa">Enviar</button>
                          <?php echo ($avRest['errorNasa']) ? "<span style='color:red'>" . $avRest['errorNasa'] . "</span>" : ""; ?>
-                         <button id="botonSessionRest" class="" type="submit" name="detallesNasa">Detalle</button>
+                         <?php if (!empty($avRest['fotoSerializada'])): ?>
+                             <button id="botonSessionRest" class="" type="submit" name="detallesNasa">Detalle</button>
+                         <?php else: ?>
+                             <button id="botonSessionRest" style="pointer-events: none; background:gray" type="submit" name="detallesNasa">Detalle</button>
+                         <?php endif; ?>
+                         
                      </form>
                  </div>
                  <div class="tituloRest">
@@ -35,7 +40,7 @@
                          <?php if (!empty($avRest['fotoSerializada'])): ?>
                              <img src="<?php echo $avRest['fotoSerializada']; ?>" alt="Foto NASA">
                          <?php else: ?>
-                             <p style="color:orange;"> <?php echo $avRest['errorNasa'] ?? "No hay imagen disponible para esta fecha."; ?></p>
+                             <p style="color:orange; margin-top:20px;margin-bottom:20px;"> <?php echo $avRest['errorNasa'] ?? "No hay imagen disponible para esta fecha."; ?></p>
                          <?php endif; ?>
                      </div>
                      <div class="infoRestUso">
