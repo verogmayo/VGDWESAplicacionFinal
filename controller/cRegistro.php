@@ -55,7 +55,7 @@ if (isset($_REQUEST['enviar'])) {
     } else {
         $aErrores['preguntaSeguridad'] = null;
     }
-    // $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
+   
 
     //se comprueba que las contraseñas coincidan
     if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {
