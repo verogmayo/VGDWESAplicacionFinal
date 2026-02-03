@@ -94,42 +94,42 @@ class DepartamentoPDO
     }
 
     /**
- * Modifica la descripción y volumen de negocio de un departamento existente
- * * @param Departamento $oDepartamento Objeto del departamento a modificar
- * @param string $descDepartamentoNueva Nueva descripción
- * @param float|string $volumenDeNegocioNuevo Nuevo volumen (con punto decimal)
- * @return Departamento|null El objeto actualizado o null si falla
- */
-public static function modificarDepartamento($oDepartamento, $descDepartamentoNueva, $volumenDeNegocioNuevo)
-{
-    $sql = <<<SQL
+     * Modifica la descripción y volumen de negocio de un departamento existente
+     * * @param Departamento $oDepartamento Objeto del departamento a modificar
+     * @param string $descDepartamentoNueva Nueva descripción
+     * @param float|string $volumenDeNegocioNuevo Nuevo volumen (con punto decimal)
+     * @return Departamento|null El objeto actualizado o null si falla
+     */
+    public static function modificarDepartamento($oDepartamento, $descDepartamentoNueva, $volumenDeNegocioNuevo)
+    {
+        $sql = <<<SQL
         UPDATE T02_Departamento SET 
             T02_DescDepartamento = :nuevoDescDepartamento,
             T02_VolumenDeNegocio = :nuevoVolumenDeNegocio
         WHERE T02_CodDepartamento = :codDepartamento
     SQL;
 
-    try {
-        $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':nuevoDescDepartamento' => $descDepartamentoNueva,
-            ':nuevoVolumenDeNegocio' => $volumenDeNegocioNuevo, // Aquí debe llegar con PUNTO
-            ':codDepartamento' => $oDepartamento->getCodDepartamento()
-        ]);
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [
+                ':nuevoDescDepartamento' => $descDepartamentoNueva,
+                ':nuevoVolumenDeNegocio' => $volumenDeNegocioNuevo, // Aquí debe llegar con PUNTO
+                ':codDepartamento' => $oDepartamento->getCodDepartamento()
+            ]);
 
-        if ($consulta) {
-            // Actualizamos el estado interno del objeto
-            $oDepartamento->setDescDepartamento($descDepartamentoNueva);
-            $oDepartamento->setVolumenDeNegocio($volumenDeNegocioNuevo);
-            return $oDepartamento;
+            if ($consulta) {
+                // Actualizamos el estado interno del objeto
+                $oDepartamento->setDescDepartamento($descDepartamentoNueva);
+                $oDepartamento->setVolumenDeNegocio($volumenDeNegocioNuevo);
+                return $oDepartamento;
+            }
+        } catch (Exception $e) {
+            // Registro del error para trazabilidad y cumplimiento OWASP A09
+            error_log("Error al modificar departamento [" . $oDepartamento->getCodDepartamento() . "]: " . $e->getMessage());
+            return null;
         }
-    } catch (Exception $e) {
-        // Registro del error para trazabilidad y cumplimiento OWASP A09
-        error_log("Error al modificar departamento [".$oDepartamento->getCodDepartamento()."]: " . $e->getMessage());
+
         return null;
     }
-
-    return null;
-}
 
     /**
      * Da de alta un nuevo departamento en la base de datos
@@ -185,34 +185,34 @@ public static function modificarDepartamento($oDepartamento, $descDepartamentoNu
     }
 
     /**
- * Comprueba si un código de departamento ya existe en la BD
- * @param string $codDepartamento
- * @return boolean true si existe, false si no
- */
-public static function validarCodDepartamentoExiste($codDepartamento)
-{
-    $existe = false;
-    // Seleccionamos el campo del código del departamento
-    $sql = "SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
+     * Comprueba si un código de departamento ya existe en la BD
+     * @param string $codDepartamento
+     * @return boolean true si existe, false si no
+     */
+    public static function validarCodDepartamentoExiste($codDepartamento)
+    {
+        $existe = false;
+        // Seleccionamos el campo del código del departamento
+        $sql = "SELECT T02_CodDepartamento FROM T02_Departamento WHERE T02_CodDepartamento = :codDepartamento";
 
-    try {
-        $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codDepartamento' => $codDepartamento
-        ]);
-        
-        // Intentamos obtener la fila. Si fetch() devuelve algo, es que existe.
-        if ($consulta->fetch()) {
-            $existe = true;
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [
+                ':codDepartamento' => $codDepartamento
+            ]);
+
+            // Intentamos obtener la fila. Si fetch() devuelve algo, es que existe.
+            if ($consulta->fetch()) {
+                $existe = true;
+            }
+        } catch (Exception $e) {
+            // Registro del error para cumpli con OWASP A09
+            error_log("Error en validarCodDepartamentoExiste: " . $e->getMessage());
+            // En caso de error de DB, se pasa a "existe" para bloquear el alta por seguridad
+            return true;
         }
-    } catch (Exception $e) {
-        // Registro del error para cumpli con OWASP A09
-        error_log("Error en validarCodDepartamentoExiste: " . $e->getMessage());
-        // En caso de error de DB, se pasa a "existe" para bloquear el alta por seguridad
-        return true; 
-    }
 
-    return $existe;
-}
+        return $existe;
+    }
 
     /**
      * Borra un departamento de la base de datos
@@ -232,9 +232,20 @@ public static function validarCodDepartamentoExiste($codDepartamento)
             ]);
             //rowCount() para ver si se borro la fila
             if ($consulta->rowCount() > 0) {
+                // REGISTRO  (OWASP A09)
+                // Obtenemos el usuario de la sesión para identidficar el usaurio que ha borrado el departamento
+                $usuarioActivo = $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario();
+                $codDpto = $oDepartamento->getCodDepartamento();
+                //se recoge el fecha y la hora del borrado
+                $oFechaHora = new DateTime();
+                $fechaHoraFormateada = $oFechaHora->format('d-m-Y H:i:s');
+                //se recoge el mensage de log infomrando de quien y cuando se ha borrado el departamento
+                error_log("[AUDITORÍA] [$fechaHoraFormateada] El usuario '$usuarioActivo' ha BORRADO el departamento '$codDpto'.");
                 return true;
             }
         } catch (Exception $e) {
+            //se recoge el error de borrado fallido
+            error_log("ERROR CRÍTICO: Intento de borrado fallido del depto " . $oDepartamento->getCodDepartamento());
             return false;
         }
         return false;

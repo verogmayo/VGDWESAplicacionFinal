@@ -39,21 +39,37 @@ class UsuarioPDO
               AND T01_Password = SHA2(:password, 256)
         SQL;
 
+        $oFechaHora = new DateTime();
+        $fechaHoraFormateada = $oFechaHora->format('d-m-Y H:i:s');
+
         try {
             // Ejecutar la consulta
             $consulta = DBPDO::ejecutarConsulta($sql, [
                 ':codUsuario'  => $codUsuario,
                 ':password' => $codUsuario . $password
             ]);
-
-
             // Obtener el resultado
             $usuarioDB = $consulta->fetchObject();
-
             // Si no existe el usuario o la contraseña es incorrecta
             if (!$usuarioDB) {
+                // SE inicializa o incrementa el contador de intentos en la sesión
+                $_SESSION['intentosLogin'] = ($_SESSION['intentosLogin'] ?? 0) + 1;
+                //se crea el mensaje de intento fallido
+                $mensaje = "[AUDITORÍA] [$fechaHoraFormateada] Intento de login FALLIDO para el usuario '$codUsuario'.";
+                // Si llega a 5 intentos, se pone el mensaje en MAYÚSCULAS para que destaque
+                if ($_SESSION['intentosLogin'] >= 5) {
+                    $mensaje = strtoupper("[ALERTA CRÍTICA] [$fechaHoraFormateada] SE HAN DETECTADO " . $_SESSION['intentosLogin'] . " INTENTOS FALLIDOS CONSECUTIVOS PARA EL USUARIO '$codUsuario'. POSIBLE ATAQUE DE FUERZA BRUTA.");
+                }
+                //se envia el mensaje al fichero de error
+                error_log($mensaje);
                 return null;
             }
+
+            // Se guarda el login correcto ---
+            // Si el login es correcto, reseteamos el contador de intentos
+            $_SESSION['intentosLogin'] = 0;
+
+            error_log("[AUDITORÍA] [$fechaHoraFormateada] Login exitoso para el usuario '$codUsuario'.");
 
             //Se convierte la fecha en datetime
             $fechaBD = $usuarioDB->T01_FechaHoraUltimaConexion;
@@ -70,11 +86,11 @@ class UsuarioPDO
                 $usuarioDB->T01_ImagenUsuario,
                 mb_strtoupper(mb_substr($usuarioDB->T01_DescUsuario, 0, 1))
             );
-
-
-
             return $oUsuario;
+
         } catch (Exception $e) {
+            //se recoge un mensaje si hay un error de validación
+            error_log("ERROR DE SISTEMA EN VALIDACIÓN: " . $e->getMessage());
             // En caso de error, devolver null
             return null;
         }
@@ -430,7 +446,7 @@ class UsuarioPDO
      */
     public static function modificarUsuarioPorAdmin($oUsuario, $perfilNuevo)
     {
-    
+
         $sql = <<<SQL
         UPDATE T01_Usuario 
         SET T01_Perfil = :perfil
@@ -438,7 +454,7 @@ class UsuarioPDO
     SQL;
 
         try {
-            $consulta = DBPDO::ejecutarConsulta($sql, [ 
+            $consulta = DBPDO::ejecutarConsulta($sql, [
                 ':perfil' => $perfilNuevo,
                 ':codUsuario' => $oUsuario->getCodUsuario()
             ]);
@@ -453,6 +469,4 @@ class UsuarioPDO
         }
         return null;
     }
-
-   
 }
