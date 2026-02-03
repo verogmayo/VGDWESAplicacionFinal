@@ -43,8 +43,8 @@ if (isset($_REQUEST['cancelar'])) {
 }
 
 
-
-$oDepartamentoEnCurso = $_SESSION['departamentoEnCurso'];
+$oDepartamentoEnCurso = DepartamentoPDO::buscarDepartamentoPorCod($_SESSION['codDepartamentoEnCurso']);
+// $oDepartamentoEnCurso = $_SESSION['departamentoEnCurso'];
 $modo = $_SESSION['modoVista']; // 'consultar' o 'modificar'
 // Arrays para la gestión de errores y respuestas
 $aErrores = [
