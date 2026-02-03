@@ -47,6 +47,20 @@ class FotoNasa {
     private $urlhd;
 
     /**
+     * Para la conversión de la imagen de la nasa
+     * 
+     * @var string
+     */
+    private $imagenBase64;
+
+    /**
+     * Para la conversión de la imagen de la nasa
+     * 
+     * @var string
+     */
+    private $imagenHDBase64;
+
+    /**
      * Constructor de la clase FotoNasa
      *
      * @param string $titulo Título de la foto
@@ -54,13 +68,16 @@ class FotoNasa {
      * @param string $fecha Fecha de la foto
      * @param string $explicacion Descripción de la foto
      * @param string $urlhd URL de la imagen en HD
+     * @param string $imagenBase64 conversión de la imagen
      */
-    public function __construct($titulo, $url, $fecha, $explicacion, $urlhd) {
+    public function __construct($titulo, $url, $fecha, $explicacion, $urlhd, $imagenBase64,$imagenHDBase64) {
         $this->titulo = $titulo;
         $this->url = $url;
         $this->fecha = $fecha;
         $this->explicacion = $explicacion;
         $this->urlhd = $urlhd;
+        $this->imagenBase64 = $imagenBase64;
+        $this->imagenHDBase64=$imagenHDBase64;
     }
     
     /**
@@ -106,6 +123,98 @@ class FotoNasa {
      */
     public function getUrlhd() {
         return $this->urlhd;
+    }
+
+    /**
+     * Obtiene la conversion de la imagen 
+     * 
+     * @return string cadena larga
+     */
+    public function getImagenBase64() {
+        return $this->imagenBase64;
+        
+    }
+
+    
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setExplicacion($explicacion)
+    {
+        $this->explicacion = $explicacion;
+
+        return $this;
+    }
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setUrlhd($urlhd)
+    {
+        $this->urlhd = $urlhd;
+
+        return $this;
+    }
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setImagenBase64($imagenBase64)
+    {
+        $this->imagenBase64 = $imagenBase64;
+
+        return $this;
+    }
+
+    /**
+     * Get constructor de la clase FotoNasa
+     */ 
+    public function getImagenHDBase64()
+    {
+        return $this->imagenHDBase64;
+    }
+
+    /**
+     * Set constructor de la clase FotoNasa
+     *
+     * @return  self
+     */ 
+    public function setImagenHDBase64($imagenHDBase64)
+    {
+        $this->imagenHDBase64 = $imagenHDBase64;
+
+        return $this;
     }
 }
 ?>

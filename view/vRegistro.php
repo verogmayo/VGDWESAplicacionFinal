@@ -15,7 +15,6 @@
                 <input name="descUsuario" id="descUsuario" type="text" placeholder=" " value='<?php echo $avRegistro['descUsuario'] ?>'>
                 <label for="descUsuario">Nombre Completo:</label>
             </div>
-
             <div class="contenedorInputRegistro">
                 <a style='color:red'><?php echo $avRegistro['aErrores']['password'] ?></a><br>
                 <input name="password" id="password" type="password" placeholder=" " value=''>

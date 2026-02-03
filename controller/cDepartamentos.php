@@ -2,15 +2,9 @@
 
 /**
  * @author: Véro Grué
- * @since: 23/01/2026
+ * @since: 28/01/2026
  */
-if (empty($_SESSION['usuarioVGDAWAplicacionFinal'])) {
-    $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-    $_SESSION['paginaEnCurso'] = 'inicioPublico';
-    header('Location: index.php');
-    exit;
-}
+
 
 if (isset($_REQUEST['volver'])) {
     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
@@ -35,11 +29,20 @@ if(isset($_REQUEST['cuenta'])){
     header('Location: index.php');
     exit;
 }
+// Se comprueba si el botón "altaDpto" ha sido pulsado.
+if(isset($_REQUEST['altaDpto'])){
+    $_SESSION['paginaAnterior'] =$_SESSION['paginaEnCurso'];
+    // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
+    $_SESSION['paginaEnCurso'] = 'altaDpto';
+    header('Location: index.php');
+    exit;
+}
 //si se pulsa el boton del ojo de consultar
 if (isset($_REQUEST['consultar'])) {
-    $objDpto = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['consultar']);
-    if ($objDpto) {
-        $_SESSION['departamentoEnCurso'] = $objDpto;
+    //se busca el departamento por el codigo que se ha recogido en el value del botón de consultar
+    $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['consultar']);
+    if ($oDepartamento) {
+        $_SESSION['departamentoEnCurso'] = $oDepartamento;
         $_SESSION['modoVista'] = 'consultar'; //se guarda la vista de consultar
         //se redirige a la página de consultar/modificar departamento
         $_SESSION['paginaEnCurso'] = 'modificarDpto'; 
@@ -50,15 +53,29 @@ if (isset($_REQUEST['consultar'])) {
 
 // Si se pulsa el lápiz de modificar
 if (isset($_REQUEST['modificar'])) {
-    $objDpto = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['modificar']);
-    if ($objDpto) {
-        $_SESSION['departamentoEnCurso'] = $objDpto;
+     //se busca el departamento por el codigo que se ha recogido en el value del botón de modificar
+    $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['modificar']);
+    if ($oDepartamento) {
+        $_SESSION['departamentoEnCurso'] = $oDepartamento;
         $_SESSION['modoVista'] = 'modificar'; // se guarda la vista de modificar
         $_SESSION['paginaEnCurso'] = 'modificarDpto';
         header('Location: index.php');
         exit;
     }
 }
+
+// Si se pulsa el lápiz de modificar
+if (isset($_REQUEST['eliminar'])) {
+     //se busca el departamento por el codigo que se ha recogido en el value del botón de eliminar
+    $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['eliminar']);
+    if ($oDepartamento) {
+        $_SESSION['departamentoAEliminar'] = $oDepartamento;
+        $_SESSION['paginaEnCurso'] = 'eliminarDpto';
+        header('Location: index.php');
+        exit;
+    }
+}
+     
 // Inicialización de variables 
 $descripcionBuscada="";
 $aErrores = [
@@ -91,18 +108,13 @@ if ($entradaOK) {
 }
 
 
-
-
-
-
 $aListaDepartamentos = [];   
 //array de objetos de departamento
-$aObjDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+$aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
 
 
-if (!is_null($aObjDepartamentos)) {
-    foreach ($aObjDepartamentos as $oDepartamento) {
-
+if (!is_null($aObjetoDepartamentos)) {
+    foreach ($aObjetoDepartamentos as $oDepartamento) {
         $fechaCreacion = new DateTime($oDepartamento->getFechaCreacionDepartamento());
 
         $fechaBajaFormateada = '';
@@ -115,6 +127,7 @@ if (!is_null($aObjDepartamentos)) {
             'codDepartamento'           => $oDepartamento->getCodDepartamento(),
             'descDepartamento'          => $oDepartamento->getDescDepartamento(),
             'fechaCreacionDepartamento' => $fechaCreacion->format('d/m/Y'),
+            //se formatea el volumen de negocio a 2 decimales con coma para los decimales y punto para los miles
             'volumenDeNegocio'          => number_format($oDepartamento->getVolumenDeNegocio(), 2, ',', '.') . ' €',
             'fechaBajaDepartamento'     => $fechaBajaFormateada
         ];

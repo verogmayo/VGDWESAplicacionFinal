@@ -80,7 +80,7 @@ if (isset($_REQUEST['enviar'])) {
     // Si la validación es correcta, validar con la BD
     if ($entradaOK) {
         // Se comprueba si el código de usuario ya existe
-        if (UsuarioPDO::validarCodigoNoExiste($_REQUEST['codUsuario'])) {
+        if (UsuarioPDO::validarCodUsuarioExiste($_REQUEST['codUsuario'])) {
             $aErrores['codUsuario'] = "El nombre de usuario ya existe.";
             $entradaOK = false;
         } else {
