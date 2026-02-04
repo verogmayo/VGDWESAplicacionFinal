@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 30/01/2026
+ * Creado el 30/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';

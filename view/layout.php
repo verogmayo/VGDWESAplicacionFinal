@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 07/01/2026
+ * Creado el 07/01/2026
  */
 ?>
 

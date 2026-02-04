@@ -1,6 +1,11 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\API_KEY_NASA",
+            "name": "API_KEY_NASA",
+            "summary": "",
+            "url": "namespaces/default.html#constant_API_KEY_NASA"
+        },                {
             "fqsen": "\\DSN",
             "name": "DSN",
             "summary": "",
@@ -15,6 +20,11 @@ Search.appendIndex(
             "name": "PSWD",
             "summary": "",
             "url": "namespaces/default.html#constant_PSWD"
+        },                {
+            "fqsen": "\\RSEGURIDAD",
+            "name": "RSEGURIDAD",
+            "summary": "",
+            "url": "namespaces/default.html#constant_RSEGURIDAD"
         },                {
             "fqsen": "\\validacionFormularios",
             "name": "validacionFormularios",
@@ -101,55 +111,15 @@ Search.appendIndex(
             "summary": "Basada\u0020en\u0020validarAlfanumerico,\u0020esta\u0020funci\u00F3n\u0020comprueba\u0020si\u0020el\u0020nombre\u0020de\u0020un\narchivo\u0020tiene\u0020una\u0020extensi\u00F3n\u0020v\u00E1lida\u0020entre\u0020un\u0020array\u0020de\u0020extensiones\u0020admitidas.",
             "url": "classes/validacionFormularios.html#method_validarNombreArchivo"
         },                {
-            "fqsen": "\\miLibreriaStatic",
-            "name": "miLibreriaStatic",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003Asumar\u0028\u0029",
-            "name": "sumar",
-            "summary": "Suma\u0020de\u0020dos\u0020n\u00FAmeros",
-            "url": "classes/miLibreriaStatic.html#method_sumar"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003Arestar\u0028\u0029",
-            "name": "restar",
-            "summary": "Resta\u0020dos\u0020n\u00FAmeros",
-            "url": "classes/miLibreriaStatic.html#method_restar"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarPreguntaSeguridad\u0028\u0029",
-            "name": "comprobarPreguntaSeguridad",
-            "summary": "Funci\u00F3n\u0020para\u0020validar\u0020una\u0020pregunta\u0020de\u0020seguridad\u0020con\u0020valores\u0020predefinidos.",
-            "url": "classes/miLibreriaStatic.html#method_comprobarPreguntaSeguridad"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarFloatMonetarioES\u0028\u0029",
+            "fqsen": "\\validacionFormularios\u003A\u003AcomprobarFloatMonetarioES\u0028\u0029",
             "name": "comprobarFloatMonetarioES",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarFloatMonetarioES"
+            "summary": "Comprueba\u0020si\u0020una\u0020cadena\u0020representa\u0020un\u0020n\u00FAmero\u0020decimal\u0020\u0028float\u0029\u0020en\u0020formato\u0020espa\u00F1ol\u0020\u0028usando\u0020coma\u0029\ny,\u0020si\u0020es\u0020correcto,\u0020valida\u0020que\u0020est\u00E9\u0020dentro\u0020de\u0020un\u0020rango\u0020\u005Bmin,\u0020max\u005D.",
+            "url": "classes/validacionFormularios.html#method_comprobarFloatMonetarioES"
         },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarFloatMonetarioES2\u0028\u0029",
-            "name": "comprobarFloatMonetarioES2",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarFloatMonetarioES2"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarNoVacio\u0028\u0029",
-            "name": "comprobarNoVacio",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarNoVacio"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarAlfabeticoMayuscula\u0028\u0029",
-            "name": "comprobarAlfabeticoMayuscula",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarAlfabeticoMayuscula"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarMaxTamanio\u0028\u0029",
-            "name": "comprobarMaxTamanio",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarMaxTamanio"
-        },                {
-            "fqsen": "\\miLibreriaStatic\u003A\u003AcomprobarMinTamanio\u0028\u0029",
-            "name": "comprobarMinTamanio",
-            "summary": "",
-            "url": "classes/miLibreriaStatic.html#method_comprobarMinTamanio"
+            "fqsen": "\\validacionFormularios\u003A\u003AcomprobarCadenaEspecifica\u0028\u0029",
+            "name": "comprobarCadenaEspecifica",
+            "summary": "Funci\u00F3n\u0020para\u0020comprobar\u0020una\u0020cadena\u0020con\u0020valores\u0020predefinidos.",
+            "url": "classes/validacionFormularios.html#method_comprobarCadenaEspecifica"
         },                {
             "fqsen": "\\AppError",
             "name": "AppError",
@@ -286,6 +256,26 @@ Search.appendIndex(
             "summary": "Establece\u0020el\u0020c\u00F3digo\u0020del\u0020departamento",
             "url": "classes/Departamento.html#method_setCodDepartamento"
         },                {
+            "fqsen": "\\Departamento\u003A\u003AsetDescDepartamento\u0028\u0029",
+            "name": "setDescDepartamento",
+            "summary": "Establece\u0020la\u0020descripci\u00F3n\u0020del\u0020departamento",
+            "url": "classes/Departamento.html#method_setDescDepartamento"
+        },                {
+            "fqsen": "\\Departamento\u003A\u003AsetFechaCreacionDepartamento\u0028\u0029",
+            "name": "setFechaCreacionDepartamento",
+            "summary": "Establece\u0020la\u0020fecha\u0020de\u0020creaci\u00F3n\u0020del\u0020departamento",
+            "url": "classes/Departamento.html#method_setFechaCreacionDepartamento"
+        },                {
+            "fqsen": "\\Departamento\u003A\u003AsetVolumenDeNegocio\u0028\u0029",
+            "name": "setVolumenDeNegocio",
+            "summary": "Establece\u0020el\u0020volumen\u0020de\u0020negocio\u0020del\u0020departamento",
+            "url": "classes/Departamento.html#method_setVolumenDeNegocio"
+        },                {
+            "fqsen": "\\Departamento\u003A\u003AsetFechaBajaDepartamento\u0028\u0029",
+            "name": "setFechaBajaDepartamento",
+            "summary": "Establece\u0020la\u0020fecha\u0020de\u0020baja\u0020del\u0020departamento",
+            "url": "classes/Departamento.html#method_setFechaBajaDepartamento"
+        },                {
             "fqsen": "\\Departamento\u003A\u003A\u0024codDepartamento",
             "name": "codDepartamento",
             "summary": "C\u00F3digo\u0020\u00FAnico\u0020del\u0020departamento",
@@ -320,6 +310,36 @@ Search.appendIndex(
             "name": "buscarDepartamentoPorDesc",
             "summary": "Busca\u0020departamentos\u0020por\u0020descripci\u00F3n\u0020con\u0020b\u00FAsqueda\u0020parcial",
             "url": "classes/DepartamentoPDO.html#method_buscarDepartamentoPorDesc"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AbuscarDepartamentoPorCod\u0028\u0029",
+            "name": "buscarDepartamentoPorCod",
+            "summary": "Busca\u0020un\u0020departamento\u0020por\u0020su\u0020c\u00F3digo",
+            "url": "classes/DepartamentoPDO.html#method_buscarDepartamentoPorCod"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AmodificarDepartamento\u0028\u0029",
+            "name": "modificarDepartamento",
+            "summary": "Modifica\u0020la\u0020descripci\u00F3n\u0020y\u0020volumen\u0020de\u0020negocio\u0020de\u0020un\u0020departamento\u0020existente\n\u002A\u0020\u0040param\u0020Departamento\u0020\u0024oDepartamento\u0020Objeto\u0020del\u0020departamento\u0020a\u0020modificar",
+            "url": "classes/DepartamentoPDO.html#method_modificarDepartamento"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AaltaDepartamento\u0028\u0029",
+            "name": "altaDepartamento",
+            "summary": "Da\u0020de\u0020alta\u0020un\u0020nuevo\u0020departamento\u0020en\u0020la\u0020base\u0020de\u0020datos",
+            "url": "classes/DepartamentoPDO.html#method_altaDepartamento"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AvalidarCodDepartamentoExiste\u0028\u0029",
+            "name": "validarCodDepartamentoExiste",
+            "summary": "Comprueba\u0020si\u0020un\u0020c\u00F3digo\u0020de\u0020departamento\u0020ya\u0020existe\u0020en\u0020la\u0020BD",
+            "url": "classes/DepartamentoPDO.html#method_validarCodDepartamentoExiste"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AborrarDepartamento\u0028\u0029",
+            "name": "borrarDepartamento",
+            "summary": "Borra\u0020un\u0020departamento\u0020de\u0020la\u0020base\u0020de\u0020datos",
+            "url": "classes/DepartamentoPDO.html#method_borrarDepartamento"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AbajaLogicaDepartamento\u0028\u0029",
+            "name": "bajaLogicaDepartamento",
+            "summary": "Realiza\u0020una\u0020baja\u0020l\u00F3gica\u0020de\u0020un\u0020departamento\u0020estableciendo\u0020la\u0020fecha\u0020de\u0020baja",
+            "url": "classes/DepartamentoPDO.html#method_bajaLogicaDepartamento"
         },                {
             "fqsen": "\\FotoNasa",
             "name": "FotoNasa",
@@ -356,6 +376,46 @@ Search.appendIndex(
             "summary": "Obtiene\u0020la\u0020URL\u0020de\u0020la\u0020imagen\u0020en\u0020alta\u0020definici\u00F3n",
             "url": "classes/FotoNasa.html#method_getUrlhd"
         },                {
+            "fqsen": "\\FotoNasa\u003A\u003AgetImagenBase64\u0028\u0029",
+            "name": "getImagenBase64",
+            "summary": "Obtiene\u0020la\u0020conversion\u0020de\u0020la\u0020imagen",
+            "url": "classes/FotoNasa.html#method_getImagenBase64"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetTitulo\u0028\u0029",
+            "name": "setTitulo",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setTitulo"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetUrl\u0028\u0029",
+            "name": "setUrl",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setUrl"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetExplicacion\u0028\u0029",
+            "name": "setExplicacion",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setExplicacion"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetUrlhd\u0028\u0029",
+            "name": "setUrlhd",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setUrlhd"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetImagenBase64\u0028\u0029",
+            "name": "setImagenBase64",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setImagenBase64"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AgetImagenHDBase64\u0028\u0029",
+            "name": "getImagenHDBase64",
+            "summary": "Get\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_getImagenHDBase64"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003AsetImagenHDBase64\u0028\u0029",
+            "name": "setImagenHDBase64",
+            "summary": "Set\u0020constructor\u0020de\u0020la\u0020clase\u0020FotoNasa",
+            "url": "classes/FotoNasa.html#method_setImagenHDBase64"
+        },                {
             "fqsen": "\\FotoNasa\u003A\u003A\u0024titulo",
             "name": "titulo",
             "summary": "T\u00EDtulo\u0020de\u0020la\u0020foto",
@@ -380,6 +440,16 @@ Search.appendIndex(
             "name": "urlhd",
             "summary": "URL\u0020de\u0020la\u0020imagen\u0020en\u0020alta\u0020definici\u00F3n",
             "url": "classes/FotoNasa.html#property_urlhd"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003A\u0024imagenBase64",
+            "name": "imagenBase64",
+            "summary": "Para\u0020la\u0020conversi\u00F3n\u0020de\u0020la\u0020imagen\u0020de\u0020la\u0020nasa",
+            "url": "classes/FotoNasa.html#property_imagenBase64"
+        },                {
+            "fqsen": "\\FotoNasa\u003A\u003A\u0024imagenHDBase64",
+            "name": "imagenHDBase64",
+            "summary": "Para\u0020la\u0020conversi\u00F3n\u0020de\u0020la\u0020imagen\u0020de\u0020la\u0020nasa",
+            "url": "classes/FotoNasa.html#property_imagenHDBase64"
         },                {
             "fqsen": "\\Libro",
             "name": "Libro",
@@ -445,11 +515,6 @@ Search.appendIndex(
             "name": "apiLibroPorTitulo",
             "summary": "Busca\u0020informaci\u00F3n\u0020de\u0020un\u0020libro\u0020por\u0020su\u0020t\u00EDtulo\u0020en\u0020Open\u0020Library",
             "url": "classes/REST.html#method_apiLibroPorTitulo"
-        },                {
-            "fqsen": "\\REST\u003A\u003AAPI_KEY_NASA",
-            "name": "API_KEY_NASA",
-            "summary": "Clave\u0020de\u0020API\u0020para\u0020acceder\u0020al\u0020servicio\u0020NASA\u0020APOD",
-            "url": "classes/REST.html#constant_API_KEY_NASA"
         },                {
             "fqsen": "\\Usuario",
             "name": "Usuario",
@@ -611,10 +676,10 @@ Search.appendIndex(
             "summary": "Crea\u0020un\u0020nuevo\u0020usuario\u0020en\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/UsuarioPDO.html#method_crearUsuario"
         },                {
-            "fqsen": "\\UsuarioPDO\u003A\u003AvalidarCodigoNoExiste\u0028\u0029",
-            "name": "validarCodigoNoExiste",
+            "fqsen": "\\UsuarioPDO\u003A\u003AvalidarCodUsuarioExiste\u0028\u0029",
+            "name": "validarCodUsuarioExiste",
             "summary": "Comprueba\u0020si\u0020un\u0020c\u00F3digo\u0020de\u0020usuario\u0020ya\u0020existe\u0020en\u0020la\u0020BD",
-            "url": "classes/UsuarioPDO.html#method_validarCodigoNoExiste"
+            "url": "classes/UsuarioPDO.html#method_validarCodUsuarioExiste"
         },                {
             "fqsen": "\\UsuarioPDO\u003A\u003AcambiarPassword\u0028\u0029",
             "name": "cambiarPassword",
@@ -635,6 +700,26 @@ Search.appendIndex(
             "name": "cambiarFoto",
             "summary": "Cambia\u0020la\u0020foto\u0020de\u0020perfil\u0020de\u0020un\u0020usuario\u0020en\u0020la\u0020base\u0020de\u0020datos.",
             "url": "classes/UsuarioPDO.html#method_cambiarFoto"
+        },                {
+            "fqsen": "\\UsuarioPDO\u003A\u003AcrearUsuarioPorAdmin\u0028\u0029",
+            "name": "crearUsuarioPorAdmin",
+            "summary": "Crea\u0020un\u0020nuevo\u0020usuario\u0020por\u0020un\u0020administrador\u0020en\u0020la\u0020base\u0020de\u0020datos",
+            "url": "classes/UsuarioPDO.html#method_crearUsuarioPorAdmin"
+        },                {
+            "fqsen": "\\UsuarioPDO\u003A\u003AbuscarUsuarioPorCod\u0028\u0029",
+            "name": "buscarUsuarioPorCod",
+            "summary": "Busca\u0020un\u0020usuario\u0020por\u0020su\u0020c\u00F3digo\u0020de\u0020usuario",
+            "url": "classes/UsuarioPDO.html#method_buscarUsuarioPorCod"
+        },                {
+            "fqsen": "\\UsuarioPDO\u003A\u003AbuscarUsuariosPorDesc\u0028\u0029",
+            "name": "buscarUsuariosPorDesc",
+            "summary": "Busca\u0020usuarios\u0020cuya\u0020descripci\u00F3n\u0020contenga\u0020la\u0020cadena\u0020buscada",
+            "url": "classes/UsuarioPDO.html#method_buscarUsuariosPorDesc"
+        },                {
+            "fqsen": "\\UsuarioPDO\u003A\u003AmodificarUsuarioPorAdmin\u0028\u0029",
+            "name": "modificarUsuarioPorAdmin",
+            "summary": "Modifica\u0020la\u0020contrase\u00F1a\u0020y\u0020el\u0020perfil\u0020del\u0020usuario",
+            "url": "classes/UsuarioPDO.html#method_modificarUsuarioPorAdmin"
         },                {
             "fqsen": "\\",
             "name": "\\",

@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 15/12/2025
+ * Creado el 15/12/2025
  */
 
 // Se cargan los archivos de configuración

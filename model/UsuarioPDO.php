@@ -6,7 +6,7 @@
  * Proporciona métodos estáticos para validar, crear, actualizar y eliminar usuarios
  * 
  * @author: Véro Grué
- * @since: 18/12/2025
+ * Creado el 18/12/2025
  * @version: 1.0.0
  */
 require_once 'DBPDO.php';
