@@ -2,11 +2,10 @@
 
 /**
  * @author: Véro Grué
- * @since: 30/01/2026
+ * Creado el 30/01/2026
  */
 
 require_once 'core/libreriaValidacion.php';
-require_once 'core/miLibreriaStatic.php';
 //Cargamos la definición de la clase
 require_once 'model/Usuario.php'; 
 require_once 'model/UsuarioPDO.php';

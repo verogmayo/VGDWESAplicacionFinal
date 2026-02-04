@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 27/01/2026
+ * Creado el 27/01/2026
  */
 
 // Si se hace clic en el botón volver no sigue y redirige a mantenimiento departamentos

@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 28/01/2026
+ * Creado el 28/01/2026
  */
 
 
@@ -40,28 +40,28 @@ if(isset($_REQUEST['altaDpto'])){
 //si se pulsa el boton del ojo de consultar
 if (isset($_REQUEST['consultar'])) {
     //se busca el departamento por el codigo que se ha recogido en el value del botón de consultar
-    $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['consultar']);
-    if ($oDepartamento) {
-        $_SESSION['departamentoEnCurso'] = $oDepartamento;
+    // $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['consultar']);
+    
+        $_SESSION['codDepartamentoEnCurso'] = $_REQUEST['consultar'];
         $_SESSION['modoVista'] = 'consultar'; //se guarda la vista de consultar
         //se redirige a la página de consultar/modificar departamento
         $_SESSION['paginaEnCurso'] = 'modificarDpto'; 
         header('Location: index.php');
         exit;
-    }
+    
 }
 
 // Si se pulsa el lápiz de modificar
 if (isset($_REQUEST['modificar'])) {
      //se busca el departamento por el codigo que se ha recogido en el value del botón de modificar
-    $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['modificar']);
-    if ($oDepartamento) {
-        $_SESSION['departamentoEnCurso'] = $oDepartamento;
+    // $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod();
+    
+        // $_SESSION['departamentoEnCurso'] = $oDepartamento;
+       $_SESSION['codDepartamentoEnCurso']= $_REQUEST['modificar'];
         $_SESSION['modoVista'] = 'modificar'; // se guarda la vista de modificar
         $_SESSION['paginaEnCurso'] = 'modificarDpto';
         header('Location: index.php');
         exit;
-    }
 }
 
 // Si se pulsa el lápiz de modificar

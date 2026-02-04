@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since:28/01/2026
+ * Creado el28/01/2026
  */
 
 // Se comprueba si el botón "detalles" ha sido pulsado.

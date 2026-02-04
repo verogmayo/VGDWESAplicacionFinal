@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 15/12/2025
+ * Creado el 15/12/2025
  */
 
 // Se cargan los archivos de configuración
@@ -43,3 +43,4 @@ if (!in_array($paginaActual, $aPaginasPublicas)) {
 
 // cargamos el controlador de la pagina en curso
 require_once $controller[$_SESSION['paginaEnCurso']];
+?>

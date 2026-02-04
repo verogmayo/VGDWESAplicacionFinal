@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * @since: 03/01/2026
+ * Creado el 03/01/2026
  */
 
 // Si se hace clic en el botón volver no sigue y redirige al login
@@ -55,7 +55,7 @@ if (isset($_REQUEST['enviar'])) {
     } else {
         $aErrores['preguntaSeguridad'] = null;
     }
-    // $aErrores['preguntaSeguridad'] = miLibreriaStatic::comprobarPreguntaSeguridad($_REQUEST['preguntaSeguridad'], $valoresValidos, 1);
+   
 
     //se comprueba que las contraseñas coincidan
     if ($_REQUEST['password'] !== $_REQUEST['confirmaPassword']) {

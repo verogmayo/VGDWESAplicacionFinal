@@ -6,7 +6,7 @@
  * Encapsula la información de un usuario registrado en el sistema
  *
  * @author: Véro Grué
- * @since: 18/12/2025
+ * Creado el 18/12/2025
  * @version: 1.0.0
  */
 class Usuario
