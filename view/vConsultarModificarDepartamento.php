@@ -74,7 +74,7 @@
             <div class="icono"><span></span></div>
         </div>
 
-        <div class="filaDato">
+        <div class="filaDato input-moneda">
             <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
            <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
        value="<?php echo isset($_REQUEST['volumenDeNegocio']) ? $_REQUEST['volumenDeNegocio'] : $avVerModificarDpto['volumenDeNegocio']; ?>"

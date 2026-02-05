@@ -217,6 +217,8 @@ class DepartamentoPDO
     /**
      * Borra un departamento de la base de datos
      * 
+     * Realiza una borrado físico de la base de datos de un departamento
+     * 
      * @param Departamento $oDepartamento Objeto del departamento a borrar
      * @return boolean true si se borra correctamente, false si falla
      */
@@ -253,7 +255,9 @@ class DepartamentoPDO
 
 
     /**
-     * Realiza una baja lógica de un departamento estableciendo la fecha de baja
+     * Baja Lógica de una departamento
+     * 
+     * Realiza una baja lógica de un departamento estableciendo la fecha de baja, y se registra la acción en el log de auditoría.
      * 
      * @param Departamento $oDepartamento Objeto del departamento a dar de baja
      * @return Departamento|null El objeto departamento actualizado o null si falla
@@ -261,36 +265,55 @@ class DepartamentoPDO
     public static function bajaLogicaDepartamento($oDepartamento)
     {
         $oFechaActual = new DateTime();
-        $sql = <<<SQL
-            UPDATE T02_Departamento SET 
-                T02_FechaBajaDepartamento = :fechaBajaDepartamento
-            WHERE T02_CodDepartamento = :codDepartamento
-        SQL;
+        $sql = "UPDATE T02_Departamento SET T02_FechaBajaDepartamento = :fecha WHERE T02_CodDepartamento = :cod";
 
-        $parametros = [
-            ':fechaBajaDepartamento' => $oFechaActual->format('Y-m-d H:i:s'),
-            ':codDepartamento' => $oDepartamento->getCodDepartamento()
-        ];
-        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':fecha' => $oFechaActual->format('Y-m-d'),
+            ':cod'   => $oDepartamento->getCodDepartamento()
+        ]);
 
-        if ($consulta) {
+        // Usamos rowCount para estar seguros de que la DB se actualizó
+        if ($consulta && $consulta->rowCount() > 0) {
+            //Registro de Auditoría
+            $usuario = $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario();
+            $codDpto = $oDepartamento->getCodDepartamento();
+            $fechaHoraActual = $oFechaActual->format('d-m-Y H:i:s');
+
+            error_log("[AUDITORÍA] [$fechaHoraActual] El usuario '$usuario' ha ejecutado una BAJA LÓGICA sobre el departamento '$codDpto'.");
             $oDepartamento->setFechaBajaDepartamento($oFechaActual);
             return $oDepartamento;
         }
-
         return null;
     }
 
-    public static function rehabilitarDepartamento($codDepartamento)
+    /**
+     * Rehabilitación despues de una baja Logica
+     * 
+     * Realiza una rehabilitación de un departamento despues una baja lógica, y registro en el log de auditoría.
+     * 
+     * @param Departamento $oDepartamento Objeto del departamento a rehabilitar
+     * @return Departamento|null El objeto departamento actualizado o null si falla
+     */
+
+    public static function rehabilitarDepartamento($oDepartamento)
     {
-        // Ponemos la fecha a NULL para que el departamento vuelva a estar activo
-        $sql = <<<SQL
-        UPDATE T02_Departamento SET T02_FechaBajaDepartamento = NULL 
-        WHERE T02_CodDepartamento = :codDepartamento
-        SQL;
+        $sql = "UPDATE T02_Departamento SET T02_FechaBajaDepartamento = NULL WHERE T02_CodDepartamento = :codDepartamento";
+
         $consulta = DBPDO::ejecutarConsulta($sql, [
-            ':codDepartamento' => $codDepartamento
+            ':codDepartamento' => $oDepartamento->getCodDepartamento()
         ]);
-        return $consulta->rowCount() > 0;
+
+        if ($consulta) {
+            //Registro para la auditoría
+            $usuario = $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario();
+            $codDpto = $oDepartamento->getCodDepartamento();
+            $FechaHoraActual = date('d-m-Y H:i:s');
+            //mensajde de log
+            error_log("[AUDITORÍA] [$FechaHoraActual] El usuario '$usuario' ha REHABILITADO el departamento '$codDpto'.");
+
+            $oDepartamento->setFechaBajaDepartamento(null);
+            return $oDepartamento;
+        }
+        return null;
     }
 }

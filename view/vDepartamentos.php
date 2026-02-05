@@ -22,15 +22,21 @@
     <section class="contenedorInputDpto">
         <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="altaDptoDiv">
-            <button id="botonAltaDpto" class="botonSessionAltaDpto" type="submit" name="altaDpto">Añadir Departamento</button>
+                <button class="botonSessionAltaDpto" type="submit" name="altaDpto">
+                    <i class="fa-solid fa-plus"></i> Añadir Departamento
+                </button>
             </div>
-            <div class="busqueda">
-            <label for="descDepartamento">Descripción:</label>
-            <a style='color:red'><?php echo $aErrores['descDepartamento'] ?></a><br>
-            <input type="text" name="descDepartamento" id="descDepartamento" value="<?php echo $avDepartamentos['busqueda']; ?>">
-            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="buscar">Buscar</button> 
+            <div class="busquedaDpto">
+               <div class="inputGrupo">
+                    <input type="text" name="descDepartamento" id="buscarDescDepartamento"
+                        placeholder="Indica la descripción a buscar"
+                        value="<?php echo $avDepartamentos['busqueda']; ?>">
+                    <button id="botonBuscar" type="submit" name="buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                    </button>
+                </div>
             </div>
-              
+            </div>
         </form>
     </section>
     <section class="">
@@ -56,31 +62,45 @@
                                 <td><?php echo $dpto['fechaCreacionDepartamento']; ?></td>
                                 <td><?php echo $dpto['volumenDeNegocio']; ?></td>
                                 <td><?php echo $dpto['fechaBajaDepartamento']; ?></td>
-                                <form class="formDpto" method="post">
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="consultar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
+
+                                <td class="iconosDpto">
+                                    <form method="post">
+                                        <button id="botonVerDpto" type="submit" name="consultar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
-                                    </td>
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="modificar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
+                                    </form>
+                                </td>
+                                <td class="iconosDpto">
+                                    <form method="post">
+                                        <button id="botonModificarDpto" type="submit" name="modificar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </button>
-                                    </td>
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="eliminar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
+                                    </form>
+                                </td>
+                                <td class="iconosDpto">
+                                    <form method="post">
+                                        <button id="botonBorrarDpto" type="submit" name="eliminar" value="<?php echo $dpto['codDepartamento']; ?>" style="background:none; border:none; cursor:pointer;">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
-                                    </td>
-                                    <td class="iconosAltaBaja">
-                                        <?php if ($dpto['fechaBajaDepartamento'] === ''): ?>
-                                            <span id="activo"><i class="fa-solid fa-circle-arrow-down"></i></span>
-                                        <?php else: ?>
-                                            <span id="baja"><i class="fa-solid fa-circle-arrow-up"></i></span>
-                                        <?php endif; ?>
-                                    </td>
-                                </form>
+                                    </form>
+                                </td>
 
+                                <td class="iconosAltaBaja">
+                                    <form method="post">
+                                        <?php
+                                        // Si la cadena está vacía, es que el departamento está ACTIVO
+                                        if ($dpto['fechaBajaDepartamento'] === '') {
+                                        ?>
+                                            <button id="baja" type="submit" name="bajaLogica" value="<?php echo $dpto['codDepartamento']; ?>" style="border:none; background:none; cursor:pointer;">
+                                                <i class="fa-solid fa-circle-arrow-down" style="color: red;"></i>
+                                            </button>
+                                        <?php } else { ?>
+                                            <button id="activo" type="submit" name="rehabilitar" value="<?php echo $dpto['codDepartamento'] ?>" style="border:none; background:none; cursor:pointer;">
+                                                <i class="fa-solid fa-circle-arrow-up" style="color: green;"></i>
+                                            </button>
+                                        <?php } ?>
+                                    </form>
+                                </td>
                             </tr>
                         <?php } ?>
                     <?php else: ?>

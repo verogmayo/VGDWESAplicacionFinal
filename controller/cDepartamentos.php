@@ -75,6 +75,33 @@ if (isset($_REQUEST['eliminar'])) {
         exit;
     }
 }
+
+// baja logica
+if (isset($_REQUEST['bajaLogica'])) {
+    $oDepartamento=DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['bajaLogica']);
+    // Creamos una fecha para la baja (hoy)
+    // $oFecha = new DateTime();
+    // $fechaBaja = $oFecha->format('d-m-Y');
+    
+    // Llamamos a una función del modelo que actualice solo la fecha
+    if (DepartamentoPDO::bajaLogicaDepartamento($oDepartamento)) {
+        $_SESSION['paginaEnCurso'] = 'dpto';
+        header('Location: index.php'); // Refrescamos para ver los cambios
+        exit;
+    }
+}
+
+// alta logica
+if (isset($_REQUEST['rehabilitar'])) {
+    $oDepartamento=DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['rehabilitar']);
+    
+    // Rehabilitar es poner la fecha a NULL
+    if (DepartamentoPDO::rehabilitarDepartamento($oDepartamento)) {
+        $_SESSION['paginaEnCurso'] = 'dpto';
+        header('Location: index.php');
+        exit;
+    }
+}
      
 // Inicialización de variables 
 $descripcionBuscada="";

@@ -19,14 +19,10 @@
             ?>
         </div>
     <?php endif; ?>
-    <section class="contenedorInputDpto">
-        <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <label for="descUsuario">Descripción:</label>
-            <a style='color:red'></a><br>
-            <input type="text" name="descUsuario" id="descDepartamento" value="">
-            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="buscar">Buscar</button>
-            <button id="botonAltaDpto" class="botonSessionAltaDpto" type="submit" name="altaUsuario">Añadir Usuario</button>
-        </form>
+    <section class="contenedorInputUsuario">
+      <div class="contenedorInputUsuarioDiv"></div>
+
+
     </section>
     <section class="">
         <div class="contenedorTabla">
