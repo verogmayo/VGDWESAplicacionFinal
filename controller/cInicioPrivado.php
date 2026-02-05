@@ -61,7 +61,7 @@ if (isset($_REQUEST['rest'])) {
 
 if (isset($_REQUEST['mtoUsuarios'])) {
     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-    $_SESSION['paginaEnCurso'] = 'mtoUsuarios';
+    $_SESSION['paginaEnCurso'] = 'mtoUsuarios2';
     header('Location: index.php');
     exit;
 }

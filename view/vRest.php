@@ -72,7 +72,7 @@
              </div>
              <div class="containerRest">
                  <div class="tituloRest">
-                     DEPARTAMENTOS
+                     USUARIOS
                  </div>
                  <div class="infoRest3">
 
