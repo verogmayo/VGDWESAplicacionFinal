@@ -280,4 +280,17 @@ class DepartamentoPDO
 
         return null;
     }
+
+    public static function rehabilitarDepartamento($codDepartamento)
+    {
+        // Ponemos la fecha a NULL para que el departamento vuelva a estar activo
+        $sql = <<<SQL
+        UPDATE T02_Departamento SET T02_FechaBajaDepartamento = NULL 
+        WHERE T02_CodDepartamento = :codDepartamento
+        SQL;
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':codDepartamento' => $codDepartamento
+        ]);
+        return $consulta->rowCount() > 0;
+    }
 }

@@ -1368,6 +1368,7 @@ PAgina Mantenimineto de Departamento
 .contenedorInputDpto {
     height: 100px;
     margin-top: 1.5rem;
+    
 }
 
 #buscarDpto {
@@ -1607,6 +1608,10 @@ Carrpusel Infinito
   display: flex;
   width: max-content;
   animation: scroll 25s linear infinite;
+
+  /*para moviles*/
+   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Pausar al pasar el ratón */

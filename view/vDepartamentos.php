@@ -1,5 +1,5 @@
 <div class="tituloCentralCuenta">
-    <p>MANTENIMIENTO DE DEPARTAMENTO</p>
+    <p>MANTENIMIENTO DE DEPARTAMENTOS</p>
 </div>
 <form class="botonesDetalles">
     <div class="botonVolverLogin">
@@ -21,11 +21,16 @@
     <?php endif; ?>
     <section class="contenedorInputDpto">
         <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <div class="altaDptoDiv">
+            <button id="botonAltaDpto" class="botonSessionAltaDpto" type="submit" name="altaDpto">Añadir Departamento</button>
+            </div>
+            <div class="busqueda">
             <label for="descDepartamento">Descripción:</label>
             <a style='color:red'><?php echo $aErrores['descDepartamento'] ?></a><br>
             <input type="text" name="descDepartamento" id="descDepartamento" value="<?php echo $avDepartamentos['busqueda']; ?>">
-            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="buscar">Buscar</button>
-            <button id="botonAltaDpto" class="botonSessionAltaDpto" type="submit" name="altaDpto">Añadir Departamento</button>
+            <button id="botonSessionIPrivado" class="botonSession" type="submit" name="buscar">Buscar</button> 
+            </div>
+              
         </form>
     </section>
     <section class="">
