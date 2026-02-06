@@ -19,60 +19,108 @@
             ?>
         </div>
     <?php endif; ?>
-    <section class="contenedorInputUsuario">
-      <div class="contenedorInputUsuarioDiv"></div>
-
-
+    <section class="contenedorInputUsuario2">
+        <div id="campoBuscarDiv">Descripción: </div>
+        <input id="campoBuscar" name="campoBuscar" type="text">
     </section>
     <section class="">
-        <div class="contenedorTabla">
-            <table id="tablaDpto">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Descripción</th>
-                        <th>Nº Accesos</th>
-                        <th>Fecha Ultima Conexión</th>
-                        <th>Perfil</th>
-                        <th colspan="4">Acción</th>
+        <div class="contenedorTablaUsuario">
+            <table id="tablaUsuario">
 
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                            <tr class="">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <form class="formDpto" method="post">
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="consultar" value="" style="background:none; border:none; cursor:pointer;">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </td>
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="modificar" value="" style="background:none; border:none; cursor:pointer;">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </button>
-                                    </td>
-                                    <td class="iconosDpto">
-                                        <button type="submit" name="eliminar" value="" style="background:none; border:none; cursor:pointer;">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    </td>                                    
-                                </form>
-                            </tr>
-                    
-                        <tr>
-                            <td colspan="9">No se han encontrado usuarios con esta descripción.</td>
-                        </tr>
-                    
-
-                </tbody>
             </table>
 
         </div>
     </section>
 </main>
+<script>
+    function mostrarUsuario(usuarios) {
+        var tabla = document.getElementById("tablaUsuario");
+
+        tabla.innerHTML = `
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Nº Accesos</th>
+                <th>Fecha Última Conexión</th>
+                <th>Perfil</th>
+                <th colspan="4">Acción</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
+        var tbody = tabla.querySelector("tbody");
+        usuarios.forEach(usuario => {
+            var fila = document.createElement("tr");
+
+            var td1 = document.createElement("td");
+            td1.textContent = usuario.codUsuario;
+            fila.appendChild(td1);
+
+            var td2 = document.createElement("td");
+            td2.textContent = usuario.descUsuario;
+            fila.appendChild(td2);
+
+            var td3 = document.createElement("td");
+            td3.textContent = usuario.numAccesos;
+            fila.appendChild(td3);
+
+            var td4 = document.createElement("td");
+            if (usuarios[i].fechaHoraUltimaConexion !== null) {
+                // Si la fecha no es null se formatea
+                var fecha = new Date(usuarios[i].fechaHoraUltimaConexion);
+                var dia = String(fecha.getDate()).padStart(2, '0');
+                var m = String(fecha.getMonth() + 1).padStart(2, '0');
+                var a = String(fecha.getFullYear());
+
+                var fechaFormateada = `${dia}-${mes}-${anio}`;
+            } else {
+                // En caso de que sea nula dejamos vacia la celda.
+                var fechaFormateada = "";
+            }
+
+            // fechaFormateada = 
+            td4.textContent = fechaFormateada;
+            fila.appendChild(td4);
+
+            var td5 = document.createElement("td");
+            td5.textContent = usuario.perfil;
+            fila.appendChild(td5);
+
+            var td6 = document.createElement("td");
+            td6.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            fila.appendChild(td6);
+
+            var td7 = document.createElement("td");
+            td7.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            fila.appendChild(td7);
+
+            tbody.appendChild(fila);
+
+        });
+    }
+
+
+    var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+
+    fetch(urlApi)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            mostrarUsuario(data);
+        })
+        .catch(error => console.error("Error:", error));
+
+
+    var campoBuscar = document.getElementById("campoBuscar");
+
+    campoBuscar.addEventListener("input", () => {
+
+        fetch(urlApi + "?descUsuario=" + campoBuscar.value)
+            .then(response => response.json())
+            .then(data => {
+                mostrarUsuario(data);
+            })
+            .catch(error => console.error("Error:", error));
+    });
+</script>
