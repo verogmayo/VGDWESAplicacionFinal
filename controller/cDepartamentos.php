@@ -199,12 +199,12 @@ if (isset($_REQUEST['importar'])) {
         $jsonRaw = file_get_contents($_FILES['listaDptos']['tmp_name']);
         $aDatos = json_decode($jsonRaw, true);
 
-        // Si el JSON es una lista directa, $aDatos ya es el array de dptos
+        // Si el JSON es una lista directa entoces $aDatos  el array de dptos
         if (!$aDatos || !is_array($aDatos)) {
             $aErrores['listaDptos'] = "Formato JSON inválido.";
             $archivoOK = false;
         } else {
-            // Campos que vienen en TU json
+            // Campos del json
             $campos = ['codDepartamento', 'descDepartamento', 'fechaCreacionDepartamento', 'volumenDeNegocio'];
             
             foreach ($aDatos as $indice => $dpto) {
@@ -212,7 +212,7 @@ if (isset($_REQUEST['importar'])) {
                     if (!array_key_exists($campo, $dpto)) {
                         $archivoOK = false;
                         $aErrores['listaDptos'] = "Error en registro $indice: Falta '$campo'.";
-                        break 2;
+                        break 2; //Cierra los 2 foreach
                     }
                 }
             }
@@ -220,7 +220,7 @@ if (isset($_REQUEST['importar'])) {
     }
 
     if ($archivoOK) {
-        // Pasamos $aDatos directamente (que es la lista)
+        // Pasamos $aDatos directamente a la funcion importar PAlabras
         if (DepartamentoPDO::importarDepartamentos($aDatos)) {
             $_SESSION['msgOK'] = "Importación realizada con éxito.";
             header('Location: index.php');

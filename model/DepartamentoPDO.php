@@ -317,36 +317,46 @@ class DepartamentoPDO
         return null;
     }
 
-   public static function importarDepartamentos($aDepartamentos) {
-    try {
-        $miDB = DBPDO::obtenerConexion(); 
-        $miDB->beginTransaction();
+    /**
+     * Importa objetos Departamentos
+     * 
+     * Importa objetos departamentos de una fichero json si los hay sino devuelve null. 
+     * Si hay algun error en la importación devolverá null. Importa todos los objetos Departamentos o ninguno
+     * 
+     * @param array $aoDepartamento Array de objetos  departamento a importar desde un json
+     * @return true|false True si la importación fue total, false si falló algo.
+     */
 
-        // Añadimos T02_FechaBajaDepartamento a la consulta
-        $sql = "INSERT INTO T02_Departamento 
+    public static function importarDepartamentos($aoDepartamentos)
+    {
+        try {
+            $miDB = DBPDO::obtenerConexion();
+            $miDB->beginTransaction();
+
+            // Añadimos T02_FechaBajaDepartamento a la consulta
+            $sql = "INSERT INTO T02_Departamento 
                 (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) 
                 VALUES (:codigo, :descripcion, :fechaCreacion, :volumen, :fechaBaja)";
-        
-        $sentencia = $miDB->prepare($sql);
 
-        foreach ($aDepartamentos as $dpto) {
-            $sentencia->execute([
-                ':codigo'        => $dpto['codDepartamento'],
-                ':descripcion'   => $dpto['descDepartamento'],
-                ':fechaCreacion' => $dpto['fechaCreacionDepartamento'],
-                ':volumen'       => $dpto['volumenDeNegocio'],
-                ':fechaBaja'     => $dpto['fechaBajaDepartamento'] // Insertará NULL si el JSON tiene null
-            ]);
-        }
+            $sentencia = $miDB->prepare($sql);
 
-        return $miDB->commit(); 
-    } catch (Exception $e) {
-        if (isset($miDB) && $miDB->inTransaction()) {
-            $miDB->rollBack();
+            foreach ($aoDepartamentos as $oDpto) {
+                $sentencia->execute([
+                    ':codigo'        => $oDpto['codDepartamento'],
+                    ':descripcion'   => $oDpto['descDepartamento'],
+                    ':fechaCreacion' => $oDpto['fechaCreacionDepartamento'],
+                    ':volumen'       => $oDpto['volumenDeNegocio'],
+                    ':fechaBaja'     => $oDpto['fechaBajaDepartamento'] // Insertará NULL si el JSON tiene null
+                ]);
+            }
+
+            return $miDB->commit();
+        } catch (Exception $e) {
+            if (isset($miDB) && $miDB->inTransaction()) {
+                $miDB->rollBack();
+            }
+            error_log("Error en importación: " . $e->getMessage());
+            return false;
         }
-        error_log("Error en importación: " . $e->getMessage());
-        return false;
     }
-}
-
 }
