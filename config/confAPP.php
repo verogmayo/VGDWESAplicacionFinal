@@ -41,7 +41,8 @@ $controller = [
   'modificarUsuario' => 'controller/cConsultarModificarUsuario.php',
   'cambiarPasswordAdmin'=>'controller/cCambiarPasswordAdmin.php',
   'borrarUsuario'=>'controller/cBorrarUsuario.php',
-  'altaUsuario'=>'controller/cAltaUsuario.php'
+  'altaUsuario'=>'controller/cAltaUsuario.php',
+  'mtoUsuarios2' => 'controller/cMtoUsuarios2.php'
 
 ];
 
@@ -68,7 +69,8 @@ $view = [
   'modificarUsuario'=>'view/vConsultarModificarUsuario.php',
   'cambiarPasswordAdmin'=>'view/vCambiarPasswordAdmin.php',
   'borrarUsuario'=>'view/vBorrarUsuario.php',
-  'altaUsuario'=>'view/vAltaUsuario.php'
+  'altaUsuario'=>'view/vAltaUsuario.php',
+  'mtoUsuarios2' => 'view/vMtoUsuarios2.php'
 ]; 
 
 //Para la relación de Roles y permisos se crea un array con los permisos de cada rol.
@@ -92,7 +94,8 @@ $aRolPerfil = [
         'modificarUsuario',
         'cambiarPasswordAdmin',
         'borrarUsuario',
-        'altaUsuario'
+        'altaUsuario',
+        'mtoUsuarios2'
     ],
     'usuario' => [
       'inicioPrivado', 

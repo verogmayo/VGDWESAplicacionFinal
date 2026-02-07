@@ -472,6 +472,10 @@ nav {
 main {
     text-align: center;
     flex: 1;
+    /* padding-top: 130px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; */
 }
 
 
@@ -700,120 +704,6 @@ input {
     padding-right: 30px;
 }
 
-/*Imagenes centrales CARRUSEL*/
-
-.seccionCarrusel {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.carrusel-contenedor {
-    position: relative;
-    width: 1000px;
-    /* Ajusta el ancho que quieras que tenga el visor */
-    height: 700px;
-    /* Ajusta el alto */
-    overflow: hidden;
-    /* Oculta las fotos que no están activas */
-    border: 3px solid var(--colorAzul2);
-    border-radius: 10px;
-}
-
-.photos {
-    display: flex;
-    width: 500%;
-    /* 4 fotos = 400% de ancho */
-    height: 100%;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.photos img {
-    width: 20%;
-    /* Cada foto ocupa 1/4 del contenedor (100% / 4) */
-    height: 100%;
-    object-fit: contain;
-    /* Para que los diagramas no se deformen */
-    background-color: white;
-}
-
-.photos a {
-    width: 20%;
-    height: 100%;
-    flex-shrink: 0;
-}
-
-.photos a img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: white;
-}
-
-/* Estilo de los botones (Radios) */
-.carrusel-contenedor input {
-    position: absolute;
-    bottom: 15px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 10;
-    appearance: none;
-    /* Oculta el radio original */
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 2px solid white;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-
-/* Posicionamiento horizontal de los botones */
-#rd1 {
-    left: 40%;
-}
-
-#rd2 {
-    left: 46%;
-}
-
-#rd3 {
-    left: 52%;
-}
-
-#rd4 {
-    left: 58%;
-}
-
-#rd5 {
-    left: 64%;
-}
-
-/* Color cuando están seleccionados */
-.carrusel-contenedor input:checked {
-    background-color: var(--colorAzul2);
-    transform: scale(1.2);
-}
-
-
-/* Cuando el radio X está marcado, mueve el div .photos */
-#rd1:checked~.photos {
-    transform: translateX(0%);
-}
-
-#rd2:checked~.photos {
-    transform: translateX(-20%);
-}
-
-#rd3:checked~.photos {
-    transform: translateX(-40%);
-}
-
-#rd4:checked~.photos {
-    transform: translateX(-60%);
-}
-
-#rd5:checked~.photos {
-    transform: translateX(-80%);
-}
 
 /* 
 Login
@@ -987,6 +877,24 @@ Pagina Cuenta
     #numAccesos {
         background-color: var(--colorCampoRestringido);
     }
+}
+.input-moneda {
+    position: relative;
+    display: inline-block;
+}
+
+.input-moneda input {
+    padding-right: 25px; /* Deja espacio para el símbolo */
+}
+
+.input-moneda::after {
+    content: "€";
+    position: absolute;
+    right: 200px;
+    top: 50%;
+    transform: translateY(-10%);
+    color: #555;
+    pointer-events: none; /* Hace que el símbolo sea "transparente" al clic */
 }
 
 .filaDato:hover {
@@ -1165,12 +1073,16 @@ th {
     text-align: center;
 
 }
+
 .tableSG td pre {
-    white-space: pre-wrap;   /* mantiene formato pero permite saltos */
-    word-break: break-word;  /* parte palabras largas */
+    white-space: pre-wrap;
+    /* mantiene formato pero permite saltos */
+    word-break: break-word;
+    /* parte palabras largas */
     overflow-wrap: break-word;
     margin: 0;
 }
+
 td:nth-child(even) {
     /*seleciona los elemenos pares*/
     background-color: #DDDDDD;
@@ -1178,11 +1090,11 @@ td:nth-child(even) {
     font-size: 12px;
     font-weight: 400;
     margin-right: 50px;
-    min-width: 70%; 
-     white-space: normal;
-     word-break: break-word;
-    overflow-wrap: break-word; 
-     overflow-x: auto;
+    min-width: 70%;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    overflow-x: auto;
     white-space: nowrap;
 }
 
@@ -1192,7 +1104,7 @@ td:nth-child(odd) {
     width: auto;
     font-size: 12px;
     font-weight: 700;
-   
+
 }
 
 /* 
@@ -1266,10 +1178,11 @@ Estilos de  la pagina REST
     color: var(--colorAzul);
     margin: 5px;
 }
+
 .infoRest .infoRestUso p {
     padding: 5px;
     text-indent: 15px;
-     text-align: justify;
+    text-align: justify;
 
 }
 
@@ -1365,63 +1278,188 @@ Estilos de  la pagina REST
 /* 
 PAgina Mantenimineto de Departamento
 =====================================================*/
-.contenedorInputDpto {
-    height: 100px;
-    margin-top: 1.5rem;
+.botonSessionAltaDpto, #botonBuscar {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px; 
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px; 
+    border: 2px solid var(--colorAzul);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
 }
 
+/* #botonBuscar {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 50px; 
+    border: none;
+    cursor: pointer;
+    white-space: nowrap; 
+} */
+
+
+#botonBuscar:hover, .botonSessionAltaDpto:hover {
+    color: white;
+    background-color: var(--colorAzulHover);
+    box-shadow: 0 0 10px var(--colorAzulTranparente);
+}
+
+/* Corregir el contenedor para que se vean los filtros */
+.contenedorInputDpto {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 2rem auto;
+    position: relative;
+    z-index: 1;
+}
+.contenedorInputUsuarioDiv {
+    width: 100%;
+    height: 6rem;
+}
 #buscarDpto {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    height: 60px;
+    flex-direction: column;
+    gap: 15px;
 }
 
-#descDepartamento {
-    width: 30rem;
-    height: 40px;
+
+.altaDptoDiv {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.busquedaDpto {
+    text-align: left; 
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+.criterio-check span {
+    padding: 6px 20px;
+    border: 2px solid var(--colorAzul);
+    border-radius: 8px;
+    color: var(--colorAzul);
+    font-weight: 600;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.criterio-check input:checked + span {
+    background-color: var(--colorAzul);
+    color: white;
+}
+
+/* Input y Botón en la misma línea */
+.inputGrupo {
+    display: flex;
+    flex-direction: row; 
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;  
+    margin: 0 auto;    
+}
+
+#buscarDescDepartamento {
+    flex-grow: 1; 
+    height: 45px;
+    padding: 0 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 0;
 }
+
+.error-msg {
+    color: red;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 
 .contenedorTabla {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 
 #tablaDpto {
     border-collapse: collapse;
-    font-size: 1.3rem;
+    font-size: 1rem;
+    border: none;
+    margin: 20px;
 
     & thead tr th {
-        color: var(--colorAzulCuenta);
-        background-color: var(--colorAzul2);
-        padding: 5px 15px 5px 15px;
+        color: var(--colorAzul2);
+        background-color: rgb(238, 238, 252);
+        padding: 10px 15px 10px 15px;
+        white-space: nowrap;
+        border: none;
+        border-bottom: solid 2px var(--colorAzul2);
+        &:nth-child(1) {
+            text-align: start;
+        }
+
+        &:nth-child(2) {
+            text-align: start;
+        }
+
+        &:nth-child(3) {
+            text-align: start;
+        }
+         &:nth-child(4) {
+            text-align: start;
+        }
+         &:nth-child(5) {
+            text-align: start;
+        }
+         &:nth-child(6) {
+            text-align: center;
+        }
     }
 
     & tbody tr td {
-        background-color: white;
+        /* background-color: rgb(246, 246, 253); */
+        background: white;;
         font-size: 1rem;
         font-weight: 600;
-        padding: 5px;
+        padding: 5px 15px 5px 15px;
+        border: none;
+        border-right: white 1px solid;
+
+         &:nth-child(1) {
+            text-align: start;
+        }
+
+        &:nth-child(2) {
+            text-align: start;
+        }
 
         &:nth-child(3) {
-            text-align: center;
+            text-align: start;
         }
-
-        &:nth-child(4) {
-            text-align: end;
+         &:nth-child(4) {
+            text-align: start;
         }
-
-        &:nth-child(5) {
-            text-align: center;
+         &:nth-child(5) {
+            text-align: start;
         }
     }
 
 }
-
+.sectionTablaDpto{
+    margin-top: 1rem;
+    border: solid 2px var(--colorGris);
+}
 .dptoBaja {
     color: red;
 }
@@ -1434,6 +1472,24 @@ PAgina Mantenimineto de Departamento
 .iconosDpto {
     color: var(--colorAzul2);
     text-align: center;
+}
+
+#botonVerDpto {
+    color: var(--colorAzul2);
+    text-align: center;
+    font-size: 1.2rem ;
+}
+
+#botonModificarDpto {
+    color: var(--colorAzul2);
+    text-align: center;
+    font-size: 1.2rem ;
+}
+
+#botonBorrarDpto {
+    color: var(--colorAzul2);
+    text-align: center;
+    font-size: 1.2rem ;
 }
 
 .iconosAltaBaja {
@@ -1451,6 +1507,20 @@ PAgina Mantenimineto de Departamento
 }
 
 /* FIN Mantenimiento de Departamento ==============================================*/
+
+/*Eliminar Departamento============================*/
+.textoBorrarDpto {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    padding: 40px;
+}
+
+.textoBorrarDpto span {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--colorVerde);
+}
 /*Estilos del footer============================================*/
 footer {
     /* position: absolute; */
@@ -1595,59 +1665,184 @@ footer .pais {
 Carrpusel Infinito
 =====================================================*/
 .carruselInfinito {
-  width: 100%;
-  overflow: hidden;
-  background: #f5f5f5;
-  padding: 20px 0;
-  border-top: 2px solid var(--colorAzul2);
-  border-bottom: 2px solid var(--colorAzul2);
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+    padding: 20px 0;
+    border-top: 2px solid var(--colorAzul2);
+    border-bottom: 2px solid var(--colorAzul2);
 }
 
 .listadoImagenes {
-  display: flex;
-  width: max-content;
-  animation: scroll 25s linear infinite;
+    display: flex;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+
+    /*para moviles*/
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
 }
 
 /* Pausar al pasar el ratón */
 .carruselInfinito:hover .listadoImagenes {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 .item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 40px;
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 40px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s;
 }
 
 .item img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .item span {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
 }
 
 /* Efecto hover */
 .item:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 /* Animación infinita */
 @keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+/* FIN CARRUSEL INFINITO =====================================================*/
+
+/* 
+SOPA DE LETRAS
+=====================================================*/
+.sopaLetras{
+    height: 50px;
+    margin-top: 30px;
+}
+.sopaLetras a{
+    height: 40px;
+    padding: 20px;
+    background: var(--colorAzul2);
+    border-radius: 20px;
+    color: var(--colorBlanco);
+    font-size: 20px;
+}
+/* FIN SOPA DE LETRAS =====================================================*/
+/* tabla usuario*/
+.contenedorTablaUsuario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#tablaUsuario {
+    border-collapse: collapse;
+    font-size: 1rem;
+    border: none;
+    margin: 20px;
+
+    & thead tr th {
+        color: var(--colorAzul2);
+        background-color: rgb(238, 238, 252);
+        padding: 10px 15px 10px 15px;
+        white-space: nowrap;
+        border: none;
+        border-bottom: solid 2px var(--colorAzul2);
+        &:nth-child(1) {
+            text-align: start;
+        }
+
+        &:nth-child(2) {
+            text-align: start;
+        }
+
+        &:nth-child(3) {
+            text-align: start;
+        }
+         &:nth-child(4) {
+            text-align: start;
+        }
+         &:nth-child(5) {
+            text-align: start;
+        }
+         &:nth-child(6) {
+            text-align: center;
+        }
+    }
+
+    & tbody tr td {
+        /* background-color: rgb(246, 246, 253); */
+        background: white;;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 5px 15px 5px 15px;
+        border: none;
+        border-right: white 1px solid;
+
+         &:nth-child(1) {
+            text-align: start;
+        }
+
+        &:nth-child(2) {
+            text-align: start;
+        }
+
+        &:nth-child(3) {
+            text-align: start;
+        }
+         &:nth-child(4) {
+            text-align: start;
+        }
+         &:nth-child(5) {
+            text-align: start;
+        }
+    }
+
+}
+#campoBuscar{
+width: 100px;
+height: 3rem;
+margin: 2rem;
+border: solid 2px var(--colorAzul2);
+}
+.contenedorInputUsuario2 {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+#campoBuscarDiv{
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
+    margin: 2rem;
+    color: var(--colorAzul2);
+    font-weight: 800;
+}
+.sectionTablaUsuario{
+    margin-top: 1rem;
+    border: solid 2px var(--colorGris);
 }

@@ -159,6 +159,52 @@ class REST{
     return null;
 }
 
+
+
+
+/**
+     * Busca información de un libro por su título en Open Library
+     *
+     * Realiza una búsqueda en la API de Open Library y devuelve
+     * el primer resultado encontrado como objeto Libro
+     *
+     * @param string $titulo Título del libro a buscar
+     * @return Libro|null Objeto Libro con la información encontrada o null si no hay resultados
+     */
+
+    public static function apiPropia($descUsuario) {
+    
+    // Buscamos en la API de búsqueda por titulo (se limita a 1)
+    //https://openlibrary.org/dev/docs/api/search : urls según lo que se busques
+    // el @ es para que no salga error si no devuelve nada la api.
+    $resultado = @file_get_contents("https://openlibrary.org/search.json?title=$tituloUrl&limit=1");
+    
+    if ($resultado) {
+        $archivoApi = json_decode($resultado, true);
+        
+        // Verificamos si hay resultados en 'docs'. (Array de resultados de la api) 
+        if (isset($archivoApi['docs'][0])) {
+            $libroJson = $archivoApi['docs'][0];
+
+            //Título y Autor
+            $tituloLibro = $libroJson['title'];
+            $autorLibro = $libroJson['author_name'][0] ?? 'Autor desconocido';
+
+            // Portada (Se usa el ID de la portada 'cover_i' si existe)
+            $coverId = $libroJson['cover_i'] ?? null;
+            $portadaLibro = $coverId 
+                ? "https://covers.openlibrary.org/b/id/$coverId-L.jpg" 
+                : "webroot/images/default.png"; // Imagen por defecto
+
+            // Año de publicación
+            $anioPublicacion = $libroJson['first_publish_year'] ?? 'n/a';
+
+            // Retornamos el objeto Libro directamente
+            return new Libro($tituloLibro, $autorLibro, $portadaLibro, $anioPublicacion);
+        }
+    }
+    return null;
 }
 
+}
 ?>

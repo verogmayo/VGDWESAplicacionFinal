@@ -58,6 +58,7 @@ $entradaOK = true;
 if (isset($_REQUEST['enviar'])) {
     // Se Valida el campo usando la librería de validación
     $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 4, 1);
+    //se sutituye el pnto cpor la 
     $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
     // SE Comprueba si hay errores
     
@@ -99,7 +100,7 @@ $avVerModificarDpto = [
     'codDepartamento' => $oDepartamentoEnCurso->getCodDepartamento(),
     'descDepartamento' => $oDepartamentoEnCurso->getDescDepartamento(),
     'fechaCreacionDpto' => $fechaCreacionDpto->format('d/m/Y'),
-    'volumenDeNegocio' => $oDepartamentoEnCurso->getVolumenDeNegocio(),
+    'volumenDeNegocio' => number_format($oDepartamentoEnCurso->getVolumenDeNegocio(), 2, ',', ''),
     'fechaBajaDepartamento' => $oDepartamentoEnCurso->getFechaBajaDepartamento() ? $oDepartamentoEnCurso->getFechaBajaDepartamento() : 'Activo',
     'modo' => $modo, 
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()

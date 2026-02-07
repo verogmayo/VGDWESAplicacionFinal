@@ -79,7 +79,10 @@ if (isset($_REQUEST['eliminar'])) {
         exit;
     }
 }
-     
+
+
+
+
 // Inicialización de variables 
 $descripcionBuscada="";
 $aErrores = [
@@ -139,7 +142,28 @@ if (!is_null($aObjetoUsuarios)) {
         ];
     }
 }
+//Para la api
+// $urlAPI = "http://localhost/VGDWESAplicacionFinal/api/buscarUsuarios.php?descUsuario=" . urlencode($descripcionBuscada);
 
+// $ch = curl_init();
+// curl_setopt($ch, CURLOPT_URL, $urlAPI);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $resultadoJSON = curl_exec($ch);
+// curl_close($ch);
+
+// $datosRespuesta = json_decode($resultadoJSON, true);
+
+// $aListaUsuarios = [];
+
+// if ($datosRespuesta && $datosRespuesta['status'] === 'success') {
+//     // Los datos ya vienen formateados de la API (incluida la fecha)
+//     $aListaUsuarios = $datosRespuesta['data'];
+// }
+// // En confDBPDO.php
+// define('URL_API', 'http://'.$_SERVER['HTTP_HOST'].'/VGDWESAplicacionFinal/api/');
+
+// // En el controlador
+// $urlAPI = URL_API . "buscarUsuarios.php?descUsuario=" . urlencode($descripcionBuscada);
 
 $avMtoUsuarios = [
     'usuarios' => $aListaUsuarios,

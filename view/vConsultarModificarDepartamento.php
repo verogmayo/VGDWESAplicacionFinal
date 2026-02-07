@@ -74,11 +74,11 @@
             <div class="icono"><span></span></div>
         </div>
 
-        <div class="filaDato">
+        <div class="filaDato input-moneda">
             <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
-            <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
-                   value='<?php echo $avVerModificarDpto['volumenDeNegocio'] ?>'
-                   <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
+           <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
+       value="<?php echo isset($_REQUEST['volumenDeNegocio']) ? $_REQUEST['volumenDeNegocio'] : $avVerModificarDpto['volumenDeNegocio']; ?>"
+       <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
             <div class="icono"><span></span></div>
         </div>
 
@@ -86,11 +86,11 @@
             <div class="etiqueta">FECHA BAJA DEPARTAMENTO</div>
             <input type="text" name="fechaBajaDepartamento" id="fechaBajaDepartamento" 
                    value='<?php echo $avVerModificarDpto['fechaBajaDepartamento'] ?>' disabled>
+                   
             <div class="icono"><span></span></div>
         </div>
         
     </div>
-
     <div class="divBotones">
         <?php if ($avVerModificarDpto['modo'] === 'modificar'): ?>
             <button id="botonSessionLogin" class="botonSession" type="submit" name="enviar">Aceptar</button>

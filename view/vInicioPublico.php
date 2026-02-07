@@ -96,37 +96,11 @@
 
   </div>
 </section>
+<section>
+  <div class="sopaLetras">
+      <a href="../VGDWECProyectoDWEC/SopaLetras" target="_blank">Prueba nuestra sopa de letras</a>
+  </div>
+</section>
 
-    <!-- <section class="seccionCarrusel">
-    <div class="carrusel-contenedor">
-        <input type="radio" name="rd" id="rd1" checked>
-        <input type="radio" name="rd" id="rd2">
-        <input type="radio" name="rd" id="rd3">
-        <input type="radio" name="rd" id="rd4">
-        <input type="radio" name="rd" id="rd5">
-
-        <div class="photos">
-    <a href="webroot/doc/ArbolNavegacion.pdf" target="_blank">
-        <img src="webroot/images/ArbolNavegacion.png" alt="App Multicapa">
-    </a>
-
-    <a href="webroot/doc/RelacionFicherosAppFinal.pdf" target="_blank">
-        <img src="webroot/images/RelacionFicherosAppFinal.png" alt="Relación Ficheros">
-    </a>
-
-    <a href="webroot/doc/DiagramaDeCasosDeUso.pdf" target="_blank">
-        <img src="webroot/images/DiagramaDeClases.png" alt="Diagrama de Casos de Uso">
-    </a>
-
-    <a href="webroot/doc/DiagramaClasesAppFinal.pdf" target="_blank">
-        <img src="webroot/images/DiagramaClasesAppFinal.png" alt="Diagrama de Clases">
-    </a>
-
-    <a href="webroot/doc/UsoSessionAppFinal.pdf" target="_blank">
-        <img src="webroot/images/UsoSessionAppFinal.png" alt="UsoSession">
-    </a>
-</div>
-
-    </div>
-</section> -->
+  
 </main>
