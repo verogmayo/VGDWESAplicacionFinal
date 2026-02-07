@@ -20,11 +20,18 @@
         </div>
     <?php endif; ?>
     <section class="contenedorInputDpto">
-        <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
             <div class="altaDptoDiv">
                 <button class="botonSessionAltaDpto" type="submit" name="altaDpto">
                     <i class="fa-solid fa-plus"></i> Añadir Departamento
                 </button>
+                <button class="botonSessionAltaDpto" name="exportar" type="submit">
+                    <i class="fa-solid fa-file-export"></i>Exportar</button>
+                <input type="file" name="listaDptos" id="subirArchivo" style="display:none;" onchange="this.form.submit()">
+        <button class="botonSessionAltaDpto" type="button" onclick="document.getElementById('subirArchivo').click();">
+            <i class="fa-solid fa-file-import"></i> Importar
+        </button>
+        <input type="hidden" name="importar" value="1">
             </div>
             <div class="busquedaDpto">
                <div class="inputGrupo">
@@ -39,7 +46,7 @@
             </div>
         </form>
     </section>
-    <section class="">
+    <section class="sectionTablaDpto">
         <div class="contenedorTabla">
             <table id="tablaDpto">
                 <thead>
@@ -88,7 +95,7 @@
                                 <td class="iconosAltaBaja">
                                     <form method="post">
                                         <?php
-                                        // Si la cadena está vacía, es que el departamento está ACTIVO
+                                        // Si la fecha de baja está vacía, es que el departamento está ACTIVO
                                         if ($dpto['fechaBajaDepartamento'] === '') {
                                         ?>
                                             <button id="baja" type="submit" name="bajaLogica" value="<?php echo $dpto['codDepartamento']; ?>" style="border:none; background:none; cursor:pointer;">

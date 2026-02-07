@@ -62,4 +62,23 @@ class DBPDO
             exit;
         }
     }
+
+    /**
+     *Obtener Conexion
+    * 
+     *Obtener Conexion de la base de datos sin parametros
+     * @return Conexion Devuelve la conexion
+     */
+    public static function obtenerConexion() {
+    try {
+        $conexion = new PDO(DSN, USUARIODB, PSWD);
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conexion;
+    } catch (PDOException $e) {
+        // Reutilizamos tu lógica de error si falla la conexión inicial
+        error_log("ERROR DE CONEXIÓN: " . $e->getMessage());
+        header('Location: index.php');
+        exit;
+    }
+}
 }

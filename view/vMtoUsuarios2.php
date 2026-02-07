@@ -20,10 +20,10 @@
         </div>
     <?php endif; ?>
     <section class="contenedorInputUsuario2">
-        <div id="campoBuscarDiv">Descripción: </div>
+        <div id="campoBuscarDiv">Descripción a buscar: </div>
         <input id="campoBuscar" name="campoBuscar" type="text">
     </section>
-    <section class="">
+    <section class="sectionTablaUsuario">
         <div class="contenedorTablaUsuario">
             <table id="tablaUsuario">
 
@@ -66,20 +66,32 @@
             fila.appendChild(td3);
 
             var td4 = document.createElement("td");
-            if (usuarios[i].fechaHoraUltimaConexion !== null) {
-                // Si la fecha no es null se formatea
-                var fecha = new Date(usuarios[i].fechaHoraUltimaConexion);
-                var dia = String(fecha.getDate()).padStart(2, '0');
-                var m = String(fecha.getMonth() + 1).padStart(2, '0');
-                var a = String(fecha.getFullYear());
 
-                var fechaFormateada = `${dia}-${mes}-${anio}`;
-            } else {
-                // En caso de que sea nula dejamos vacia la celda.
-                var fechaFormateada = "";
+            var fechaFormateada = "";
+            if (usuario.fechaUltimaConexion) {
+                let partes = usuario.fechaUltimaConexion.split(" ");
+                // "01/02/2026 13:30:57". Se coge por separado el día el mes u el año
+                let fechaParte = partes[0].split("/");
+
+                let dia = fechaParte[0];
+                let mes = fechaParte[1] - 1; //en js el mes empieza en 0
+                let anio = fechaParte[2];
+
+                let fecha = new Date(anio, mes, dia);
+                if(!isNaN(fecha.getTime())){
+                    fechaFormateada = fecha.toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: '2-digit'
+                });
+                }
+                
+
             }
 
-            // fechaFormateada = 
+            console.log("Fecha original:", usuario.fechaUltimaConexion);
+
+            console.log("está es la fecha formateada" + fechaFormateada);
             td4.textContent = fechaFormateada;
             fila.appendChild(td4);
 
@@ -101,8 +113,8 @@
     }
 
 
-    var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
-
+    // var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+    var urlApi = "https://192.168.0.22/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
     fetch(urlApi)
         .then(response => response.json())
         .then(data => {

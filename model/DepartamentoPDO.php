@@ -316,4 +316,37 @@ class DepartamentoPDO
         }
         return null;
     }
+
+   public static function importarDepartamentos($aDepartamentos) {
+    try {
+        $miDB = DBPDO::obtenerConexion(); 
+        $miDB->beginTransaction();
+
+        // Añadimos T02_FechaBajaDepartamento a la consulta
+        $sql = "INSERT INTO T02_Departamento 
+                (T02_CodDepartamento, T02_DescDepartamento, T02_FechaCreacionDepartamento, T02_VolumenDeNegocio, T02_FechaBajaDepartamento) 
+                VALUES (:codigo, :descripcion, :fechaCreacion, :volumen, :fechaBaja)";
+        
+        $sentencia = $miDB->prepare($sql);
+
+        foreach ($aDepartamentos as $dpto) {
+            $sentencia->execute([
+                ':codigo'        => $dpto['codDepartamento'],
+                ':descripcion'   => $dpto['descDepartamento'],
+                ':fechaCreacion' => $dpto['fechaCreacionDepartamento'],
+                ':volumen'       => $dpto['volumenDeNegocio'],
+                ':fechaBaja'     => $dpto['fechaBajaDepartamento'] // Insertará NULL si el JSON tiene null
+            ]);
+        }
+
+        return $miDB->commit(); 
+    } catch (Exception $e) {
+        if (isset($miDB) && $miDB->inTransaction()) {
+            $miDB->rollBack();
+        }
+        error_log("Error en importación: " . $e->getMessage());
+        return false;
+    }
+}
+
 }

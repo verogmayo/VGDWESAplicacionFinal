@@ -7,7 +7,7 @@
         <form class="form" action="index.php" method="post">
 
             <div class="contenedorInput">
-                <div class="textoBorrarUsuario">¿Estás seguro de que quieres borrar el departamento?
+                <div class="textoBorrarDpto">¿Estás seguro de que quieres borrar el departamento <span><?php echo $avEliminarDepartamento['dptoAEliminar'];?></span> 
                     Los datos se borrarán de forma permanente y no podrás recuperarlos.
                 </div>
                 <!-- Mensaje de error si no se pouede borrar el usuario -->

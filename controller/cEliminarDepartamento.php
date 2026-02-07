@@ -13,7 +13,7 @@ if (isset($_REQUEST['volver'])) {
     exit;
 }
 
-$oDepartamentoAEliminar = $_SESSION['departamentoAEliminar'];
+
 //  Validación 
 if (isset($_REQUEST['eliminar'])) {
 
@@ -33,6 +33,9 @@ if (isset($_REQUEST['eliminar'])) {
         $errorBorrar = "El departamento no se ha podido borrar. Por favor, intentalo más tarde";
     };
 }
+$avEliminarDepartamento = [
+    'dptoAEliminar'=>$_SESSION['departamentoAEliminar']->getDescDepartamento()
+];
 
 // Si hay errores o no se ha enviado, cargar el layout 
 require_once $view['layout'];
