@@ -5,6 +5,7 @@ require_once "../config/confDBPDODes.php";
 require_once "../model/DBPDO.php";
 require_once "../model/UsuarioPDO.php";
 require_once "../model/Usuario.php";
+require_once "../core/libreriaValidacion.php";
 
 // http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php?descUsuario=vero
 
