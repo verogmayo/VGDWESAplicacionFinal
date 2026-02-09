@@ -70,6 +70,7 @@
             var fechaFormateada = "";
             if (usuario.fechaUltimaConexion) {
                 let partes = usuario.fechaUltimaConexion.split(" ");
+                //https://www.freecodecamp.org/espanol/news/como-formatear-fechas-en-javascript-con-una-linea-de-codigo/
                 // "01/02/2026 13:30:57". Se coge por separado el día el mes u el año
                 let fechaParte = partes[0].split("/");
 
@@ -85,10 +86,7 @@
                     year: '2-digit'
                 });
                 }
-                
-
             }
-
             console.log("Fecha original:", usuario.fechaUltimaConexion);
 
             console.log("está es la fecha formateada" + fechaFormateada);
@@ -100,11 +98,13 @@
             fila.appendChild(td5);
 
             var td6 = document.createElement("td");
-            td6.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            // td6.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            td6.innerHTML = '';
             fila.appendChild(td6);
 
             var td7 = document.createElement("td");
-            td7.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            // td7.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            td7.innerHTML = '';
             fila.appendChild(td7);
 
             tbody.appendChild(fila);
@@ -113,8 +113,9 @@
     }
 
 
-    // var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
-    var urlApi = "https://192.168.0.22/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+     var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+    //var urlApi = "https://192.168.0.22/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+  // var urlApi = "https://veroniquegru.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
     fetch(urlApi)
         .then(response => response.json())
         .then(data => {

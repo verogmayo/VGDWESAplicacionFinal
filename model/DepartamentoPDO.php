@@ -359,4 +359,44 @@ class DepartamentoPDO
             return false;
         }
     }
+
+    /**
+     * Busca un departamento por su código y su estado
+     * 
+     * Realiza una búsqueda en la tabla T02_Departamento usando LIKE
+     * para encontrar coincidencias parciales en el código del departamento y el estado.
+     * Los resultados se ordenan alfabéticamente por codigo de depatamento
+     * 
+     * @param string $codDepartamento Código del departamento a buscar
+     * @return Departamento|null Objeto Departamento si se encuentra, null si no
+     */
+    public static function buscarDepartamentoPorCodYEstado($codDepartamento,$estadoDpto)
+    {
+        //Definición del estado del departamento
+        // $fechaSegunEstado=()
+        $sql = <<<SQL
+            SELECT * FROM T02_Departamento
+            WHERE T02_CodDepartamento like :departamento
+        SQL;
+
+        $parametros = [
+            ':departamento' => $codDepartamento
+        ];
+
+        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
+
+        // si se encuentra el  departamento en la base de datos, se crea el objeto departamento
+        $oDepartamento = null;
+        if ($DepartamentoBD = $consulta->fetchObject()) {
+            $oDepartamento = new Departamento(
+                $DepartamentoBD->T02_CodDepartamento,
+                $DepartamentoBD->T02_DescDepartamento,
+                $DepartamentoBD->T02_FechaCreacionDepartamento,
+                $DepartamentoBD->T02_VolumenDeNegocio,
+                $DepartamentoBD->T02_FechaBajaDepartamento
+            );
+        }
+
+        return $oDepartamento;
+    }
 }

@@ -7,9 +7,9 @@ require_once "../model/UsuarioPDO.php";
 require_once "../model/Usuario.php";
 require_once "../core/libreriaValidacion.php";
 
-// http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php?descUsuario=vero
+//http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php?descUsuario=vero
 
-
+//header para ver el codigo formateado
 header('Content-Type: application/json; charset=utf-8');
 $entradaOk = true;
 if (isset($_REQUEST['DescUsuario'])) {
@@ -21,8 +21,6 @@ if (isset($_REQUEST['DescUsuario'])) {
 } else {
     $entradaOK = false;
 }
-
-
 
 $aObjetosUsuarios = UsuarioPDO::buscarUsuariosPorDesc($_REQUEST['descUsuario'] ?? '');
 

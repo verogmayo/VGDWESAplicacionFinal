@@ -42,6 +42,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i> Buscar
                     </button>
                 </div>
+                di
             </div>
             </div>
         </form>
