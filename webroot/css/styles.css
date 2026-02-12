@@ -1307,6 +1307,7 @@ PAgina Mantenimineto de Departamento
 #rbAltaDpto, #rbBajaDpto, #rbTodosDpto{
 height: 20px;
 width: auto;
+margin: 0 5px 0 5px;
 }
 .divInputEstado{
     width: 120px;
@@ -1624,7 +1625,15 @@ footer .pais {
     padding: 6px 10px;
     letter-spacing: normal;
 }
-
+.HUtilizadas {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #202124;
+    border: 1px solid #202124;
+    border-radius: 40%;
+    padding: 6px 10px;
+    letter-spacing: normal;
+}
 /* .cv{
     text-decoration: none;
     font-size: 1.4rem; 

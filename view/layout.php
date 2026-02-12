@@ -60,9 +60,12 @@
                         <div class="divCV">
                             <a href="webroot/doc/CV2026.pdf" class="cv" target="_blank">CV</a>
                         </div>
+                        <div class="herramientasUtilizadas">
+                            <a href="https://github.com/verogmayo/VGDAWProyectoDAW/blob/master/README.md" class="HUtilizadas" target="_blank">Herramientas Utilizadas</a>
+                        </div>
                     </div>
                     <div class="social-media">
-                        <a href="https://github.com/verogmayo/VGDWESAplicacionFinal" target="_blank"><i class='bx bxl-github'></i></a>
+                        <a href="https://github.com/verogmayo/VGDWESAplicacionFinal"  target="_blank"><i class='bx bxl-github'></i></a>
                     </div>
 
                 </div>

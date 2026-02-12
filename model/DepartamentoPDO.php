@@ -361,38 +361,39 @@ class DepartamentoPDO
     }
 
     /**
- * Busca departamentos por descripción y por estado (Alta/Baja/Todos)
- * * @param string $desc Busqueda parcial por descripción
- * @param string $estado 'alta', 'baja' o 'todos'
- * @return array Array de objetos Departamento
- */
-public static function buscarDepartamentoPorDescYEstado($desc = '', $estado = 'todos') {
-    $aDepartamentos = [];
-    
-    // Base de la consulta
-    $sql = "SELECT * FROM T02_Departamento WHERE T02_DescDepartamento LIKE :desc";
-    
-    // Añadimos filtros según el estado
-    if ($estado === 'alta') {
-        $sql .= " AND T02_FechaBajaDepartamento IS NULL";
-    } elseif ($estado === 'baja') {
-        $sql .= " AND T02_FechaBajaDepartamento IS NOT NULL";
+     * Busca departamentos por descripción y por estado (Alta/Baja/Todos)
+     * @param string $descDepartamento Busqueda parcial por descripción
+     * @param string $estado de los departamentos 'alta', 'baja' o 'todos'
+     * @return array Array de objetos Departamento
+     */
+    public static function buscarDepartamentoPorDescYEstado($descDepartamento = '', $estado = 'todos')
+    {
+        $aObjDepartamentos = [];
+
+        // Base de la consulta
+        $sql = "SELECT * FROM T02_Departamento WHERE T02_DescDepartamento LIKE :desc";
+
+        // Se añaden los filtros según el estado
+        if ($estado === 'alta') {
+            $sql .= " AND T02_FechaBajaDepartamento IS NULL";
+        } elseif ($estado === 'baja') {
+            $sql .= " AND T02_FechaBajaDepartamento IS NOT NULL";
+        }
+
+        $sql .= " ORDER BY T02_DescDepartamento ASC";
+
+        $consulta = DBPDO::ejecutarConsulta($sql, [':desc' => "%$descDepartamento%"]);
+
+        while ($oDpto = $consulta->fetchObject()) {
+            $aObjDepartamentos[] = new Departamento(
+                $oDpto->T02_CodDepartamento,
+                $oDpto->T02_DescDepartamento,
+                $oDpto->T02_FechaCreacionDepartamento,
+                $oDpto->T02_VolumenDeNegocio,
+                $oDpto->T02_FechaBajaDepartamento
+            );
+        }
+
+        return $aObjDepartamentos;
     }
-    
-    $sql .= " ORDER BY T02_DescDepartamento ASC";
-
-    $consulta = DBPDO::ejecutarConsulta($sql, [':desc' => "%$desc%"]);
-
-    while ($oDpto = $consulta->fetchObject()) {
-        $aDepartamentos[] = new Departamento(
-            $oDpto->T02_CodDepartamento,
-            $oDpto->T02_DescDepartamento,
-            $oDpto->T02_FechaCreacionDepartamento,
-            $oDpto->T02_VolumenDeNegocio,
-            $oDpto->T02_FechaBajaDepartamento
-        );
-    }
-
-    return $aDepartamentos;
-}
 }

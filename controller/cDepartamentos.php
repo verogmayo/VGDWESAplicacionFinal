@@ -129,13 +129,13 @@ if ($entradaOK) {
     //Se recoge el estado
     $estado = $_REQUEST['rbDpto'] ?? 'todos';
     //Se guarda el estado en la session
-$_SESSION['estadoDptoEnCurso'] = $estado; 
+    $_SESSION['estadoDptoEnCurso'] = $estado;
 } else {
     //si  la entrada no es OK y hay una búsqueda en curso en sesión, se recoge la busqueda de la sesión
     if (isset($_SESSION['busquedaDptoEnCurso'])) {
         $descripcionBuscada = $_SESSION['busquedaDptoEnCurso'];
     }
-    
+
     $estado = $_SESSION['estadoDptoEnCurso'] ?? 'todos';
 }
 
@@ -143,7 +143,7 @@ $_SESSION['estadoDptoEnCurso'] = $estado;
 $aListaDepartamentos = [];
 //array de objetos de departamento
 // $aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
-$aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDescYEstado($descripcionBuscada,$estado);
+$aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDescYEstado($descripcionBuscada, $estado);
 
 if (!is_null($aObjetoDepartamentos)) {
     foreach ($aObjetoDepartamentos as $oDepartamento) {
@@ -197,7 +197,7 @@ if (isset($_REQUEST['exportar'])) {
 //Si se pulsa el boton de importar
 if (isset($_REQUEST['importar'])) {
     $archivoOK = true;
-    
+
     if ($_FILES['listaDptos']['error'] !== UPLOAD_ERR_OK) {
         $aErrores['listaDptos'] = "Error al subir el archivo.";
         $archivoOK = false;
@@ -212,7 +212,7 @@ if (isset($_REQUEST['importar'])) {
         } else {
             // Campos del json
             $campos = ['codDepartamento', 'descDepartamento', 'fechaCreacionDepartamento', 'volumenDeNegocio'];
-            
+
             foreach ($aDatos as $indice => $dpto) {
                 foreach ($campos as $campo) {
                     if (!array_key_exists($campo, $dpto)) {
@@ -245,7 +245,7 @@ $avDepartamentos = [
     'busqueda' => $descripcionBuscada,
     'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
-    'estado'=>$estado
+    'estado' => $estado
 ];
 // cargamos el layout principal
 require_once $view['layout'];
