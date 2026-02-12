@@ -216,6 +216,11 @@ Search.appendIndex(
             "summary": "Ejecuta\u0020una\u0020consulta\u0020SQL\u0020preparada\u0020con\u0020PDO",
             "url": "classes/DBPDO.html#method_ejecutarConsulta"
         },                {
+            "fqsen": "\\DBPDO\u003A\u003AobtenerConexion\u0028\u0029",
+            "name": "obtenerConexion",
+            "summary": "Obtener\u0020Conexion",
+            "url": "classes/DBPDO.html#method_obtenerConexion"
+        },                {
             "fqsen": "\\Departamento",
             "name": "Departamento",
             "summary": "Clase\u0020entidad\u0020para\u0020representar\u0020un\u0020departamento\u0020de\u0020la\u0020empresa",
@@ -338,8 +343,23 @@ Search.appendIndex(
         },                {
             "fqsen": "\\DepartamentoPDO\u003A\u003AbajaLogicaDepartamento\u0028\u0029",
             "name": "bajaLogicaDepartamento",
-            "summary": "Realiza\u0020una\u0020baja\u0020l\u00F3gica\u0020de\u0020un\u0020departamento\u0020estableciendo\u0020la\u0020fecha\u0020de\u0020baja",
+            "summary": "Baja\u0020L\u00F3gica\u0020de\u0020una\u0020departamento",
             "url": "classes/DepartamentoPDO.html#method_bajaLogicaDepartamento"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003ArehabilitarDepartamento\u0028\u0029",
+            "name": "rehabilitarDepartamento",
+            "summary": "Rehabilitaci\u00F3n\u0020despues\u0020de\u0020una\u0020baja\u0020Logica",
+            "url": "classes/DepartamentoPDO.html#method_rehabilitarDepartamento"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AimportarDepartamentos\u0028\u0029",
+            "name": "importarDepartamentos",
+            "summary": "Importa\u0020objetos\u0020Departamentos",
+            "url": "classes/DepartamentoPDO.html#method_importarDepartamentos"
+        },                {
+            "fqsen": "\\DepartamentoPDO\u003A\u003AbuscarDepartamentoPorDescYEstado\u0028\u0029",
+            "name": "buscarDepartamentoPorDescYEstado",
+            "summary": "Busca\u0020departamentos\u0020por\u0020descripci\u00F3n\u0020y\u0020por\u0020estado\u0020\u0028Alta\/Baja\/Todos\u0029",
+            "url": "classes/DepartamentoPDO.html#method_buscarDepartamentoPorDescYEstado"
         },                {
             "fqsen": "\\FotoNasa",
             "name": "FotoNasa",
@@ -515,6 +535,11 @@ Search.appendIndex(
             "name": "apiLibroPorTitulo",
             "summary": "Busca\u0020informaci\u00F3n\u0020de\u0020un\u0020libro\u0020por\u0020su\u0020t\u00EDtulo\u0020en\u0020Open\u0020Library",
             "url": "classes/REST.html#method_apiLibroPorTitulo"
+        },                {
+            "fqsen": "\\REST\u003A\u003AapiPropia\u0028\u0029",
+            "name": "apiPropia",
+            "summary": "Busca\u0020informaci\u00F3n\u0020de\u0020un\u0020libro\u0020por\u0020su\u0020t\u00EDtulo\u0020en\u0020Open\u0020Library",
+            "url": "classes/REST.html#method_apiPropia"
         },                {
             "fqsen": "\\Usuario",
             "name": "Usuario",

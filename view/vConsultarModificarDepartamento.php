@@ -20,6 +20,12 @@
                 unset($_SESSION['mensajeExito']);
                 ?>
             </p>
+
+        </div>
+    <?php endif; ?>
+    <?php if (isset($avVerModificarDpto['mensajeErrorBaja'])): ?>
+        <div class="alerta-baja" style="background-color: #fff3cd; color: #856404; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ffeeba;">
+            <?php echo $avVerModificarDpto['mensajeErrorBaja']; ?>
         </div>
     <?php endif; ?>
     <div class="cabeceraPerfil">
@@ -48,59 +54,66 @@
                 </ul>
             </nav>
         </aside>
-        <section  class="contenidoPerfil">
-           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-    <div class="tablaDatosGrid">
-        
-        <div class="filaDato">
-            <div class="etiqueta">CODIGO DEPARTAMENTO</div>
-            <input name="codDepartamento" id="codDepartamento" type="text" 
-                   value='<?php echo $avVerModificarDpto['codDepartamento'] ?>' disabled>
-            <div class="icono"><span></span></div>
-        </div>
+        <section class="contenidoPerfil">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <div class="tablaDatosGrid">
 
-        <div class="filaDato">
-            <div class="etiqueta">DESCRIPCIÓN DEPARTAMENTO</div>
-            <input name="descDepartamento" id="descDepartamento" type="text" 
-                   value='<?php echo $avVerModificarDpto['descDepartamento'] ?>'
-                   <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
-            <div class="icono"><span></span></div>
-        </div>
+                    <div class="filaDato">
+                        <div class="etiqueta">CODIGO DEPARTAMENTO</div>
+                        <input name="codDepartamento" id="codDepartamento" type="text"
+                            value='<?php echo $avVerModificarDpto['codDepartamento'] ?>' disabled>
+                        <div class="icono"><span></span></div>
+                    </div>
 
-        <div class="filaDato">
-            <div class="etiqueta">FECHA CREACIÓN DEPARTAMENTO</div>
-            <input type="text" name="fechaCreacionDepartamento" id="fechaCreacionDepartamento" 
-                   value='<?php echo $avVerModificarDpto['fechaCreacionDpto'] ?>' disabled>
-            <div class="icono"><span></span></div>
-        </div>
+                    <div class="filaDato">
+                        <div class="etiqueta">DESCRIPCIÓN DEPARTAMENTO</div>
+                        <input name="descDepartamento" id="descDepartamento" type="text"
+                            value="<?php echo $avVerModificarDpto['descDepartamento']; ?>"
+                            <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
 
-        <div class="filaDato input-moneda">
-            <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
-           <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
-       value="<?php echo isset($_REQUEST['volumenDeNegocio']) ? $_REQUEST['volumenDeNegocio'] : $avVerModificarDpto['volumenDeNegocio']; ?>"
-       <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
-            <div class="icono"><span></span></div>
-        </div>
+                        <?php if (isset($aErrores['descDepartamento'])) { ?>
+                            <p class="error"><?php echo $aErrores['descDepartamento']; ?></p>
+                        <?php } ?>
+                        <div class="icono"><span></span></div>
+                    </div>
 
-        <div class="filaDato">
-            <div class="etiqueta">FECHA BAJA DEPARTAMENTO</div>
-            <input type="text" name="fechaBajaDepartamento" id="fechaBajaDepartamento" 
-                   value='<?php echo $avVerModificarDpto['fechaBajaDepartamento'] ?>' disabled>
-                   
-            <div class="icono"><span></span></div>
-        </div>
-        
-    </div>
-    <div class="divBotones">
-        <?php if ($avVerModificarDpto['modo'] === 'modificar'): ?>
-            <button id="botonSessionLogin" class="botonSession" type="submit" name="enviar">Aceptar</button>
-        <?php endif; ?>
+                    <div class="filaDato">
+                        <div class="etiqueta">FECHA CREACIÓN DEPARTAMENTO</div>
+                        <input type="text" name="fechaCreacionDepartamento" id="fechaCreacionDepartamento"
+                            value='<?php echo $avVerModificarDpto['fechaCreacionDpto'] ?>' disabled>
+                        <div class="icono"><span></span></div>
+                    </div>
 
-        <div class="botonVolverLogin">
-            <button id="botonVolverLogin" class="botonAzul" type="submit" name="cancelar">Volver</button>
-        </div>
-    </div>
-</form>
+                    <div class="filaDato input-moneda">
+                        <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
+                        <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
+                            value="<?php echo $avVerModificarDpto['volumenDeNegocio']; ?>"
+                            <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
+
+                        <?php if (isset($aErrores['volumenDeNegocio'])) { ?>
+                            <p class="error"><?php echo $aErrores['volumenDeNegocio']; ?></p>
+                        <?php } ?>
+                    </div>
+
+                    <div class="filaDato">
+                        <div class="etiqueta">FECHA BAJA DEPARTAMENTO</div>
+                        <input type="text" name="fechaBajaDepartamento" id="fechaBajaDepartamento"
+                            value='<?php echo $avVerModificarDpto['fechaBajaDepartamento'] ?>' disabled>
+                        <div class="icono"><span></span></div>
+                    </div>
+
+                </div>
+
+                <div class="divBotones">
+                    <?php if ($avVerModificarDpto['modo'] === 'modificar'): ?>
+                        <button id="botonSessionLogin" class="botonSession" type="submit" name="enviar">Aceptar</button>
+                    <?php endif; ?>
+
+                    <div class="botonVolverLogin">
+                        <button id="botonVolverLogin" class="botonAzul" type="submit" name="cancelar">Volver</button>
+                    </div>
+                </div>
+            </form>
 
         </section>
     </div>
