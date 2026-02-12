@@ -570,7 +570,7 @@ main {
     width: 50%;
 }
 
-label {
+label:not(.label-normal) {
     position: absolute;
     left: 10px;
     top: 40px;
@@ -714,8 +714,8 @@ Login
 
 }
 
-input:focus+label,
-input:not(:placeholder-shown)+label {
+input:focus+:not(.label-normal),
+input:not(:placeholder-shown)+label:not(.label-normal) {
     top: 10px;
     left: 8px;
     font-size: 12px;
@@ -1304,8 +1304,22 @@ PAgina Mantenimineto de Departamento
     cursor: pointer;
     white-space: nowrap; 
 } */
-
-
+#rbAltaDpto, #rbBajaDpto, #rbTodosDpto{
+height: 20px;
+width: auto;
+}
+.divInputEstado{
+    width: 120px;
+}
+.divInputAltaBaja{
+    display: flex;
+    flex-direction: row;
+}
+.divrdInputAlta, .divrdInputBaja, .divrdInputTodos{
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+}
 #botonBuscar:hover, .botonSessionAltaDpto:hover {
     color: white;
     background-color: var(--colorAzulHover);
@@ -1365,13 +1379,14 @@ PAgina Mantenimineto de Departamento
     flex-direction: row; 
     gap: 10px;
     width: 100%;
-    max-width: 600px;  
+    max-width: 900px;  
     margin: 0 auto;    
 }
 
 #buscarDescDepartamento {
     flex-grow: 1; 
     height: 45px;
+    width: 50%;
     padding: 0 15px;
     border: 1px solid #ccc;
     border-radius: 5px;

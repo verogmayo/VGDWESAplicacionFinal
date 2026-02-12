@@ -361,42 +361,38 @@ class DepartamentoPDO
     }
 
     /**
-     * Busca un departamento por su código y su estado
-     * 
-     * Realiza una búsqueda en la tabla T02_Departamento usando LIKE
-     * para encontrar coincidencias parciales en el código del departamento y el estado.
-     * Los resultados se ordenan alfabéticamente por codigo de depatamento
-     * 
-     * @param string $codDepartamento Código del departamento a buscar
-     * @return Departamento|null Objeto Departamento si se encuentra, null si no
-     */
-    public static function buscarDepartamentoPorCodYEstado($codDepartamento,$estadoDpto)
-    {
-        //Definición del estado del departamento
-        // $fechaSegunEstado=()
-        $sql = <<<SQL
-            SELECT * FROM T02_Departamento
-            WHERE T02_CodDepartamento like :departamento
-        SQL;
-
-        $parametros = [
-            ':departamento' => $codDepartamento
-        ];
-
-        $consulta = DBPDO::ejecutarConsulta($sql, $parametros);
-
-        // si se encuentra el  departamento en la base de datos, se crea el objeto departamento
-        $oDepartamento = null;
-        if ($DepartamentoBD = $consulta->fetchObject()) {
-            $oDepartamento = new Departamento(
-                $DepartamentoBD->T02_CodDepartamento,
-                $DepartamentoBD->T02_DescDepartamento,
-                $DepartamentoBD->T02_FechaCreacionDepartamento,
-                $DepartamentoBD->T02_VolumenDeNegocio,
-                $DepartamentoBD->T02_FechaBajaDepartamento
-            );
-        }
-
-        return $oDepartamento;
+ * Busca departamentos por descripción y por estado (Alta/Baja/Todos)
+ * * @param string $desc Busqueda parcial por descripción
+ * @param string $estado 'alta', 'baja' o 'todos'
+ * @return array Array de objetos Departamento
+ */
+public static function buscarDepartamentoPorDescYEstado($desc = '', $estado = 'todos') {
+    $aDepartamentos = [];
+    
+    // Base de la consulta
+    $sql = "SELECT * FROM T02_Departamento WHERE T02_DescDepartamento LIKE :desc";
+    
+    // Añadimos filtros según el estado
+    if ($estado === 'alta') {
+        $sql .= " AND T02_FechaBajaDepartamento IS NULL";
+    } elseif ($estado === 'baja') {
+        $sql .= " AND T02_FechaBajaDepartamento IS NOT NULL";
     }
+    
+    $sql .= " ORDER BY T02_DescDepartamento ASC";
+
+    $consulta = DBPDO::ejecutarConsulta($sql, [':desc' => "%$desc%"]);
+
+    while ($oDpto = $consulta->fetchObject()) {
+        $aDepartamentos[] = new Departamento(
+            $oDpto->T02_CodDepartamento,
+            $oDpto->T02_DescDepartamento,
+            $oDpto->T02_FechaCreacionDepartamento,
+            $oDpto->T02_VolumenDeNegocio,
+            $oDpto->T02_FechaBajaDepartamento
+        );
+    }
+
+    return $aDepartamentos;
+}
 }

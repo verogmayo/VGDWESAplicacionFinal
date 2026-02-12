@@ -126,18 +126,24 @@ if ($entradaOK) {
     //se recoge la descripción buscada y se guarda en sesión
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? '';
     $_SESSION['busquedaDptoEnCurso'] = $descripcionBuscada;
+    //Se recoge el estado
+    $estado = $_REQUEST['rbDpto'] ?? 'todos';
+    //Se guarda el estado en la session
+$_SESSION['estadoDptoEnCurso'] = $estado; 
 } else {
     //si  la entrada no es OK y hay una búsqueda en curso en sesión, se recoge la busqueda de la sesión
     if (isset($_SESSION['busquedaDptoEnCurso'])) {
         $descripcionBuscada = $_SESSION['busquedaDptoEnCurso'];
     }
+    
+    $estado = $_SESSION['estadoDptoEnCurso'] ?? 'todos';
 }
 
 
 $aListaDepartamentos = [];
 //array de objetos de departamento
-$aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
-
+// $aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDesc($descripcionBuscada);
+$aObjetoDepartamentos = DepartamentoPDO::buscarDepartamentoPorDescYEstado($descripcionBuscada,$estado);
 
 if (!is_null($aObjetoDepartamentos)) {
     foreach ($aObjetoDepartamentos as $oDepartamento) {
@@ -238,7 +244,8 @@ $avDepartamentos = [
     'errores' => $aErrores,
     'busqueda' => $descripcionBuscada,
     'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),
-    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
+    'estado'=>$estado
 ];
 // cargamos el layout principal
 require_once $view['layout'];
