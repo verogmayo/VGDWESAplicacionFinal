@@ -207,6 +207,13 @@ estructurados con la información obtenida</p>
 </dt>
 <dd>Obtiene la foto astronómica del día de la NASA para una fecha específica</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/REST.html#method_apiPropia">apiPropia()</a>
+    <span>
+                                &nbsp;: <a href="classes/Libro.html"><abbr title="\Libro">Libro</abbr></a>|null    </span>
+</dt>
+<dd>Busca información de un libro por su título en Open Library</dd>
+
     </dl>
 
 
@@ -337,6 +344,62 @@ y devuelve un objeto FotoNasa con la información de la imagen</p>
             </section>
 
 </article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_apiPropia">
+        apiPropia()
+        <a href="classes/REST.html#method_apiPropia" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="model/REST.php"><a href="files/model-rest.html"><abbr title="model/REST.php">REST.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">175</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Busca información de un libro por su título en Open Library</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">apiPropia</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$descUsuario</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Libro.html"><abbr title="\Libro">Libro</abbr></a>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Realiza una búsqueda en la API de Open Library y devuelve
+el primer resultado encontrado como objeto Libro</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$descUsuario</span>
+                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Libro.html"><abbr title="\Libro">Libro</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Objeto Libro con la información encontrada o null si no hay resultados</p>
+</section>
+
+            </section>
+
+</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -454,6 +517,7 @@ y devuelve un objeto FotoNasa con la información de la imagen</p>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/REST.html#method_apiLibroPorTitulo">apiLibroPorTitulo()</a></li>
                                             <li class=""><a href="classes/REST.html#method_apiNasa">apiNasa()</a></li>
+                                            <li class=""><a href="classes/REST.html#method_apiPropia">apiPropia()</a></li>
                                     </ul>
             </li>
                     </ul>

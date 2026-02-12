@@ -24,14 +24,6 @@ if (isset($_REQUEST['cerrar'])) {
 }
 
 
-// Se comprueba si el botón "borrar" ha sido pulsado.
-// if (isset($_REQUEST['borrarDepartamento'])) {
-//     $_SESSION['paginaAnterior'] = $_SESSION['paginaEnCurso'];
-//     // Si se pulsa le damos el valor de la página solicitada a la variable $_SESSION.
-//     $_SESSION['paginaEnCurso'] = 'borrarDepartamento';
-//     header('Location: index.php');
-//     exit;
-// }
 
 // Se comprueba si el botón "cancelar" ha sido pulsado.
 if (isset($_REQUEST['cancelar'])) {
@@ -42,10 +34,17 @@ if (isset($_REQUEST['cancelar'])) {
     exit;
 }
 
-
+//se busca el dpto en curso gracias al codigo en curso
 $oDepartamentoEnCurso = DepartamentoPDO::buscarDepartamentoPorCod($_SESSION['codDepartamentoEnCurso']);
-// $oDepartamentoEnCurso = $_SESSION['departamentoEnCurso'];
+// SE recoge el modo de la sesion
 $modo = $_SESSION['modoVista']; // 'consultar' o 'modificar'
+
+//Si el usuario ha puslado modificar pero el dpto está de baja logica, se fuerza la vista consultar y se pone un mensaje
+if ($modo === 'modificar' && !is_null($oDepartamentoEnCurso->getFechaBajaDepartamento())) {
+    $modo = 'consultar';
+    $mensajeErrorBaja = "No se puede modificar un departamento que no está en alta física.";
+}
+
 // Arrays para la gestión de errores y respuestas
 $aErrores = [
     'descDepartamento' => null,
@@ -101,11 +100,15 @@ $avVerModificarDpto = [
     'descDepartamento' => $oDepartamentoEnCurso->getDescDepartamento(),
     'fechaCreacionDpto' => $fechaCreacionDpto->format('d/m/Y'),
     'volumenDeNegocio' => number_format($oDepartamentoEnCurso->getVolumenDeNegocio(), 2, ',', ''),
-    'fechaBajaDepartamento' => $oDepartamentoEnCurso->getFechaBajaDepartamento() ? $oDepartamentoEnCurso->getFechaBajaDepartamento() : 'Activo',
+    'fechaBajaDepartamento' => $oDepartamentoEnCurso->getFechaBajaDepartamento() ? $fechaBajaFormateada : 'Activo',
     'modo' => $modo, 
-    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
+    //mensaje de error del dpto en baja fisica
+    'mensajeErrorBaja' => $mensajeErrorBaja ?? null
 ];
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web
 require_once $view['layout'];
+
+
 
 ?>

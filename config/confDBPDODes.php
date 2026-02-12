@@ -7,6 +7,6 @@
 
     //Definicion del archivo de log 
     ini_set('log_errors', 'On');
-    ini_set('error_log', '/var/www/html/VGDWESAplicacionFinal/tmp/php-error.log');
+    ini_set('error_log', __DIR__ . '/log/php-error.log');
 ?>
 
