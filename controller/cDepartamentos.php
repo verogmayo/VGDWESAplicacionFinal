@@ -127,7 +127,7 @@ if ($entradaOK) {
     $descripcionBuscada = $_REQUEST['descDepartamento'] ?? '';
     $_SESSION['busquedaDptoEnCurso'] = $descripcionBuscada;
     //Se recoge el estado
-    $estado = $_REQUEST['rbDpto'] ?? 'todos';
+    $estado = $_REQUEST['rbDpto'] ?? 'alta';
     //Se guarda el estado en la session
     $_SESSION['estadoDptoEnCurso'] = $estado;
 } else {
@@ -136,7 +136,7 @@ if ($entradaOK) {
         $descripcionBuscada = $_SESSION['busquedaDptoEnCurso'];
     }
 
-    $estado = $_SESSION['estadoDptoEnCurso'] ?? 'todos';
+    $estado = $_SESSION['estadoDptoEnCurso'] ?? 'alta';
 }
 
 

@@ -79,7 +79,7 @@
                         </address>
                     </div>
                     <div class="google">
-                        <a href="https://www.google.com/"><i class="fa-brands fa-google" style="color: #1a73e8;"></i></a>
+                        <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-google" style="color: #1a73e8;"></i></a>
 
                     </div>
                 </div>
