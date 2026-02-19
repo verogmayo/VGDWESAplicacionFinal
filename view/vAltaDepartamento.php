@@ -8,7 +8,7 @@
             <div class="contenedorInputRegistro">
                 <a style='color:red'><?php echo $avAltaDepartmento['aErrores']['codDepartamento'] ?></a><br>
                 <!-- se incluye js en el input para que las letras se escriban en Mayusculas directamente y que lo vea el usuario y se recogen en mayusculas -->
-                <input name="codDepartamento" id="codDepartamento" type="text" oninput="this.value = this.value.toUpperCase()" maxlength="3" placeholder=" " value='<?php echo $avAltaDepartmento['codDepartamento'] ?>'>
+                <input name="codDepartamento" id="codDepartamentoAlta" type="text" oninput="this.value = this.value.toUpperCase()" maxlength="3" placeholder=" " value='<?php echo $avAltaDepartmento['codDepartamento'] ?>'>
                 <label for="codDepartamento">Código de Departamento:</label>
             </div>
             <div class="contenedorInputRegistro">

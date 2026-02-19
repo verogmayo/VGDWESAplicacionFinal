@@ -63,7 +63,7 @@ if (isset($_REQUEST['modificar'])) {
     exit;
 }
 
-// Si se pulsa el lápiz de modificar
+// Si se pulsa el cubo de eliminar
 if (isset($_REQUEST['eliminar'])) {
     //se busca el departamento por el codigo que se ha recogido en el value del botón de eliminar
     $oDepartamento = DepartamentoPDO::buscarDepartamentoPorCod($_REQUEST['eliminar']);
@@ -228,7 +228,7 @@ if (isset($_REQUEST['importar'])) {
     if ($archivoOK) {
         // Pasamos $aDatos directamente a la funcion importar PAlabras
         if (DepartamentoPDO::importarDepartamentos($aDatos)) {
-            $_SESSION['msgOK'] = "Importación realizada con éxito.";
+            $_SESSION['msjOK'] = "Importación realizada con éxito.";
             header('Location: index.php');
             exit;
         } else {
@@ -237,7 +237,11 @@ if (isset($_REQUEST['importar'])) {
     }
 }
 
-
+$msjOK = $_SESSION['msjOK'] ?? null;
+unset($_SESSION['msjOK']); // Lo borramos de la sesión para que no se repita
+//Se recoge el error del alta de la session para incluirilo en el array de la vista y se borra de la session
+$errorAlta = $_SESSION['errorAltaDepartamento'] ?? null;
+unset($_SESSION['errorAltaDepartamento']); 
 
 $avDepartamentos = [
     'dptos' => $aListaDepartamentos,
@@ -245,7 +249,9 @@ $avDepartamentos = [
     'busqueda' => $descripcionBuscada,
     'codUsuario' => $_SESSION['usuarioVGDAWAplicacionFinal']->getCodUsuario(),
     'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
-    'estado' => $estado
+    'estado' => $estado,
+    'msjImportarOK'=>$msjOK,
+    'errorAltaDpto'=>$errorAlta
 ];
 // cargamos el layout principal
 require_once $view['layout'];

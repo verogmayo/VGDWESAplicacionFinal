@@ -1,6 +1,5 @@
 <?php
 
-
 require_once "../config/confDBPDODes.php";
 require_once "../model/DBPDO.php";
 require_once "../model/UsuarioPDO.php";
@@ -41,4 +40,4 @@ if ($aObjetosUsuarios) {
 }
 
 echo json_encode($aUsuarios, JSON_PRETTY_PRINT);
-// }
+?>

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS T02_Departamento (
                      T02_CodDepartamento VARCHAR(3) PRIMARY KEY, 
                      T02_DescDepartamento VARCHAR(255),
                      T02_FechaCreacionDepartamento datetime not null default now() ,
-                     T02_VolumenDeNegocio DECIMAL(15,2),
+                     T02_VolumenDeNegocio DECIMAL(65,2),
                      T02_FechaBajaDepartamento datetime default null)engine=innodb;
                      
                      

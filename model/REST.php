@@ -163,47 +163,74 @@ class REST{
 
 
 /**
-     * Busca información de un libro por su título en Open Library
+     * Busca información sobre los usaurios de la Api de Gonzalo
      *
-     * Realiza una búsqueda en la API de Open Library y devuelve
-     * el primer resultado encontrado como objeto Libro
+     * Realiza una búsqueda en la API de Gonzalo y devuelve
+     * el resultado encontrado correspondiente al codigo de usuario introducido
      *
-     * @param string $titulo Título del libro a buscar
-     * @return Libro|null Objeto Libro con la información encontrada o null si no hay resultados
+     * @param string $codUsuario Codigo del usaurio a buscar
+     * @return Usuario|null Objeto Usuario con la información encontrada o null si no hay resultados
      */
 
-    public static function apiPropia($descUsuario) {
+ public static function apiUsuariosGonzalo($descUsuario) {
+    // Se forma la url
+    $url = "https://gonzalojunlor.ieslossauces.es/GJLDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php?api_key=aaa&descUsuario=" . urlencode($descUsuario);
     
-    // Buscamos en la API de búsqueda por titulo (se limita a 1)
-    //https://openlibrary.org/dev/docs/api/search : urls según lo que se busques
-    // el @ es para que no salga error si no devuelve nada la api.
-    $resultado = @file_get_contents("https://openlibrary.org/search.json?title=$tituloUrl&limit=1");
+    $resultado = @file_get_contents($url);
     
     if ($resultado) {
-        $archivoApi = json_decode($resultado, true);
+        $arrayUsuarios = json_decode($resultado, true);
         
-        // Verificamos si hay resultados en 'docs'. (Array de resultados de la api) 
-        if (isset($archivoApi['docs'][0])) {
-            $libroJson = $archivoApi['docs'][0];
+        // Se verifica si el array tiene al menos un usuario
+        if (isset($arrayUsuarios[0])) {
+            $oUsuario = $arrayUsuarios[0]; // Cogemos el primer resultado
 
-            //Título y Autor
-            $tituloLibro = $libroJson['title'];
-            $autorLibro = $libroJson['author_name'][0] ?? 'Autor desconocido';
-
-            // Portada (Se usa el ID de la portada 'cover_i' si existe)
-            $coverId = $libroJson['cover_i'] ?? null;
-            $portadaLibro = $coverId 
-                ? "https://covers.openlibrary.org/b/id/$coverId-L.jpg" 
-                : "webroot/images/default.png"; // Imagen por defecto
-
-            // Año de publicación
-            $anioPublicacion = $libroJson['first_publish_year'] ?? 'n/a';
-
-            // Retornamos el objeto Libro directamente
-            return new Libro($tituloLibro, $autorLibro, $portadaLibro, $anioPublicacion);
+            // Se retorna una 
+            return (object) [
+                'codUsuario' => $oUsuario['codUsuario'],
+                'descUsuario' => $oUsuario['descUsuario'],
+                'numAccesos' => $oUsuario['numAccesos'],
+                'ultimaConexion' => $oUsuario['fechaHoraUltimaConexion'],
+                'perfil' => $oUsuario['perfil']
+            ];
+            
         }
     }
     return null;
+}
+
+
+public static function apiPropiaVolumenNegocio($codDepartamento) {
+    // Se define la url
+    $url = "http://192.168.0.22/VGDWESAplicacionFinal/api/wsVerVolNegocioDpto.php?codDepartamento=" . $codDepartamento;
+    //$url = "http://veroniquegru.ieslossauces.es/VGDWESAplicacionFinal/api/wsVerVolNegocioDpto.php?codDepartamento=" . $codDepartamento;
+
+    
+    $json = @file_get_contents($url);
+    
+    if ($json !== false) {
+        $data = json_decode($json, true);
+        
+        if (isset($data['respuesta']) && $data['respuesta'] === 'ok') {
+            // Si todo va bien, se devuelve el dato
+            return [
+                'resultado' => $data['volumenDeNegocio'],
+                'error' => null
+            ];
+        } else {
+            // Si la API envia un mensaje de error
+            return [
+                'resultado' => null,
+                'error' => $data['msj'] ?? "Error en la respuesta de la API propia"
+            ];
+        }
+    }
+    
+    // Si no se puede conectar con la url
+    return [
+        'resultado' => null,
+        'error' => "No se pudo conectar con el servicio propio"
+    ];
 }
 
 }

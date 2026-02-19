@@ -72,7 +72,7 @@ if (isset($_REQUEST['enviar'])) {
         if ($oUsuarioModificado != null) {
             //para poner un mensaje de contraseña cambiada, en la pagina cuenta, hay que guardar el valoe en sesion porque sino se pierde al hacer el cmabio de pagina. 
             $_SESSION['mensajeExito'] = "Contraseña de " . $oUsuarioModificado->getCodUsuario() . " cambiada correctamente.";
-            
+
             $_SESSION['paginaEnCurso'] = 'modificarUsuario';
             header('Location: index.php');
             exit;

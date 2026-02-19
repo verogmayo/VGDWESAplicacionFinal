@@ -616,9 +616,8 @@ input {
 #preguntaSeguridad,
 #descDepartamentoAlta,
 #descDepartamento,
-#codDepartamento,
 #volumenDeNegocio,
-#fechaCreacionDepartamento,
+#codDepartamentoAlta,
 #passwordAdmin,
 #perfilAdmin {
     background-color: var(--colorCampoObligatorio);
@@ -627,7 +626,12 @@ input {
 #perfilAdminGris,
 #passwordAdminGris,
 #descUsuarioAdminGris,
-#descUsuarioAdmin {
+#descUsuarioAdmin,
+#codDepartamento,
+#fechaCreacionDepartamento,
+#fechaBajaDepartamento,
+#descDepartamentoVer,
+#volumenDeNegocioVer {
     background-color: var(--colorCampoRestringido);
 }
 
@@ -879,13 +883,15 @@ Pagina Cuenta
         background-color: var(--colorCampoRestringido);
     }
 }
+
 .input-moneda {
     position: relative;
     display: inline-block;
 }
 
 .input-moneda input {
-    padding-right: 25px; /* Deja espacio para el símbolo */
+    padding-right: 25px;
+    /* Deja espacio para el símbolo */
 }
 
 .input-moneda::after {
@@ -895,7 +901,8 @@ Pagina Cuenta
     top: 50%;
     transform: translateY(-10%);
     color: #555;
-    pointer-events: none; /* Hace que el símbolo sea "transparente" al clic */
+    pointer-events: none;
+    /* Hace que el símbolo sea "transparente" al clic */
 }
 
 .filaDato:hover {
@@ -1139,9 +1146,9 @@ Estilos de  la pagina REST
 }
 
 .infoRest2 {
-    display: inline-block;
+    display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    justify-content: center;
 }
 
 .infoRest3 {
@@ -1162,9 +1169,8 @@ Estilos de  la pagina REST
 }
 
 .infoRest .imagenNasa img {
-
-    width: 60%;
-    height: auto;
+    width: auto;
+    max-height: 250px;
     margin-bottom: 10px;
 }
 
@@ -1189,8 +1195,11 @@ Estilos de  la pagina REST
 
 
 .infoRest2 img {
-    width: 90%;
+    max-height: 250px;
+    width: auto;
     display: block;
+    margin: 0 auto;
+    
 }
 
 .explicacionNasa span {
@@ -1254,7 +1263,7 @@ Estilos de  la pagina REST
     background: var(--colorCampoObligatorio);
 }
 
-#botonSessionRest {
+#botonSessionRest, #botonSessionRest2,#botonSessionRest3, #botonSessionRest4 {
     background-color: var(--colorAzul);
     color: var(--colorBlanco);
     padding: 10px 30px;
@@ -1267,25 +1276,39 @@ Estilos de  la pagina REST
     margin: 0;
 }
 
-.botonSessionRest:hover {
+#botonSessionRest:hover, #botonSessionRest2:hover,#botonSessionRest3:hover,#botonSessionRest4:hover {
     color: white;
     background-color: var(--colorAzulHover);
     box-shadow: 0 0 10px var(--colorAzulTranparente);
 }
 
+#formVolumen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 60px;
+}
+#codDptoApi {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
 
 /* Fin estilos REST=====================================================*/
 
 /* 
 PAgina Mantenimineto de Departamento
 =====================================================*/
-.botonSessionAltaDpto, #botonBuscar {
+.botonSessionAltaDpto,
+#botonBuscar {
     background-color: var(--colorAzul);
     color: var(--colorBlanco);
-    padding: 10px 30px; 
+    padding: 10px 30px;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 100px; 
+    border-radius: 100px;
     border: 2px solid var(--colorAzul);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1294,35 +1317,48 @@ PAgina Mantenimineto de Departamento
     gap: 3px;
 }
 
-/* #botonBuscar {
-    background-color: var(--colorAzul);
-    color: var(--colorBlanco);
-    padding: 10px 25px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 50px; 
-    border: none;
-    cursor: pointer;
-    white-space: nowrap; 
-} */
-#rbAltaDpto, #rbBajaDpto, #rbTodosDpto{
-height: 20px;
-width: auto;
-margin: 0 5px 0 5px;
+.mensajeExitoDivDpto {
+    background-color: #e6f4ea;
+    color: #137333;
+    padding: 2px;
+    margin-bottom: 2px;
+    display: flex;
+    font-size: 14px;
+    border: 1px solid #ceead6;
 }
-.divInputEstado{
+
+.mensajeExitoPDpto {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#rbAltaDpto,
+#rbBajaDpto,
+#rbTodosDpto {
+    height: 20px;
+    width: auto;
+    margin: 0 5px 0 5px;
+}
+
+.divInputEstado {
     width: 120px;
 }
-.divInputAltaBaja{
+
+.divInputAltaBaja {
     display: flex;
     flex-direction: row;
 }
-.divrdInputAlta, .divrdInputBaja, .divrdInputTodos{
+
+.divrdInputAlta,
+.divrdInputBaja,
+.divrdInputTodos {
     display: flex;
     flex-direction: row;
     height: 20px;
 }
-#botonBuscar:hover, .botonSessionAltaDpto:hover {
+
+#botonBuscar:hover,
+.botonSessionAltaDpto:hover {
     color: white;
     background-color: var(--colorAzulHover);
     box-shadow: 0 0 10px var(--colorAzulTranparente);
@@ -1336,10 +1372,12 @@ margin: 0 5px 0 5px;
     position: relative;
     z-index: 1;
 }
+
 .contenedorInputUsuarioDiv {
     width: 100%;
     height: 6rem;
 }
+
 #buscarDpto {
     display: flex;
     flex-direction: column;
@@ -1354,12 +1392,13 @@ margin: 0 5px 0 5px;
 
 
 .busquedaDpto {
-    text-align: left; 
+    text-align: left;
     background: #f8f9fa;
     padding: 10px;
     border-radius: 12px;
     border: 1px solid #ddd;
 }
+
 .criterio-check span {
     padding: 6px 20px;
     border: 2px solid var(--colorAzul);
@@ -1370,7 +1409,7 @@ margin: 0 5px 0 5px;
     transition: 0.3s;
 }
 
-.criterio-check input:checked + span {
+.criterio-check input:checked+span {
     background-color: var(--colorAzul);
     color: white;
 }
@@ -1378,15 +1417,15 @@ margin: 0 5px 0 5px;
 /* Input y Botón en la misma línea */
 .inputGrupo {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     gap: 10px;
     width: 100%;
-    max-width: 900px;  
-    margin: 0 auto;    
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 #buscarDescDepartamento {
-    flex-grow: 1; 
+    flex-grow: 1;
     height: 45px;
     width: 50%;
     padding: 0 15px;
@@ -1422,6 +1461,7 @@ margin: 0 5px 0 5px;
         white-space: nowrap;
         border: none;
         border-bottom: solid 2px var(--colorAzul2);
+
         &:nth-child(1) {
             text-align: start;
         }
@@ -1433,27 +1473,31 @@ margin: 0 5px 0 5px;
         &:nth-child(3) {
             text-align: start;
         }
-         &:nth-child(4) {
+
+        &:nth-child(4) {
             text-align: start;
         }
-         &:nth-child(5) {
+
+        &:nth-child(5) {
             text-align: start;
         }
-         &:nth-child(6) {
+
+        &:nth-child(6) {
             text-align: center;
         }
     }
 
     & tbody tr td {
         /* background-color: rgb(246, 246, 253); */
-        background: white;;
+        background: white;
+        ;
         font-size: 1rem;
         font-weight: 600;
         padding: 5px 15px 5px 15px;
         border: none;
         border-right: white 1px solid;
 
-         &:nth-child(1) {
+        &:nth-child(1) {
             text-align: start;
         }
 
@@ -1464,19 +1508,23 @@ margin: 0 5px 0 5px;
         &:nth-child(3) {
             text-align: start;
         }
-         &:nth-child(4) {
+
+        &:nth-child(4) {
             text-align: start;
         }
-         &:nth-child(5) {
+
+        &:nth-child(5) {
             text-align: start;
         }
     }
 
 }
-.sectionTablaDpto{
+
+.sectionTablaDpto {
     margin-top: 1rem;
     border: solid 2px var(--colorGris);
 }
+
 .dptoBaja {
     color: red;
 }
@@ -1494,19 +1542,19 @@ margin: 0 5px 0 5px;
 #botonVerDpto {
     color: var(--colorAzul2);
     text-align: center;
-    font-size: 1.2rem ;
+    font-size: 1.2rem;
 }
 
 #botonModificarDpto {
     color: var(--colorAzul2);
     text-align: center;
-    font-size: 1.2rem ;
+    font-size: 1.2rem;
 }
 
 #botonBorrarDpto {
     color: var(--colorAzul2);
     text-align: center;
-    font-size: 1.2rem ;
+    font-size: 1.2rem;
 }
 
 .iconosAltaBaja {
@@ -1538,6 +1586,7 @@ margin: 0 5px 0 5px;
     font-weight: 600;
     color: var(--colorVerde);
 }
+
 /*Estilos del footer============================================*/
 footer {
     /* position: absolute; */
@@ -1626,6 +1675,7 @@ footer .pais {
     padding: 6px 10px;
     letter-spacing: normal;
 }
+
 .HUtilizadas {
     text-decoration: none;
     font-size: 1.2rem;
@@ -1635,6 +1685,7 @@ footer .pais {
     padding: 6px 10px;
     letter-spacing: normal;
 }
+
 /* .cv{
     text-decoration: none;
     font-size: 1.4rem; 
@@ -1755,16 +1806,18 @@ Carrpusel Infinito
         transform: translateX(-50%);
     }
 }
+
 /* FIN CARRUSEL INFINITO =====================================================*/
 
 /* 
 SOPA DE LETRAS
 =====================================================*/
-.sopaLetras{
+.sopaLetras {
     height: 50px;
     margin-top: 30px;
 }
-.sopaLetras a{
+
+.sopaLetras a {
     height: 40px;
     padding: 20px;
     background: var(--colorAzul2);
@@ -1772,7 +1825,8 @@ SOPA DE LETRAS
     color: var(--colorBlanco);
     font-size: 20px;
 }
-/* FIN SOPA DE LETRAS =====================================================*/
+
+/* FIN SOPA DE LETRAS ===============*/
 /* tabla usuario*/
 .contenedorTablaUsuario {
     display: flex;
@@ -1794,6 +1848,7 @@ SOPA DE LETRAS
         white-space: nowrap;
         border: none;
         border-bottom: solid 2px var(--colorAzul2);
+
         &:nth-child(1) {
             text-align: start;
         }
@@ -1805,27 +1860,30 @@ SOPA DE LETRAS
         &:nth-child(3) {
             text-align: start;
         }
-         &:nth-child(4) {
+
+        &:nth-child(4) {
             text-align: start;
         }
-         &:nth-child(5) {
+
+        &:nth-child(5) {
             text-align: start;
         }
-         &:nth-child(6) {
+
+        &:nth-child(6) {
             text-align: center;
         }
     }
 
     & tbody tr td {
         /* background-color: rgb(246, 246, 253); */
-        background: white;;
+        background: white;
         font-size: 1rem;
         font-weight: 600;
         padding: 5px 15px 5px 15px;
         border: none;
         border-right: white 1px solid;
 
-         &:nth-child(1) {
+        &:nth-child(1) {
             text-align: start;
         }
 
@@ -1836,21 +1894,44 @@ SOPA DE LETRAS
         &:nth-child(3) {
             text-align: start;
         }
-         &:nth-child(4) {
+
+        &:nth-child(4) {
             text-align: start;
         }
-         &:nth-child(5) {
+
+        &:nth-child(5) {
             text-align: start;
+        }
+
+        &:nth-child(6) {
+            text-align: center;
+
+            & button {
+                cursor: pointer;
+                color: var(--colorAzul2);
+                font-size: 16px;
+            }
+        }
+
+        &:nth-child(7) {
+            text-align: center;
+            & button {
+                cursor: pointer;
+                color: var(--colorAzul2);
+                font-size: 16px;
+            }
         }
     }
 
 }
-#campoBuscar{
-width: 100px;
-height: 3rem;
-margin: 2rem;
-border: solid 2px var(--colorAzul2);
+
+#campoBuscar {
+    width: 100px;
+    height: 3rem;
+    margin: 2rem;
+    border: solid 2px var(--colorAzul2);
 }
+
 .contenedorInputUsuario2 {
     width: 100%;
     height: 5rem;
@@ -1859,7 +1940,8 @@ border: solid 2px var(--colorAzul2);
     justify-content: center;
     align-content: center;
 }
-#campoBuscarDiv{
+
+#campoBuscarDiv {
     height: 3rem;
     text-align: center;
     line-height: 3rem;
@@ -1867,7 +1949,110 @@ border: solid 2px var(--colorAzul2);
     color: var(--colorAzul2);
     font-weight: 800;
 }
-.sectionTablaUsuario{
+
+.sectionTablaUsuario {
     margin-top: 1rem;
     border: solid 2px var(--colorGris);
+}
+
+/* 
+Div cambiar contraseña Usuarios
+=====================================================*/
+/* El fondo oscuro que cubre toda la pantalla */
+.emergente {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semitransparente */
+}
+
+/* La caja blanca del emergente */
+.emergente-contenido {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 0;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: aparecer 0.3s;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.emergente-cabecera {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--colorAzul2);
+}
+
+.emergente-cuerpo {
+    padding: 20px;
+}
+
+.emergente-pie {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.input-grupo-emergente {
+    margin-bottom: 15px;
+}
+
+.input-grupo-emergente label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-grupo-emergente input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.error-emergente {
+    color: red;
+    font-size: 0.85em;
+    display: block;
+    margin-top: 5px;
+}
+
+.cerrar-emergente {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+.botonSessionEmergente {
+    background-color: var(--colorAzul);
+    color: var(--colorBlanco);
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: var(--colorAzul);
 }
