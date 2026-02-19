@@ -64,7 +64,7 @@
                             <a href="doc/index.html" class="phpdoc" target="_blank">PHPDoc</a>
                         </div>
                         <div class="divCV">
-                            <a href="webroot/doc/CV2026.pdf" class="cv" target="_blank">CV</a>
+                            <a href="webroot/doc/VeroGrueCV.pdf" class="cv" target="_blank">CV</a>
                         </div>
                         <div class="herramientasUtilizadas">
                             <a href="https://github.com/verogmayo/VGDAWProyectoDAW/blob/master/README.md" class="HUtilizadas" target="_blank">Herramientas Utilizadas</a>

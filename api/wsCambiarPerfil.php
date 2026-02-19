@@ -1,9 +1,13 @@
 <?php
-
+//Al poner la api de explotación se necesita este header, para que no dé error de CORS policy
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 require_once '../config/confDBPDODes.php';
 require_once '../model/UsuarioPDO.php';
 require_once '../model/DBPDO.php';
 
+//Este header es apra que se reconozcan los caracteres especiales
 header('Content-Type: application/json; charset=utf-8');
 
 $res = ['respuesta' => 'error', 'msj' => 'No se han recibido los parámetros necesarios'];

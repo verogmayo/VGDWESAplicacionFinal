@@ -58,7 +58,7 @@ if (isset($_REQUEST['enviar'])) {
     // Se Valida el campo usando la librería de validación
     $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['descDepartamento'], 255, 4, 1);
     //se sutituye el pnto cpor la 
-    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, -PHP_FLOAT_MAX, 1);
+    $aErrores['volumenDeNegocio'] = validacionFormularios::comprobarFloatMonetarioES($_REQUEST['volumenDeNegocio'], PHP_FLOAT_MAX, 0, 1);
     // SE Comprueba si hay errores
     
     if ($aErrores['descDepartamento'] !== null || $aErrores['volumenDeNegocio'] !== null) {

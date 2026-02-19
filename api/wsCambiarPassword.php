@@ -1,5 +1,6 @@
 <?php
-
+//Al poner la api de explotación se necesita este header, para que no dé error de CORS policy
+header("Access-Control-Allow-Origin: *");
 require_once "../config/confDBPDODes.php";
 require_once "../model/DBPDO.php";
 require_once "../model/UsuarioPDO.php";
