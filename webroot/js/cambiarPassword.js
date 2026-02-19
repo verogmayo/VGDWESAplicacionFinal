@@ -30,9 +30,10 @@ function enviarCambioPassword() {
     //https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Template_literals
     //https://www.w3schools.com/js/js_string_templates.
     //https://es.javascript.info/string
-    const url = `api/wsCambiarPassword.php?codUsuario=${codUsuario}&password=${nuevoPsswd}&confirmaPassword=${confirmaPsswd}`;
+    const urlApiPropiaCambiarPass=`https://veroniquegru.ieslossauces.es/VGDWESAplicacionFinal/api/wsCambiarPassword.php?codUsuario=${codUsuario}&password=${nuevoPsswd}&confirmaPassword=${confirmaPsswd}`;
+    //const url = `api/wsCambiarPassword.php?codUsuario=${codUsuario}&password=${nuevoPsswd}&confirmaPassword=${confirmaPsswd}`;
     
-    fetch(url)
+    fetch(urlApiPropiaCambiarPass)
         .then(response => response.json())
         .then(data => {
             if (data.estadoCambiarPswd === 'exito') {

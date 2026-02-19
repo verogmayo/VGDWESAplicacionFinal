@@ -200,8 +200,8 @@
     }
 
 
-    //var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
-    var urlApi = "https://192.168.0.22/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+    var urlApi = "http://daw204.local.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
+    //var urlApi = "https://192.168.0.22/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
     // var urlApi = "https://veroniquegru.ieslossauces.es/VGDWESAplicacionFinal/api/wsBuscaUsuariosPorDescripcion.php";
     fetch(urlApi)
         .then(response => response.json())

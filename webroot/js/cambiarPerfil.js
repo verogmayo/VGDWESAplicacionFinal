@@ -24,8 +24,9 @@ function cerrarDivPerfil() {
 function confirmarCambioPerfil() {
     const codUsuario = document.getElementById('idUsuarioPerfil').value;
     const nuevoPerfil = document.getElementById('nuevoPerfilValor').value;
-
-    fetch(`api/wsCambiarPerfil.php?codUsuario=${codUsuario}&perfil=${nuevoPerfil}`)
+    const urlApiPropiaCambiarPerfil=`https://veroniquegru.ieslossauces.es/VGDWESAplicacionFinal/api/wsCambiarPerfil.php?codUsuario=${codUsuario}&perfil=${nuevoPerfil}`;
+    
+    fetch(urlApiPropiaCambiarPerfil)
         .then(response => response.json())
         .then(data => {
             if (data.respuesta === 'ok') {
