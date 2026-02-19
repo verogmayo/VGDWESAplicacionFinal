@@ -10,63 +10,76 @@
 </form>
 </header>
 <main>
-    <?php if (isset($_SESSION['errorAltaDepartamento'])): ?>
-        <div class="errorAltaDepartamentoDiv">
-            <?php
-            echo $_SESSION['errorAltaDepartamento'];
-            // Se borra para que no se repita
-            unset($_SESSION['errorAltaDepartamento']);
-            ?>
-        </div>
-    <?php endif; ?>
+    <?php if (!empty($avDepartamentos['errorAltaDpto'])): ?>
+    <div class="errorAltaDepartamentoDiv" ">
+        <?php echo $avDepartamentos['errorAltaDpto']; ?>
+    </div>
+<?php endif; ?>
+<?php if (!empty($avDepartamentos['msjImportarOK'])): ?>
+    <div class="mensajeExitoDivDpto" >
+        <p class="mensajeExitoPDpto"><i class="fa-solid fa-circle-check"></i> 
+        <?php echo $avDepartamentos['msjImportarOK']; ?></p>
+        
+    </div>
+<?php endif; ?>
+    
     <section class="contenedorInputDpto">
-        <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-            <div class="altaDptoDiv">
-                <button class="botonSessionAltaDpto" type="submit" name="altaDpto">
-                    <i class="fa-solid fa-plus"></i> Añadir Departamento
-                </button>
-                <button class="botonSessionAltaDpto" name="exportar" type="submit">
-                    <i class="fa-solid fa-file-export"></i>Exportar</button>
-                <input type="file" name="listaDptos" id="subirArchivo" style="display:none;" onchange="this.form.submit()">
-                <button class="botonSessionAltaDpto" type="button" onclick="document.getElementById('subirArchivo').click();">
-                    <i class="fa-solid fa-file-import"></i> Importar
-                </button>
-                <input type="hidden" name="importar" value="1">
-            </div>
-            <div class="busquedaDpto">
-                <div class="inputGrupo">
-                    <div class="divInputEstado">
-                        <div class="divInputAltaBaja">
-                            <div class="divrdInputAlta">
-                                <label id="labelAltaDpto" class="label-normal" for="rbAltaDpto">Alta: </label>
-                                <input type="radio" name="rbDpto" id="rbAltaDpto" value="alta"
-                                    <?php echo ($avDepartamentos['estado'] === 'alta') ? 'checked' : ''; ?>>
-                            </div>
-                            <div class="divrdInputBaja">
-                                <label id="labelBajaDpto" class="label-normal" for="rbBajaDpto">Baja: </label>
-                                <input type="radio" name="rbDpto" id="rbBajaDpto" value="baja"
-                                    <?php echo ($avDepartamentos['estado'] === 'baja') ? 'checked' : ''; ?>>
-                            </div>
-                        </div>
+        <div id="buscarDpto">
+<!-- ============== entype en el form es para que el servidor pueda recibir archivos fisicos y no solo texto. Es para importar ================ -->
 
-                        <div class="divrdInputTodos">
-                            <label id="labelTodosDpto" class="label-normal" for="rbTodosDpto">Todos: </label>
-                            <input type="radio" name="rbDpto" id="rbTodosDpto" value="todos"
-                                <?php echo ($avDepartamentos['estado'] === 'todos' || !isset($avDepartamentos['estado'])) ? 'checked' : ''; ?>> 
-                        </div>
-                    </div>
-
-                    <input type="text" name="descDepartamento" id="buscarDescDepartamento"
-                        placeholder="Indica la descripción a buscar"
-                        value="<?php echo $avDepartamentos['busqueda']; ?>">
-                    <button id="botonBuscar" type="submit" name="buscar">
-                        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+            <form id="accionesDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                <div class="altaDptoDiv">
+                    <button class="botonSessionAltaDpto" type="submit" name="altaDpto">
+                        <i class="fa-solid fa-plus"></i> Añadir Departamento
                     </button>
-                </div>
 
-            </div>
-            </div>
-        </form>
+                    <button class="botonSessionAltaDpto" name="exportar" type="submit">
+                        <i class="fa-solid fa-file-export"></i> Exportar
+                    </button>
+
+                    <input type="file" name="listaDptos" id="subirArchivo" style="display:none;" onchange="this.form.submit()">
+                    <button class="botonSessionAltaDpto" type="button" onclick="document.getElementById('subirArchivo').click();">
+                        <i class="fa-solid fa-file-import"></i> Importar
+                    </button>
+                    <input type="hidden" name="importar" value="1">
+                </div>
+            </form>
+
+            <form id="buscarDpto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <div class="busquedaDpto">
+                    <div class="inputGrupo">
+                        <div class="divInputEstado">
+                            <div class="divInputAltaBaja">
+                                <div class="divrdInputAlta">
+                                    <label class="label-normal" for="rbAltaDpto">Alta: </label>
+                                    <input type="radio" name="rbDpto" id="rbAltaDpto" value="alta"
+                                        <?php echo ($avDepartamentos['estado'] === 'alta') ? 'checked' : ''; ?>>
+                                </div>
+                                <div class="divrdInputBaja">
+                                    <label class="label-normal" for="rbBajaDpto">Baja: </label>
+                                    <input type="radio" name="rbDpto" id="rbBajaDpto" value="baja"
+                                        <?php echo ($avDepartamentos['estado'] === 'baja') ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
+                            <div class="divrdInputTodos">
+                                <label class="label-normal" for="rbTodosDpto">Todos: </label>
+                                <input type="radio" name="rbDpto" id="rbTodosDpto" value="todos"
+                                    <?php echo ($avDepartamentos['estado'] === 'todos' || !isset($avDepartamentos['estado'])) ? 'checked' : ''; ?>>
+                            </div>
+                        </div>
+
+                        <input type="text" name="descDepartamento" id="buscarDescDepartamento"
+                            placeholder="Indica la descripción a buscar"
+                            value="<?php echo $avDepartamentos['busqueda']; ?>">
+
+                        <button id="botonBuscar" type="submit" name="buscar">
+                            <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </section>
     <section class="sectionTablaDpto">
         <div class="contenedorTabla">

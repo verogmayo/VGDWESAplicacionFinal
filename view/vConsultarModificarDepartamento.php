@@ -67,7 +67,7 @@
 
                     <div class="filaDato">
                         <div class="etiqueta">DESCRIPCIÓN DEPARTAMENTO</div>
-                        <input name="descDepartamento" id="descDepartamento" type="text"
+                        <input name="descDepartamento" id="<?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'descDepartamentoVer' : 'descDepartamento'; ?>" type="text"
                             value="<?php echo $avVerModificarDpto['descDepartamento']; ?>"
                             <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
 
@@ -86,7 +86,7 @@
 
                     <div class="filaDato input-moneda">
                         <div class="etiqueta">VOLUMEN DE NEGOCIO</div>
-                        <input name="volumenDeNegocio" id="volumenDeNegocio" type="text"
+                        <input name="volumenDeNegocio" id="<?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'volumenDeNegocioVer' : 'volumenDeNegocio'; ?>" type="text"
                             value="<?php echo $avVerModificarDpto['volumenDeNegocio']; ?>"
                             <?php echo ($avVerModificarDpto['modo'] === 'consultar') ? 'disabled' : ''; ?>>
 

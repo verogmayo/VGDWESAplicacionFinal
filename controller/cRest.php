@@ -2,7 +2,7 @@
 
 /**
  * @author: Véro Grué
- * Creado el 28/01/2026
+ * Modificado el 18/02/2026
  */
 
 
@@ -69,8 +69,7 @@ $aErrores = [
 
 // Se obtiene la fecha de hoy para valores por defecto
 
-// $oFotoNasa = $_SESSION['InfoNasa'] ?? null;
-// $fechaNasa = $_SESSION['fechaDetalleNasa'] ?? $fechaHoyFormateada;
+
 
 // validación al darle al boton enviar de la NAsa
 if (isset($_REQUEST['enviarNasa'])) {
@@ -100,22 +99,6 @@ if (isset($_REQUEST['enviarNasa'])) {
         }
         $_SESSION['fechaEnCurso'] = $fechaNueva;
     }
-
-
-
-    // if ($entradaOK) {
-    //     $fechaNueva = $_REQUEST['fechaNasa'];
-    //     // Llamada a la API de la NASA (con la fecha de hoy o la elegida)
-    //     if ( $fechaNueva !== $_SESSION['fechaEnCurso']) {
-
-    //         $oFotoNasa = REST::apiNasa($fechaNueva);
-    //         $_SESSION['InfoNasa'] = $oFotoNasa;
-    //         $_SESSION['fechaEnCurso'] = $fechaNueva;
-    //     }
-
-    //     //  Usamos los datos ya guardados
-    //     // $fechaNasa = $_SESSION['fechaEnCurso'];
-    // }
 }
 
 
@@ -126,7 +109,7 @@ $oFotoNasa = $_SESSION['InfoNasa'];
 
 //PAra que sea seguro se comprueba que oFotoNasa es un objeto.
 //Se crea un booleano por seguridad.
-$esObjetoNasa=($oFotoNasa instanceof FotoNasa);
+$esObjetoNasa = ($oFotoNasa instanceof FotoNasa);
 
 
 // Habrá un mensaje de error si no hay imagen
@@ -147,10 +130,7 @@ $aTitulos = [
     'La ladrona de libros',
     'Romeo y Julieta'
 ];
-
-$oLibro = null;
-
-// Si el usuario ha buscado un título
+//Si le das al botón 
 if (isset($_REQUEST['enviarLibro'])) {
     $entradaOK = true;
     $aErrores['tituloLibro'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['tituloLibro'], 100, 1, 1);
@@ -160,12 +140,24 @@ if (isset($_REQUEST['enviarLibro'])) {
     }
 
     if ($entradaOK) {
-        $oLibro = REST::apiLibroPorTitulo($_REQUEST['tituloLibro']);
+        // Si todo está bien, lo guardamos en la sesión
+        $_SESSION['busquedaLibro'] = $_REQUEST['tituloLibro'];
+    }
+}
+$oLibro = null;
+
+// Si tenemos algo en la sesión (porque acabamos de validar o porque estaba de antes)
+if (isset($_SESSION['busquedaLibro'])) {
+    $oLibro = REST::apiLibroPorTitulo($_SESSION['busquedaLibro']);
+
+    // Si la búsqueda guardada no da resultados, la borramos para no bloquear la página
+    if (!$oLibro) {
+        unset($_SESSION['busquedaLibro']);
     }
 }
 
-// Si no se ha buscado nada o la búsqueda no dio resultados, se pone el un libro del día
-if (!$oLibro) {
+// 3. Si no hay nada en sesión o la API falló, libro por defecto
+if (is_null($oLibro)) {
     $indice = (int)$oFechaHoy->format('d') % count($aTitulos);
     $tituloHoy = $aTitulos[$indice];
     $oLibro = REST::apiLibroPorTitulo($tituloHoy);
@@ -174,9 +166,16 @@ if (!$oLibro) {
 
 if ($oFotoNasa === "NoImagen") {
     $avRest['errorNasa'] = "Hoy la NASA ha publicado un vídeo o contenido no visual. ¡Prueba con otra fecha!";
-    $avRest['fotoNasa'] = "path/to/tu/imagen/por/defecto.png"; // O dejarlo vacío
+    $avRest['fotoNasa'] = "";
 }
 
+//Api propia
+//si se pulsa el boton de dpto
+if (isset($_REQUEST['enviarVolumen'])) {
+    if (!empty($_REQUEST['codDepartamento'])) {
+        $_SESSION['busquedaDpto'] = strtoupper(trim($_REQUEST['codDepartamento']));
+    }
+}
 
 // Array para la vista
 $avRest = [
@@ -187,14 +186,27 @@ $avRest = [
     'explicacionNasa' => $esObjetoNasa ? $oFotoNasa->getExplicacion() : "",
     'errorNasa' => $aErrores['fechaNasa'] ?? $errorAPI, // Muestra error de fecha o de API
     'fechaHoy' => $fechaHoyFormateada,
-    'tituloLibro' => $oLibro->getTitulo(),
+    'tituloLibro' => $oLibro->getTitulo() ?? '',
     'autorLibro' => $oLibro->getAutor(),
     'portadaLibro' => $oLibro->getPortada(),
     'anioPublicacion' => $oLibro->getAnioPublicacion(),
     'errorLibro' => $aErrores['tituloLibro'],
     //si oFotoNasa es un objeto se obtiene la imagen.
-    'fotoSerializada' => $esObjetoNasa ? $oFotoNasa->getImagenBase64(): ""
+    'fotoSerializada' => $esObjetoNasa ? $oFotoNasa->getImagenBase64() : "",
+    'busquedaLibro' => $_SESSION['busquedaLibro'] ?? '',
+    'busquedaDpto' => $_SESSION['busquedaDpto'] ?? '',
+    'volumenNegocio' => null,
+    'errorVolumen' => null
 ];
+
+// SE llama a la funcion de la Api propia
+if (!empty($_SESSION['busquedaDpto'])) {
+    $respuestaAPI = REST::apiPropiaVolumenNegocio($_SESSION['busquedaDpto']);
+    
+    // Asignamos los resultados al array de la vista
+    $avRest['volumenNegocio'] = $respuestaAPI['resultado'];
+    $avRest['errorVolumen'] = $respuestaAPI['error'];
+}
 
 
 // cargamos el layout principal, y cargará cada página a parte de la estructura principal de la web

@@ -25,6 +25,12 @@
     <?php endif; ?>
     <!--https://cdnjs.com/libraries/font-awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- ============== scripts de js para el mto de usuarios ================ -->
+    <?php if (isset($avMtoUsuarios2['scripts'])): ?>
+        <?php foreach ($avMtoUsuarios2['scripts'] as $script): ?>
+            <script src="<?php echo $script; ?>" defer></script>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </head>
 
 <body>
@@ -79,7 +85,7 @@
                         </address>
                     </div>
                     <div class="google">
-                        <a href="https://www.google.com/"><i class="fa-brands fa-google" style="color: #1a73e8;"></i></a>
+                        <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-google" style="color: #1a73e8;"></i></a>
 
                     </div>
                 </div>

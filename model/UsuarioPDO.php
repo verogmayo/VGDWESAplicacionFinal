@@ -87,7 +87,6 @@ class UsuarioPDO
                 mb_strtoupper(mb_substr($usuarioDB->T01_DescUsuario, 0, 1))
             );
             return $oUsuario;
-
         } catch (Exception $e) {
             //se recoge un mensaje si hay un error de validación
             error_log("ERROR DE SISTEMA EN VALIDACIÓN: " . $e->getMessage());
@@ -239,6 +238,27 @@ class UsuarioPDO
         return null;
     }
 
+    public static function cambiarPasswordPorCod($codUsuario, $nuevaPassword)
+    {
+        $sql = <<<SQL
+        UPDATE T01_Usuario SET 
+            T01_Password = SHA2(:password, 256)
+        WHERE T01_CodUsuario = :codUsuario
+    SQL;
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [
+                ':codUsuario' => $codUsuario,
+                ':password' => $codUsuario . $nuevaPassword
+            ]);
+
+            return ($consulta->rowCount() > 0);
+        } catch (Exception $e) {
+            return null;
+        }
+        return null;
+    }
+
     /**
      * Elimina un usuario de la base de datos
      * @param Usuario $oUsuario Objeto del usuario a eliminar
@@ -263,6 +283,29 @@ class UsuarioPDO
             return false;
         }
         return false;
+    }
+    /**
+     * Elimina un usuario de la base de datos por su código
+     * * @param string $codUsuario El código del usuario a eliminar
+     * @return boolean True si se borró correctamente, false en caso contrario
+     */
+    public static function borrarUsuarioPorCod($codUsuario)
+    {
+        $sql = "DELETE FROM T01_Usuario WHERE T01_CodUsuario = :codUsuario";
+
+        try {
+            $consulta = DBPDO::ejecutarConsulta($sql, [':codUsuario' => $codUsuario]);
+
+            // Si se ha borrado al menos una fila, devolvemos true
+            if ($consulta->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("Error PDO: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**
@@ -469,4 +512,28 @@ class UsuarioPDO
         }
         return null;
     }
+
+    /**
+ * Modifica el perfil del usuario a partir de su código
+ * @param string $codUsuario Código del usuario a modificar
+ * @param string $perfilNuevo Nuevo perfil ('usuario' o 'administrador')
+ * @return bool True si se modificó con éxito, false en caso contrario
+ */
+public static function modificarPerfilPorCod($codUsuario, $perfilNuevo)
+{
+    $sql = "UPDATE T01_Usuario SET T01_Perfil = :perfil WHERE T01_CodUsuario = :codUsuario";
+
+    try {
+        $consulta = DBPDO::ejecutarConsulta($sql, [
+            ':perfil' => $perfilNuevo,
+            ':codUsuario' => $codUsuario
+        ]);
+
+        // rowCount() dice si se cambió algo en la base de datos
+        return ($consulta->rowCount() > 0);
+    } catch (PDOException $e) {
+        error_log("Error en modificarPerfilPorCod: " . $e->getMessage());
+        return false;
+    }
+}
 }

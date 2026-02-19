@@ -31,14 +31,13 @@ if(isset($_REQUEST['cuenta'])){
 }
 
 
-
-
-
 $avMtoUsuarios2 = [
-    // 'usuarios' => $aListaUsuarios,
-    // 'errores' => $aErrores,
-    // 'busqueda' => $descripcionBuscada,
-    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial()
+    'inicial' => $_SESSION['usuarioVGDAWAplicacionFinal']->getInicial(),
+    'scripts' => [
+        'webroot/js/eliminarUsuarios.js',
+        'webroot/js/cambiarPassword.js',
+        'webroot/js/cambiarPerfil.js'
+    ]
 ];
 // cargamos el layout principal
 require_once $view['layout'];
